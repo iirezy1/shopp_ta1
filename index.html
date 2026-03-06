@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOP_tA1 | Ultimate Gaming Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+        
+        :root {
+            --primary: #22c55e;
+            --dark: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            background-color: var(--dark);
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        .glass { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        
+        .nav-link { position: relative; transition: 0.3s; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; right: 0; width: 0; height: 2px; background: var(--primary); transition: 0.3s; }
+        .nav-link:hover::after { width: 100%; }
+
+        .product-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.1);
+        }
+
+        .tab-btn { transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: black;
+            font-weight: 900;
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.4);
+            border: transparent;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at center, rgba(34, 197, 94, 0.15) 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float-anim { animation: float 3s ease-in-out infinite; }
+
+        .toast {
+            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+            background: var(--primary); color: black; padding: 12px 24px;
+            border-radius: 50px; font-weight: 900; z-index: 1000;
+            display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        [lang="en"] { direction: ltr; }
+    </style>
+</head>
+<body id="bodyTag">
+
+    <div id="toast" class="toast uppercase tracking-tighter">تمت الإضافة للسلة! 🛒</div>
+
+    <nav class="sticky top-0 z-[100] glass px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-10">
+                <div class="text-3xl font-black text-green-500 italic tracking-tighter">SHOP_tA1</div>
+                <div class="hidden lg:flex gap-8 text-xs font-bold uppercase tracking-widest">
+                    <a href="#home" class="nav-link">الرئيسية</a>
+                    <a href="#store" class="nav-link">المتجر</a>
+                    <a href="#contact-section" class="nav-link text-green-500">اتصل بنا</a>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <select id="currency" onchange="updateUI()" class="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-[10px] outline-none text-green-400 font-bold">
+                    <option value="IQD">🇮🇶 IQD - عراقي</option>
+                    <option value="KWD">🇰🇼 KWD - كويتي</option>
+                    <option value="AED">🇦🇪 AED - إماراتي</option>
+                    <option value="USD">🇺🇸 USD - دولار</option>
+                     <option value="SAR">sa SAR- ريال</option>
+                </select>
+                
+                <button onclick="toggleLang()" class="bg-white/5 border border-white/10 px-4 py-2 rounded-xl text-[10px] font-black hover:bg-green-500 hover:text-black transition uppercase" id="langBtn">EN</button>
+                
+                <div class="relative cursor-pointer group" onclick="document.getElementById('cart-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="p-3 bg-green-500/10 rounded-2xl group-hover:bg-green-500/20 transition">
+                        <i class="fas fa-shopping-basket text-xl text-green-500"></i>
+                    </div>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-dark">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative pt-20 pb-10 px-6 hero-gradient overflow-hidden">
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <span class="inline-block px-4 py-1 bg-green-500/10 border border-green-500/20 rounded-full text-green-500 text-[10px] font-bold mb-6 tracking-[0.3em] uppercase">The Future of Gaming is Here</span>
+            <h1 id="heroTitle" class="text-6xl md:text-9xl font-black mb-8 italic leading-none">
+                أكبر متجر <br><span class="text-green-500 uppercase">ديجيتال</span> في العراق
+            </h1>
+            <p id="heroSub" class="text-gray-400 max-w-2xl mx-auto text-lg mb-12">كل ما تحتاجه من بطاقات ألعاب، اشتراكات يوتيوب، وحسابات مميزة بأسعار تنافسية ودعم فني على مدار الساعة.</p>
+            
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="#store" class="bg-green-600 hover:bg-green-400 text-black px-10 py-5 rounded-2xl font-black text-lg transition-all shadow-2xl shadow-green-900/40">تسوق الآن</a>
+                <a href="#contact-section" class="glass px-10 py-5 rounded-2xl font-black text-lg hover:bg-white/10 transition-all">تحدث معنا</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="store" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+                <div class="text-right">
+                    <h2 id="storeTitle" class="text-4xl font-black mb-4 uppercase italic">كتالوج المنتجات</h2>
+                    <div class="h-1 w-20 bg-green-500"></div>
+                </div>
+                
+                <div class="w-full md:w-96 relative">
+                    <input type="text" id="searchInput" onkeyup="render()" placeholder="ابحث في هذا القسم..." 
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-12 outline-none focus:border-green-500 transition text-right">
+                    <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-green-500"></i>
+                </div>
+            </div>
+
+            <div class="flex overflow-x-auto gap-4 mb-12 no-scrollbar pb-4">
+                <button onclick="setCategory('ALL')" class="tab-btn active px-8 py-4 rounded-2xl text-xs shrink-0 font-bold uppercase" id="catAll">الكل</button>
+                <button onclick="setCategory('STEAM')" class="tab-btn px-8 py-4 rounded-2xl text-xs shrink-0 font-bold uppercase"><i class="fab fa-steam ml-2"></i> STEAM</button>
+                <button onclick="setCategory('EPIC')" class="tab-btn px-8 py-4 rounded-2xl text-xs shrink-0 font-bold uppercase"><i class="fas fa-bolt ml-2"></i> EPIC GAMES</button>
+                <button onclick="setCategory('XBOX')" class="tab-btn px-8 py-4 rounded-2xl text-xs shrink-0 font-bold uppercase"><i class="fab fa-xbox ml-2"></i> XBOX</button>
+                <button onclick="setCategory('YOUTUBE')" class="tab-btn px-8 py-4 rounded-2xl text-xs shrink-0 font-bold uppercase"><i class="fab fa-youtube ml-2"></i> YOUTUBE</button>
+                <button onclick="setCategory('MINECRAFT')" class="tab-btn px-8 py-4 rounded-2xl text-xs shrink-0 font-bold uppercase"><i class="fas fa-cube ml-2"></i> MINECRAFT</button>
+                <button onclick="setCategory('OTHER')" class="tab-btn px-8 py-4 rounded-2xl text-xs shrink-0 font-bold uppercase" id="catOther">أخرى</button>
+            </div>
+
+            <div id="productsGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8"></div>
+        </div>
+    </section>
+
+    <section id="cart-section" class="py-20 px-6 bg-white/[0.01]">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass p-10 rounded-[3rem] border-2 border-green-500/10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-10 opacity-5 text-9xl text-green-500 rotate-12"><i class="fas fa-shopping-cart"></i></div>
+                
+                <h2 id="cartTitle" class="text-3xl font-black mb-10 text-center flex items-center justify-center gap-4 text-green-500 uppercase italic">
+                    <i class="fas fa-receipt"></i> ملخص طلباتك
+                </h2>
+                
+                <div id="cartItems" class="space-y-4 mb-10"></div>
+                
+                <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="text-center md:text-right">
+                        <span id="totalText" class="text-gray-400 font-bold uppercase tracking-widest block mb-1">المجموع النهائي</span>
+                        <span id="totalPrice" class="text-5xl text-white font-black">0 IQD</span>
+                    </div>
+                    <button id="checkoutBtn" onclick="checkout()" class="w-full md:w-auto bg-green-600 hover:bg-green-400 text-black px-12 py-5 rounded-2xl font-black text-xl transition-all shadow-2xl hover:scale-105 active:scale-95">
+                        إتمام الطلب (WhatsApp)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact-section" class="py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 id="contactTitle" class="text-5xl font-black mb-6 italic uppercase">اتصل بنا</h2>
+            <p class="text-gray-400 mb-12">واجهت مشكلة؟ أو تريد الاستفسار عن خدمة؟ فريقنا جاهز للرد عليك.</p>
+            
+            <div class="grid md:grid-cols-2 gap-12 text-right">
+                <div class="glass p-8 rounded-3xl space-y-6">
+                    <div class="flex items-center gap-6">
+                        <div class="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 text-2xl"><i class="fab fa-whatsapp"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg">واتساب الدعم</h4>
+                            <p class="text-gray-400">+964 771 845 7710</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 text-2xl"><i class="fab fa-telegram"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg">تيليجرام</h4>
+                            <p class="text-gray-400">@SHOP_tA1</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-500 text-2xl"><i class="fab fa-youtube"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg">قناة اليوتيوب</h4>
+                            <p class="text-gray-400">AXUUY Channel</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-3xl flex flex-col gap-4">
+                    <input type="text" id="contactName" placeholder="الاسم الكامل" class="bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-green-500">
+                    <textarea id="contactMsg" rows="4" placeholder="رسالتك أو طلبك الخاص..." class="bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-green-500"></textarea>
+                    <button onclick="sendContact()" class="bg-white text-black py-4 rounded-xl font-black hover:bg-green-500 transition">إرسال الرسالة</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-white/5 text-center">
+        <div class="text-2xl font-black text-green-500 mb-6 italic">SHOP_tA1</div>
+        <div class="flex justify-center gap-8 mb-8 text-xl">
+            <a href="#" class="hover:text-green-500 transition"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="hover:text-green-500 transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-green-500 transition"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="hover:text-green-500 transition"><i class="fab fa-discord"></i></a>
+        </div>
+        <p class="text-gray-600 text-[10px] font-bold tracking-[0.4em] uppercase">© 2026 SHOP_tA1 - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // --- Core Application State ---
+        let currentCategory = 'ALL';
+        let cart = [];
+        let lang = 'ar';
+        let currentCurrency = 'IQD';
+
+        const exchangeRates = {
+            IQD: 1,
+            KWD: 0.00023,
+            AED: 0.0028,
+            USD: 0.00076
+        };
+
+        const products = [
+            // STEAM
+            { name: "Steam Card $5 USA", price: 10000, cat: "STEAM", icon: "fab fa-steam", color: "text-sky-400", desc: "بطاقة ستيم فئة 5 دولار للحسابات الأمريكية" },
+            { name: "Steam Card $10 USA", price: 20000, cat: "STEAM", icon: "fab fa-steam", color: "text-sky-400", desc: "بطاقة ستيم فئة 10 دولار للحسابات الأمريكية" },
+            { name: "Steam Card $20 USA", price: 40000, cat: "STEAM", icon: "fab fa-steam", color: "text-sky-400", desc: "بطاقة ستيم فئة 20 دولار للحسابات الأمريكية" },
+            { name: "Steam Card $50 USA", price: 100000, cat: "STEAM", icon: "fab fa-steam", color: "text-sky-400", desc: "بطاقة ستيم فئة 50 دولار للحسابات الأمريكية" },
+            // EPIC GAMES
+            { name: "Epic Games: 1000 V-Bucks", price: 15000, cat: "EPIC", icon: "fas fa-bolt", color: "text-indigo-400", desc: "شحن 1000 فيبوكس للعبة فورتنايت" },
+            { name: "Epic Games: 2800 V-Bucks", price: 38000, cat: "EPIC", icon: "fas fa-bolt", color: "text-indigo-400", desc: "شحن 2800 فيبوكس للعبة فورتنايت" },
+            { name: "Epic Games: 5000 V-Bucks", price: 65000, cat: "EPIC", icon: "fas fa-bolt", color: "text-indigo-400", desc: "شحن 5000 فيبوكس للعبة فورتنايت" },
+            // XBOX
+            { name: "Xbox Game Pass Ultimate (1 Month)", price: 15000, cat: "XBOX", icon: "fab fa-xbox", color: "text-green-500", desc: "اشتراك جيم باس التميت شهر واحد" },
+            { name: "Xbox Card $10 USA", price: 20000, cat: "XBOX", icon: "fab fa-xbox", color: "text-green-500", desc: "رصيد إكس بوكس 10 دولار" },
+            { name: "Xbox Card $25 USA", price: 50000, cat: "XBOX", icon: "fab fa-xbox", color: "text-green-500", desc: "رصيد إكس بوكس 25 دولار" },
+            // YOUTUBE
+            { name: "YouTube Premium (1 Month)", price: 3000, cat: "YOUTUBE", icon: "fab fa-youtube", color: "text-red-600", desc: "اشتراك يوتيوب بريميوم بدون إعلانات" },
+            { name: "YouTube Premium (6 Months)", price: 16000, cat: "YOUTUBE", icon: "fab fa-youtube", color: "text-red-600", desc: "اشتراك يوتيوب بريميوم لمدة 6 أشهر" },
+            { name: "YouTube Premium (12 Months)", price: 30000, cat: "YOUTUBE", icon: "fab fa-youtube", color: "text-red-600", desc: "اشتراك يوتيوب بريميوم سنة كاملة" },
+            // MINECRAFT
+            { name: "Minecraft Realm (10 Players)", price: 5000, cat: "MINECRAFT", icon: "fas fa-cube", color: "text-green-400", desc: "سيرفر ريلم لماين كرافت الجوال" },
+            { name: "Minecraft Java + Bedrock Edition", price: 40000, cat: "MINECRAFT", icon: "fas fa-gamepad", color: "text-emerald-500", desc: "حساب ماين كرافت أصلي كامل" },
+            { name: "Minecraft 3000 Coins", price: 10000, cat: "MINECRAFT", icon: "fas fa-coins", color: "text-yellow-400", desc: "شحن كوينز ماين كرافت" },
+            { name: "Minecraft 1000 Coins", price: 5000, cat: "MINECRAFT", icon: "fas fa-coins", color: "text-yellow-400", desc: "شحن كوينز ماين كرافت" },
+            // OTHER
+            { name: "Roblox 800 Robux", price: 18000, cat: "OTHER", icon: "fas fa-gem", color: "text-gray-300", desc: "شحن روبلوكس 800 روبوكس" },
+            { name: "PlayStation Card $10 USA", price: 20000, cat: "OTHER", icon: "fab fa-playstation", color: "text-blue-600", desc: "رصيد بلايستيشن 10 دولار أمريكي" },
+            { name: "Spotify Premium (1 Month)", price: 8000, cat: "OTHER", icon: "fab fa-spotify", color: "text-green-400", desc: "اشتراك سبوتيفاي بريميوم" }
+        ];
+
+        const translations = {
+            ar: {
+                heroTitle: "أكبر متجر <br><span class='text-green-500 uppercase'>ديجيتال</span> في العراق",
+                heroSub: "كل ما تحتاجه من بطاقات ألعاب، اشتراكات يوتيوب، وحسابات مميزة بأسعار تنافسية ودعم فني على مدار الساعة.",
+                storeTitle: "كتالوج المنتجات",
+                search: "ابحث في هذا القسم...",
+                totalText: "المجموع النهائي",
+                checkout: "إتمام الطلب (WhatsApp)",
+                cartTitle: "ملخص طلباتك",
+                emptyCart: "سلة المشتريات فارغة حالياً..",
+                add: "إضافة للسلة",
+                contact: "اتصل بنا"
+            },
+            en: {
+                heroTitle: "THE BIGGEST <br><span class='text-green-500 uppercase'>DIGITAL</span> STORE IN IRAQ",
+                heroSub: "Everything you need from game cards, YouTube subscriptions, and premium accounts at competitive prices with 24/7 support.",
+                storeTitle: "PRODUCT CATALOG",
+                search: "Search in this section...",
+                totalText: "GRAND TOTAL",
+                checkout: "Checkout (WhatsApp)",
+                cartTitle: "YOUR ORDER SUMMARY",
+                emptyCart: "Your cart is currently empty..",
+                add: "Add to Cart",
+                contact: "Contact Us"
+            }
+        };
+
+        // --- Core Functions ---
+
+        function toggleLang() {
+            lang = lang === 'ar' ? 'en' : 'ar';
+            document.getElementById('bodyTag').dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('bodyTag').lang = lang;
+            document.getElementById('langBtn').innerText = lang === 'ar' ? 'EN' : 'AR';
+            updateUI();
+        }
+
+        function updateUI() {
+            currentCurrency = document.getElementById('currency').value;
+            const t = translations[lang];
+            
+            document.getElementById('heroTitle').innerHTML = t.heroTitle;
+            document.getElementById('heroSub').innerText = t.heroSub;
+            document.getElementById('storeTitle').innerText = t.storeTitle;
+            document.getElementById('searchInput').placeholder = t.search;
+            document.getElementById('totalText').innerText = t.totalText;
+            document.getElementById('checkoutBtn').innerText = t.checkout;
+            document.getElementById('cartTitle').innerText = t.cartTitle;
+            document.getElementById('contactTitle').innerText = t.contact;
+            
+            render();
+            renderCart();
+        }
+
+        function render() {
+            const grid = document.getElementById('productsGrid');
+            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+            
+            const filtered = products.filter(p => {
+                const matchCat = (currentCategory === 'ALL' || p.cat === currentCategory);
+                const matchSearch = p.name.toLowerCase().includes(searchVal);
+                return matchCat && matchSearch;
+            });
+
+            grid.innerHTML = filtered.map(p => {
+                const price = (p.price * exchangeRates[currentCurrency]).toLocaleString(undefined, {
+                    minimumFractionDigits: currentCurrency === 'KWD' ? 3 : 0,
+                    maximumFractionDigits: currentCurrency === 'KWD' ? 3 : 0
+                });
+
+                return `
+                <div class="product-card p-8 rounded-[2.5rem] flex flex-col items-center text-center relative overflow-hidden group">
+                    <div class="mb-6 text-6xl ${p.color} transition-transform group-hover:scale-110 duration-500"><i class="${p.icon}"></i></div>
+                    <h3 class="font-black text-xs mb-2 uppercase tracking-tighter">${p.name}</h3>
+                    <p class="text-[10px] text-gray-500 mb-6 h-8 line-clamp-2">${p.desc}</p>
+                    <div class="mt-auto w-full">
+                        <p class="text-green-500 font-black text-2xl mb-6">
+                            ${price} <span class="text-[10px] text-white/30 font-normal uppercase">${currentCurrency}</span>
+                        </p>
+                        <button onclick="addToCart('${p.name}', ${p.price})" class="w-full py-4 bg-white/5 hover:bg-green-600 hover:text-black font-black rounded-2xl text-[10px] transition-all border border-white/10 uppercase tracking-widest">
+                            ${translations[lang].add}
+                        </button>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            render();
+        }
+
+        function addToCart(name, price) {
+            cart.push({name, price});
+            showToast();
+            updateCartCount();
+            renderCart();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').innerText = cart.length;
+        }
+
+        function renderCart() {
+            const div = document.getElementById('cartItems');
+            if (cart.length === 0) {
+                div.innerHTML = `<div class="py-12 text-center opacity-30 italic">${translations[lang].emptyCart}</div>`;
+                document.getElementById('totalPrice').innerText = "0 " + currentCurrency;
+                return;
+            }
+
+            div.innerHTML = cart.map((item, index) => `
+                <div class="flex justify-between items-center glass p-6 rounded-2xl border-r-4 border-green-500 animate-in fade-in duration-500">
+                    <div class="${lang === 'ar' ? 'text-right' : 'text-left'}">
+                        <p class="font-black text-sm uppercase">${item.name}</p>
+                        <p class="text-green-500 text-xs font-bold">${(item.price * exchangeRates[currentCurrency]).toLocaleString()} ${currentCurrency}</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="w-10 h-10 flex items-center justify-center rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((acc, curr) => acc + curr.price, 0);
+            document.getElementById('totalPrice').innerText = (total * exchangeRates[currentCurrency]).toLocaleString(undefined, {
+                minimumFractionDigits: currentCurrency === 'KWD' ? 3 : 0
+            }) + " " + currentCurrency;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            renderCart();
+        }
+
+        function checkout() {
+            if(cart.length === 0) return alert("السلة فارغة يا صديقي!");
+            const message = cart.map(i => "▪️ " + i.name).join('%0A');
+            const total = document.getElementById('totalPrice').innerText;
+            const url = `https://wa.me/9647718457710?text=طلب%20جديد%20SHOP_tA1:%0A${message}%0A%0A💰%20الإجمالي:%20${total}`;
+            window.location.href = url;
+        }
+
+        function sendContact() {
+            const name = document.getElementById('contactName').value;
+            const msg = document.getElementById('contactMsg').value;
+            if(!name || !msg) return alert("يرجى ملء جميع الحقول");
+            const url = `https://wa.me/9647718457710?text=رسالة%20تواصل:%0Aالاسم:%20${name}%0Aالموضوع:%20${msg}`;
+            window.location.href = url;
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2000);
+        }
+
+        // Initialize App
+        updateUI();
+    </script>
+</body>
+</html>
