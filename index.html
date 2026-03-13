@@ -118,6 +118,16 @@
             margin-bottom: 10px;
         }
         .checkout-input:focus { border-color: var(--primary-green); }
+
+        /* نبض لزر الاتصال السريع */
+        @keyframes pulse-orange {
+            0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(249, 115, 22, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+        }
+        .animate-pulse-orange {
+            animation: pulse-orange 2s infinite;
+        }
     </style>
 </head>
 <body>
@@ -166,7 +176,7 @@
                 <button onclick="filterCat('MC')" id="btn-MC" class="cat-btn">⛏️ ماين كرافت</button>
                 <button onclick="filterCat('SOCIAL')" id="btn-SOCIAL" class="cat-btn">💎 اشتراكات</button>
                 <button onclick="filterCat('GAMES')" id="btn-GAMES" class="cat-btn">🔫 ألعاب</button>
-                <button onclick="filterCat('ALL')" id="btn-ALL" class="cat-btn active">🚀  steam</button>
+                <button onclick="filterCat('STEAM')" id="btn-STEAM" class="cat-btn">🚀 Steam</button>
             </div>
         </section>
 
@@ -225,7 +235,7 @@
             <button onclick="closeCheckoutModal()" class="absolute top-8 left-8 text-gray-500"><i class="fas fa-times text-2xl"></i></button>
             <h3 class="text-3xl font-black italic mb-8 text-center">تفاصيل <span class="text-green-500">الطلب</span></h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                     <label class="block text-xs font-bold mb-2 text-gray-500 uppercase">الاسم الكامل</label>
                     <input type="text" id="custName" placeholder="أدخل اسمك هنا..." class="checkout-input">
@@ -240,7 +250,20 @@
                 </div>
             </div>
 
-            <textarea id="billPreview" readonly class="w-full bg-black p-4 h-40 text-xs font-mono text-green-400 border border-white/5 rounded-2xl mb-6 outline-none resize-none"></textarea>
+            <div class="mb-6">
+                <label class="block text-xs font-bold mb-2 text-gray-500 uppercase">طريقة الدفع</label>
+                <select id="paymentMethod" onchange="updateBillText()" class="checkout-input bg-black text-green-500 font-bold">
+                    <option value="زين كاش">Zain Cash - زين كاش</option>
+                    <option value="آسيا سيل">Asiacell - رصيد آسيا</option>
+                    <option value="ماستر كارد">Mastercard - ماستر كارد</option>
+                </select>
+            </div>
+
+            <button id="quickTransferBtn" onclick="dialTransferCode()" class="hidden w-full bg-orange-600 text-white py-4 rounded-xl font-black mb-4 animate-pulse-orange flex items-center justify-center gap-3">
+                اتصال وتحويل مباشر الآن <i class="fas fa-phone-alt"></i>
+            </button>
+
+            <textarea id="billPreview" readonly class="w-full bg-black p-4 h-44 text-xs font-mono text-green-400 border border-white/5 rounded-2xl mb-6 outline-none resize-none"></textarea>
             
             <div class="flex gap-4">
                 <button onclick="processOrder()" class="flex-1 bg-green-500 text-black py-4 rounded-xl font-black">إتمام الطلب عبر واتساب</button>
@@ -259,12 +282,12 @@
             { id: 10, cat: 'MC', name: 'ماين كرافت 1720 كوينز', price: 7500, icon: 'fas fa-cubes', color: 'text-yellow-500' },
             { id: 13, cat: 'MC', name: 'Sky Wars Beach Pack', price: 5000, icon: 'fas fa-umbrella-beach', color: 'text-blue-400' },
             { id: 103, cat: 'MC', name: 'VIP 30 حساب جديد', price: 25000, icon: 'fas fa-crown', color: 'text-yellow-500' },
+            { id: 104, cat: 'MC', name: 'Vip 30 داخل حسابك', price: 35000, icon: 'fas fa-crown', color: 'text-orange-500' },
             { id: 20, cat: 'SOCIAL', name: 'يوتيوب بريميوم (سنة)', price: 25000, icon: 'fab fa-youtube', color: 'text-red-600' }
-            // سيتم تكرار البيانات تلقائياً كما في طلبك السابق
         ];
 
         const megaDatabase = [...database];
-        for(let i=1; i<=20; i++) {
+        for(let i=1; i<=10; i++) {
             database.forEach(p => megaDatabase.push({...p, id: p.id + (i*5000)}));
         }
 
@@ -304,17 +327,36 @@
 
         function updateBillText() {
             const items = cart.map((i, idx) => `${idx+1}. ${i.name}`).join('\n');
-            const total = cart.reduce((s, i) => s + i.price, 0) * currencyRates[activeCurrency];
-            document.getElementById('billPreview').value = `🛒 طلب جديد من SHOP_tA1\n----------\nالمنتجات:\n${items}\n----------\nالإجمالي: ${total.toLocaleString()} ${activeCurrency}`;
+            const totalIQD = cart.reduce((s, i) => s + i.price, 0);
+            const displayTotal = (totalIQD * currencyRates[activeCurrency]).toLocaleString();
+            const payMethod = document.getElementById('paymentMethod').value;
+            const transferBtn = document.getElementById('quickTransferBtn');
+            
+            let billMsg = `🛒 طلب جديد من SHOP_tA1\n----------\nالمنتجات:\n${items}\n----------\nالإجمالي: ${displayTotal} ${activeCurrency}\nطريقة الدفع: ${payMethod}`;
+            
+            if(payMethod === "آسيا سيل") {
+                const transferCode = `*123*${totalIQD}*07718457710*1#`;
+                billMsg += `\nكود التحويل: ${transferCode}`;
+                transferBtn.classList.remove('hidden');
+            } else {
+                transferBtn.classList.add('hidden');
+            }
+            
+            document.getElementById('billPreview').value = billMsg;
+        }
+
+        function dialTransferCode() {
+            const totalIQD = cart.reduce((s, i) => s + i.price, 0);
+            const transferCode = `*123*${totalIQD}*07718457710*1#`;
+            // توجيه المتصفح لفتح واجهة الاتصال مباشرة
+            window.location.href = `tel:${encodeURIComponent(transferCode)}`;
         }
 
         function processOrder() {
             const name = document.getElementById('custName').value;
             const type = document.getElementById('orderType').value;
             const bill = document.getElementById('billPreview').value;
-            
             if(!name) return alert("يرجى كتابة اسمك لإتمام الطلب!");
-            
             const finalMsg = encodeURIComponent(`${bill}\n----------\nالاسم: ${name}\nنوع الطلب: ${type}`);
             window.open(`https://wa.me/9647718457710?text=${finalMsg}`);
         }
@@ -329,7 +371,12 @@
 
         function closeCheckoutModal() { document.getElementById('checkoutModal').classList.add('hidden'); }
         function clearCart() { cart = []; updateUI(); closeCheckoutModal(); }
-        function filterCat(c) { currentFilter = c; renderProducts(); }
+        function filterCat(c) { 
+            currentFilter = c; 
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-'+c).classList.add('active');
+            renderProducts(); 
+        }
         function changeCurrency() { activeCurrency = document.getElementById('currencySel').value; renderProducts(); updateUI(); }
         function openLink(p) { 
             const links = { wa: 'https://wa.me/9647718457710', tg: 'https://t.me/Shop_Ta1', yt: 'https://youtube.com/@axuuy', ig: 'https://instagram.com/shop_Ta1' };
