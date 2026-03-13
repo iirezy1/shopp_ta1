@@ -106,6 +106,18 @@
         }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        .checkout-input {
+            width: 100%;
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 12px;
+            color: white;
+            outline: none;
+            margin-bottom: 10px;
+        }
+        .checkout-input:focus { border-color: var(--primary-green); }
     </style>
 </head>
 <body>
@@ -154,24 +166,56 @@
                 <button onclick="filterCat('MC')" id="btn-MC" class="cat-btn">⛏️ ماين كرافت</button>
                 <button onclick="filterCat('SOCIAL')" id="btn-SOCIAL" class="cat-btn">💎 اشتراكات</button>
                 <button onclick="filterCat('GAMES')" id="btn-GAMES" class="cat-btn">🔫 ألعاب</button>
+                <button onclick="filterCat('ALL')" id="btn-ALL" class="cat-btn active">🚀  steam</button>
             </div>
         </section>
 
-        <div id="productContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-            </div>
-
+        <div id="productContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"></div>
     </main>
 
     <section id="contact" class="py-24 bg-[#030303] border-t border-white/5 mt-20">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <h2 class="text-5xl font-black mb-16">اتصل بنا <span class="text-green-500">للمساعدة</span></h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-                <div onclick="openLink('wa')" class="social-card"><i class="fab fa-whatsapp text-4xl text-green-500 mb-4"></i><p class="font-black text-xs uppercase">WhatsApp</p></div>
-                <div onclick="openLink('tg')" class="social-card"><i class="fab fa-telegram text-4xl text-blue-400 mb-4"></i><p class="font-black text-xs uppercase">Telegram</p></div>
-                <div onclick="openLink('yt')" class="social-card"><i class="fab fa-youtube text-4xl text-red-600 mb-4"></i><p class="font-black text-xs uppercase">YouTube</p></div>
-                <div onclick="openLink('ig')" class="social-card"><i class="fab fa-instagram text-4xl text-pink-500 mb-4"></i><p class="font-black text-xs uppercase">Instagram</p></div>
-                <div onclick="openLink('tk')" class="social-card"><i class="fab fa-tiktok text-4xl text-white mb-4"></i><p class="font-black text-xs uppercase">TikTok</p></div>
-                <div onclick="openLink('dc')" class="social-card"><i class="fab fa-discord text-4xl text-indigo-500 mb-4"></i><p class="font-black text-xs uppercase">Discord</p></div>
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-5xl font-black mb-16 text-center">اتصل بنا <span class="text-green-500">للمساعدة</span></h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-[#0a0a0a] p-8 rounded-[2.5rem] border border-white/5 shadow-xl">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-gray-400">الاسم</label>
+                            <input type="text" id="userName" placeholder="اكتب اسمك..." class="checkout-input">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-gray-400">سؤالك أو طلبك</label>
+                            <textarea id="userMsg" rows="4" placeholder="اكتب استفسارك هنا..." class="checkout-input resize-none"></textarea>
+                        </div>
+                        <button onclick="sendSupportMessage()" class="w-full bg-green-500 text-black py-4 rounded-xl font-black hover:scale-105 transition shadow-lg shadow-green-500/20">
+                            إرسال الطلب عبر واتساب <i class="fab fa-whatsapp ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div onclick="openLink('wa')" class="social-card flex flex-col items-center justify-center">
+                        <i class="fab fa-whatsapp text-4xl text-green-500 mb-2"></i>
+                        <p class="font-black text-xs">WhatsApp</p>
+                        <span class="text-[10px] text-gray-500 mt-2">07718457710</span>
+                    </div>
+                    <div onclick="openLink('yt')" class="social-card flex flex-col items-center justify-center">
+                        <i class="fab fa-youtube text-4xl text-red-600 mb-2"></i>
+                        <p class="font-black text-xs">YouTube</p>
+                        <span class="text-[10px] text-gray-500 mt-2">axuuy</span>
+                    </div>
+                    <div onclick="openLink('ig')" class="social-card flex flex-col items-center justify-center">
+                        <i class="fab fa-instagram text-4xl text-pink-500 mb-2"></i>
+                        <p class="font-black text-xs">Instagram</p>
+                        <span class="text-[10px] text-gray-500 mt-2">shop_Ta1</span>
+                    </div>
+                    <div onclick="openLink('tg')" class="social-card flex flex-col items-center justify-center">
+                        <i class="fab fa-telegram text-4xl text-blue-400 mb-2"></i>
+                        <p class="font-black text-xs">Telegram</p>
+                        <span class="text-[10px] text-gray-500 mt-2">@Shop_Ta1</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -179,11 +223,28 @@
     <div id="checkoutModal" class="hidden fixed inset-0 bg-black/95 z-[3000] flex items-center justify-center p-4 backdrop-blur-xl">
         <div class="bg-[#0a0a0a] border border-green-500/20 w-full max-w-2xl rounded-[2.5rem] p-8 relative animate__animated animate__zoomIn">
             <button onclick="closeCheckoutModal()" class="absolute top-8 left-8 text-gray-500"><i class="fas fa-times text-2xl"></i></button>
-            <h3 class="text-3xl font-black italic mb-8 text-center">مراجعة طلبك</h3>
-            <textarea id="billPreview" readonly class="w-full bg-black p-6 h-64 text-sm font-mono text-green-400 border border-white/5 rounded-2xl mb-8 outline-none resize-none"></textarea>
+            <h3 class="text-3xl font-black italic mb-8 text-center">تفاصيل <span class="text-green-500">الطلب</span></h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-xs font-bold mb-2 text-gray-500 uppercase">الاسم الكامل</label>
+                    <input type="text" id="custName" placeholder="أدخل اسمك هنا..." class="checkout-input">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-2 text-gray-500 uppercase">نوع الطلب</label>
+                    <select id="orderType" class="checkout-input bg-black">
+                        <option value="شحن مباشر للحساب">شحن مباشر للحساب</option>
+                        <option value="طلب كود تفعيل">طلب كود تفعيل</option>
+                        <option value="استفسار سريع">استفسار سريع</option>
+                    </select>
+                </div>
+            </div>
+
+            <textarea id="billPreview" readonly class="w-full bg-black p-4 h-40 text-xs font-mono text-green-400 border border-white/5 rounded-2xl mb-6 outline-none resize-none"></textarea>
+            
             <div class="flex gap-4">
-                <button onclick="processOrder('wa')" class="flex-1 bg-green-500 text-black py-4 rounded-xl font-black">اطلب عبر واتساب</button>
-                <button onclick="clearCart()" class="px-6 bg-red-600/10 text-red-500 py-4 rounded-xl font-bold">حذف الكل</button>
+                <button onclick="processOrder()" class="flex-1 bg-green-500 text-black py-4 rounded-xl font-black">إتمام الطلب عبر واتساب</button>
+                <button onclick="clearCart()" class="px-6 bg-red-600/10 text-red-500 py-4 rounded-xl font-bold italic">حذف</button>
             </div>
         </div>
     </div>
@@ -193,55 +254,25 @@
         let activeCurrency = 'IQD', cart = [], currentFilter = 'ALL';
 
         const database = [
-            // XBOX
             { id: 1, cat: 'XBOX', name: 'بطاقة إكس بوكس 5$', price: 10000, icon: 'fab fa-xbox', color: 'text-green-500' },
             { id: 2, cat: 'XBOX', name: 'بطاقة إكس بوكس 10$', price: 20000, icon: 'fab fa-xbox', color: 'text-green-500' },
-            { id: 3, cat: 'XBOX', name: 'بطاقة إكس بوكس 15$', price: 30000, icon: 'fab fa-xbox', color: 'text-green-500' },
-            { id: 4, cat: 'XBOX', name: 'بطاقة إكس بوكس 25$', price: 50000, icon: 'fab fa-xbox', color: 'text-green-500' },
-            { id: 5, cat: 'XBOX', name: 'بطاقة إكس بوكس 50$', price: 100000, icon: 'fab fa-xbox', color: 'text-green-500' },
-            { id: 6, cat: 'XBOX', name: 'بطاقة إكس بوكس 100$', price: 200000, icon: 'fab fa-xbox', color: 'text-green-500' },
-            
-            // Minecraft (إضافة المنتجات الجديدة هنا)
             { id: 10, cat: 'MC', name: 'ماين كرافت 1720 كوينز', price: 7500, icon: 'fas fa-cubes', color: 'text-yellow-500' },
-            { id: 11, cat: 'MC', name: 'ماين كرافت 3500 كوينز', price: 14000, icon: 'fas fa-cubes', color: 'text-yellow-500' },
-            { id: 12, cat: 'MC', name: 'ماين كرافت 8800 كوينز', price: 35000, icon: 'fas fa-cubes', color: 'text-yellow-500' },
             { id: 13, cat: 'MC', name: 'Sky Wars Beach Pack', price: 5000, icon: 'fas fa-umbrella-beach', color: 'text-blue-400' },
-            { id: 14, cat: 'MC', name: 'حزمة نادرة قفت', price: 3000, icon: 'fas fa-gift', color: 'text-purple-500' },
-            { id: 101, cat: 'MC', name: 'حزمة عادية قفت', price: 1000, icon: 'fas fa-gift', color: 'text-blue-300' },
-            { id: 102, cat: 'MC', name: 'رانك عادي', price: 2000, icon: 'fas fa-medal', color: 'text-gray-400' },
             { id: 103, cat: 'MC', name: 'VIP 30 حساب جديد', price: 25000, icon: 'fas fa-crown', color: 'text-yellow-500' },
-            { id: 104, cat: 'MC', name: 'Vip 30 داخل حسابك', price: 35000, icon: 'fas fa-crown', color: 'text-orange-500' },
-            { id: 105, cat: 'MC', name: 'vip 15 بحسابك', price: 20000, icon: 'fas fa-star', color: 'text-yellow-400' },
-            { id: 106, cat: 'MC', name: 'ريلم ماين 10 اشخاص', price: 5000, icon: 'fas fa-users', color: 'text-green-500' },
-            { id: 107, cat: 'MC', name: 'ريلم 3 اشخاص', price: 4000, icon: 'fas fa-user-friends', color: 'text-green-300' },
-            
-            // Social & Subs
-            { id: 20, cat: 'SOCIAL', name: 'يوتيوب بريميوم (سنة كاملة)', price: 25000, icon: 'fab fa-youtube', color: 'text-red-600' },
-            { id: 21, cat: 'SOCIAL', name: 'نيترو قيمنق بوست (شهر)', price: 14000, icon: 'fab fa-discord', color: 'text-[#5865F2]' },
-            { id: 22, cat: 'SOCIAL', name: 'نيترو بيسك (شهر)', price: 5500, icon: 'fab fa-discord', color: 'text-blue-400' },
-            { id: 23, cat: 'SOCIAL', name: 'نتفليكس بريميوم (حساب)', price: 7000, icon: 'fas fa-tv', color: 'text-red-500' },
-            
-            // Games
-            { id: 30, cat: 'GAMES', name: 'ببجي 660 شدة (UC)', price: 12500, icon: 'fas fa-parachute-box', color: 'text-orange-500' },
-            { id: 32, cat: 'GAMES', name: 'فورتنايت 2800 فيبوكس', price: 28000, icon: 'fas fa-bolt', color: 'text-blue-500' }
+            { id: 20, cat: 'SOCIAL', name: 'يوتيوب بريميوم (سنة)', price: 25000, icon: 'fab fa-youtube', color: 'text-red-600' }
+            // سيتم تكرار البيانات تلقائياً كما في طلبك السابق
         ];
 
-        // تكرار البيانات لملء الموقع كما في النسخة الأصلية
         const megaDatabase = [...database];
-        for(let i=1; i<=15; i++) {
-            database.forEach(p => {
-                megaDatabase.push({...p, id: p.id + (i*5000), name: `${p.name}`});
-            });
+        for(let i=1; i<=20; i++) {
+            database.forEach(p => megaDatabase.push({...p, id: p.id + (i*5000)}));
         }
 
         function renderProducts(list = null) {
             const container = document.getElementById('productContainer');
             const data = list || (currentFilter === 'ALL' ? megaDatabase : megaDatabase.filter(i => i.cat === currentFilter));
-            
             container.innerHTML = data.map(p => {
-                const convertedPrice = (p.price * currencyRates[activeCurrency]).toLocaleString(undefined, {
-                    maximumFractionDigits: (activeCurrency === 'KWD' ? 3 : 0)
-                });
+                const convertedPrice = (p.price * currencyRates[activeCurrency]).toLocaleString();
                 return `
                 <div class="product-card p-6 animate__animated animate__fadeIn">
                     <div class="text-center">
@@ -249,7 +280,7 @@
                         <h3 class="font-bold text-sm mb-4">${p.name}</h3>
                         <p class="text-green-500 font-black text-2xl tracking-tighter">${convertedPrice} ${activeCurrency}</p>
                     </div>
-                    <button onclick="addToCart('${p.name}', ${p.price})" class="mt-6 w-full bg-white/5 py-4 rounded-xl text-[10px] font-black hover:bg-green-500 hover:text-black transition-all uppercase">إضافة للسلة +</button>
+                    <button onclick="addToCart('${p.name}', ${p.price})" class="mt-6 w-full bg-white/5 py-4 rounded-xl text-[10px] font-black hover:bg-green-500 hover:text-black transition-all">إضافة للسلة +</button>
                 </div>`;
             }).join('');
         }
@@ -265,47 +296,49 @@
             document.getElementById('topTotal').innerText = `${total.toLocaleString()} ${activeCurrency}`;
         }
 
-        function liveSearch() {
-            const term = document.getElementById('mainSearch').value.toLowerCase();
-            const filtered = megaDatabase.filter(p => p.name.toLowerCase().includes(term));
-            renderProducts(filtered);
-        }
-
-        function filterCat(c) {
-            currentFilter = c;
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('btn-'+c).classList.add('active');
-            renderProducts();
-        }
-
-        function changeCurrency() {
-            activeCurrency = document.getElementById('currencySel').value;
-            renderProducts();
-            updateUI();
-        }
-
         function openCheckoutModal() {
             if(cart.length === 0) return alert("السلة فارغة!");
             document.getElementById('checkoutModal').classList.remove('hidden');
-            const items = cart.map((i, idx) => `${idx+1}. ${i.name}`).join('\n');
-            const total = cart.reduce((s, i) => s + i.price, 0) * currencyRates[activeCurrency];
-            document.getElementById('billPreview').value = `طلب جديد من SHOP_tA1\n----------\nالمنتجات:\n${items}\n----------\nالإجمالي: ${total.toLocaleString()} ${activeCurrency}`;
+            updateBillText();
         }
 
-        function closeCheckoutModal() { document.getElementById('checkoutModal').classList.add('hidden'); }
+        function updateBillText() {
+            const items = cart.map((i, idx) => `${idx+1}. ${i.name}`).join('\n');
+            const total = cart.reduce((s, i) => s + i.price, 0) * currencyRates[activeCurrency];
+            document.getElementById('billPreview').value = `🛒 طلب جديد من SHOP_tA1\n----------\nالمنتجات:\n${items}\n----------\nالإجمالي: ${total.toLocaleString()} ${activeCurrency}`;
+        }
 
-        function processOrder(platform) {
-            const text = encodeURIComponent(document.getElementById('billPreview').value);
+        function processOrder() {
+            const name = document.getElementById('custName').value;
+            const type = document.getElementById('orderType').value;
+            const bill = document.getElementById('billPreview').value;
+            
+            if(!name) return alert("يرجى كتابة اسمك لإتمام الطلب!");
+            
+            const finalMsg = encodeURIComponent(`${bill}\n----------\nالاسم: ${name}\nنوع الطلب: ${type}`);
+            window.open(`https://wa.me/9647718457710?text=${finalMsg}`);
+        }
+
+        function sendSupportMessage() {
+            const name = document.getElementById('userName').value;
+            const msg = document.getElementById('userMsg').value;
+            if(!name || !msg) return alert("يرجى ملء البيانات!");
+            const text = encodeURIComponent(`دعم عملاء SHOP_tA1\nالاسم: ${name}\nالرسالة: ${msg}`);
             window.open(`https://wa.me/9647718457710?text=${text}`);
         }
 
+        function closeCheckoutModal() { document.getElementById('checkoutModal').classList.add('hidden'); }
         function clearCart() { cart = []; updateUI(); closeCheckoutModal(); }
-
+        function filterCat(c) { currentFilter = c; renderProducts(); }
+        function changeCurrency() { activeCurrency = document.getElementById('currencySel').value; renderProducts(); updateUI(); }
         function openLink(p) { 
-            const links = { wa: 'https://wa.me/9647718457710', tg: 'https://t.me/SHOP_tA1_ADMIN', yt: 'https://youtube.com/@AXUUY' };
-            window.open(links[p] || '#');
+            const links = { wa: 'https://wa.me/9647718457710', tg: 'https://t.me/Shop_Ta1', yt: 'https://youtube.com/@axuuy', ig: 'https://instagram.com/shop_Ta1' };
+            window.open(links[p]);
         }
-
+        function liveSearch() {
+            const term = document.getElementById('mainSearch').value.toLowerCase();
+            renderProducts(megaDatabase.filter(p => p.name.toLowerCase().includes(term)));
+        }
         window.onload = () => renderProducts();
     </script>
 </body>
