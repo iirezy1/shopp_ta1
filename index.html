@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHOP_tA1 | The Ultimate Gaming Store 2026</title>
+    <title>SHOP_tA1 | المتجر الاحترافي 2026</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -28,106 +28,71 @@
             scroll-behavior: smooth;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: var(--primary-green); border-radius: 10px; }
-
         .main-nav {
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             position: sticky; top: 0; z-index: 2000;
-        }
-
-        .logo-text {
-            font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(to right, #22c55e, #4ade80);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
         }
 
         .product-card {
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.03);
             border-radius: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 320px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column; justify-content: space-between; min-height: 380px;
         }
 
         .product-card:hover {
             border-color: var(--primary-green);
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px var(--glow);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--glow);
         }
 
-        .social-card {
-            background: #0a0a0a;
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 2rem;
-            padding: 25px;
+        .invoice-box {
+            background: #000;
+            border: 1px solid #1a1a1a;
+            border-radius: 1rem;
+            padding: 15px;
+            font-family: monospace;
+            color: #22c55e;
+            font-size: 13px;
+            white-space: pre-wrap;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute; top: 10px; left: 10px;
+            background: #1a1a1a; color: #fff; padding: 5px 10px;
+            border-radius: 5px; font-size: 10px; cursor: pointer;
+        }
+
+        .transfer-code-box {
+            background: linear-gradient(45deg, #0f1a0f, #050505);
+            border: 2px dashed #22c55e;
+            border-radius: 1rem;
+            padding: 20px;
             text-align: center;
-            transition: 0.4s;
-            cursor: pointer;
-        }
-
-        .social-card:hover {
-            border-color: var(--primary-green);
-            transform: scale(1.05);
-            background: #111;
+            margin: 15px 0;
         }
 
         .cat-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 12px 24px;
-            border-radius: 1rem;
-            font-weight: 700;
-            transition: 0.3s;
+            padding: 12px 24px; border-radius: 1rem; font-weight: 700; transition: 0.3s;
             white-space: nowrap;
         }
 
         .cat-btn.active {
-            background: var(--primary-green);
-            color: black;
-            box-shadow: 0 0 15px var(--primary-green);
+            background: var(--primary-green); color: black; box-shadow: 0 0 15px var(--primary-green);
         }
 
         .bg-dots {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
-            background-size: 30px 30px;
-            opacity: 0.3;
+            background-image: radial-gradient(#1a1a1a 1px, transparent 1px); background-size: 30px 30px; opacity: 0.3;
         }
-
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
-
-        .checkout-input {
-            width: 100%;
-            background: #000;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 1rem;
-            padding: 12px;
-            color: white;
-            outline: none;
-            margin-bottom: 10px;
-        }
-        .checkout-input:focus { border-color: var(--primary-green); }
-
-        /* نبض لزر الاتصال السريع */
-        @keyframes pulse-orange {
-            0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(249, 115, 22, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
-        }
-        .animate-pulse-orange {
-            animation: pulse-orange 2s infinite;
-        }
     </style>
 </head>
 <body>
@@ -135,47 +100,52 @@
     <div class="bg-dots"></div>
 
     <nav class="main-nav">
-        <div class="max-w-[1800px] mx-auto flex justify-between items-center p-5 md:p-7">
+        <div class="max-w-[1800px] mx-auto flex justify-between items-center p-5">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center rotate-12">
                     <i class="fas fa-bolt text-black text-xl"></i>
                 </div>
-                <span class="logo-text text-2xl md:text-3xl uppercase tracking-tighter">SHOP_tA1</span>
+                <span class="logo-text text-2xl font-black uppercase tracking-tighter text-green-500">SHOP_tA1</span>
             </div>
 
             <div class="flex items-center gap-3 md:gap-6">
+                <a href="tel:07718457710" class="flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-xl font-bold hover:bg-orange-500 transition">
+                    <i class="fas fa-phone-alt animate-pulse"></i>
+                    <span class="hidden md:inline">اتصل بنا</span>
+                </a>
+                
                 <select id="currencySel" onchange="changeCurrency()" class="bg-black border border-green-500/30 rounded-xl px-4 py-2 text-xs font-black text-green-400 outline-none">
                     <option value="IQD">🇮🇶 IQD - عراقي</option>
                     <option value="USD">🇺🇸 USD - دولار</option>
-                    <option value="KWD">🇰🇼 KWD - كويتي</option>
                     <option value="SAR">🇸🇦 SAR - سعودي</option>
+                    <option value="KWD">🇰🇼 KWD - كويتي</option>
+                    <option value="AED">🇦🇪 AED - إماراتي</option>
+                    <option value="EUR">🇪🇺 EUR - أوروبي</option>
                 </select>
 
-                <button onclick="openCheckoutModal()" class="relative bg-green-500 text-black px-5 py-3 rounded-2xl font-black flex items-center gap-2 hover:scale-105 transition shadow-lg">
+                <button onclick="openCheckoutModal()" class="relative bg-green-500 text-black px-5 py-3 rounded-2xl font-black flex items-center gap-2 shadow-lg">
                     <i class="fas fa-shopping-cart"></i>
                     <span id="cartCount" class="bg-black text-white text-[10px] px-2 py-1 rounded-full">0</span>
-                    <span id="topTotal" class="hidden md:inline border-r border-black/20 pr-2 ml-2">0 IQD</span>
                 </button>
             </div>
         </div>
     </nav>
 
     <main class="max-w-[1700px] mx-auto py-10 px-4">
-        
         <section class="text-center mb-16 animate__animated animate__fadeIn">
             <h1 class="text-4xl md:text-7xl font-black mb-8 leading-tight">عالمك الرقمي في <span class="text-green-500">مكان واحد</span></h1>
             
-            <div class="relative max-w-3xl mx-auto group">
-                <i class="fas fa-search absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 text-xl group-focus-within:text-green-500 transition"></i>
-                <input type="text" id="mainSearch" oninput="liveSearch()" placeholder="ابحث عن: إكس بوكس، ماين كرافت، ريلم..." class="w-full bg-[#0a0a0a] border border-white/5 p-6 pr-16 rounded-[2rem] text-xl outline-none focus:border-green-500 transition-all">
+            <div class="relative max-w-3xl mx-auto mb-10">
+                <i class="fas fa-search absolute right-6 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                <input type="text" id="mainSearch" oninput="liveSearch()" placeholder="ابحث عن منتجك المفضل..." class="w-full bg-[#0a0a0a] border border-white/5 p-6 pr-16 rounded-[2rem] text-xl outline-none focus:border-green-500 transition-all">
             </div>
 
-            <div class="flex gap-4 overflow-x-auto no-scrollbar py-10 justify-start md:justify-center">
+            <div class="flex gap-4 overflow-x-auto no-scrollbar py-4 justify-start md:justify-center">
                 <button onclick="filterCat('ALL')" id="btn-ALL" class="cat-btn active">📦 الكل</button>
+                <button onclick="filterCat('RANKS')" id="btn-RANKS" class="cat-btn">👑 الرانكات</button>
                 <button onclick="filterCat('XBOX')" id="btn-XBOX" class="cat-btn">🎮 إكس بوكس</button>
                 <button onclick="filterCat('MC')" id="btn-MC" class="cat-btn">⛏️ ماين كرافت</button>
                 <button onclick="filterCat('SOCIAL')" id="btn-SOCIAL" class="cat-btn">💎 اشتراكات</button>
-                <button onclick="filterCat('GAMES')" id="btn-GAMES" class="cat-btn">🔫 ألعاب</button>
                 <button onclick="filterCat('STEAM')" id="btn-STEAM" class="cat-btn">🚀 Steam</button>
             </div>
         </section>
@@ -183,125 +153,115 @@
         <div id="productContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"></div>
     </main>
 
-    <section id="contact" class="py-24 bg-[#030303] border-t border-white/5 mt-20">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-5xl font-black mb-16 text-center">اتصل بنا <span class="text-green-500">للمساعدة</span></h2>
+    <div id="checkoutModal" class="hidden fixed inset-0 bg-black/95 z-[3000] flex items-center justify-center p-4 backdrop-blur-xl overflow-y-auto">
+        <div class="bg-[#0d0d0d] border border-green-500/20 w-full max-w-2xl rounded-[2.5rem] p-6 md:p-10 relative my-auto">
+            <button onclick="closeCheckoutModal()" class="absolute top-6 left-6 text-gray-500"><i class="fas fa-times text-2xl"></i></button>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div class="bg-[#0a0a0a] p-8 rounded-[2.5rem] border border-white/5 shadow-xl">
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-sm font-bold mb-2 text-gray-400">الاسم</label>
-                            <input type="text" id="userName" placeholder="اكتب اسمك..." class="checkout-input">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold mb-2 text-gray-400">سؤالك أو طلبك</label>
-                            <textarea id="userMsg" rows="4" placeholder="اكتب استفسارك هنا..." class="checkout-input resize-none"></textarea>
-                        </div>
-                        <button onclick="sendSupportMessage()" class="w-full bg-green-500 text-black py-4 rounded-xl font-black hover:scale-105 transition shadow-lg shadow-green-500/20">
-                            إرسال الطلب عبر واتساب <i class="fab fa-whatsapp ml-2"></i>
-                        </button>
-                    </div>
-                </div>
+            <h3 class="text-3xl font-black text-center mb-8 text-green-500">تفاصيل الفاتورة</h3>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div onclick="openLink('wa')" class="social-card flex flex-col items-center justify-center">
-                        <i class="fab fa-whatsapp text-4xl text-green-500 mb-2"></i>
-                        <p class="font-black text-xs">WhatsApp</p>
-                        <span class="text-[10px] text-gray-500 mt-2">07718457710</span>
-                    </div>
-                    <div onclick="openLink('yt')" class="social-card flex flex-col items-center justify-center">
-                        <i class="fab fa-youtube text-4xl text-red-600 mb-2"></i>
-                        <p class="font-black text-xs">YouTube</p>
-                        <span class="text-[10px] text-gray-500 mt-2">axuuy</span>
-                    </div>
-                    <div onclick="openLink('ig')" class="social-card flex flex-col items-center justify-center">
-                        <i class="fab fa-instagram text-4xl text-pink-500 mb-2"></i>
-                        <p class="font-black text-xs">Instagram</p>
-                        <span class="text-[10px] text-gray-500 mt-2">shop_Ta1</span>
-                    </div>
-                    <div onclick="openLink('tg')" class="social-card flex flex-col items-center justify-center">
-                        <i class="fab fa-telegram text-4xl text-blue-400 mb-2"></i>
-                        <p class="font-black text-xs">Telegram</p>
-                        <span class="text-[10px] text-gray-500 mt-2">@Shop_Ta1</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="checkoutModal" class="hidden fixed inset-0 bg-black/95 z-[3000] flex items-center justify-center p-4 backdrop-blur-xl">
-        <div class="bg-[#0a0a0a] border border-green-500/20 w-full max-w-2xl rounded-[2.5rem] p-8 relative animate__animated animate__zoomIn">
-            <button onclick="closeCheckoutModal()" class="absolute top-8 left-8 text-gray-500"><i class="fas fa-times text-2xl"></i></button>
-            <h3 class="text-3xl font-black italic mb-8 text-center">تفاصيل <span class="text-green-500">الطلب</span></h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div>
-                    <label class="block text-xs font-bold mb-2 text-gray-500 uppercase">الاسم الكامل</label>
-                    <input type="text" id="custName" placeholder="أدخل اسمك هنا..." class="checkout-input">
+                    <label class="block text-xs font-bold mb-2 text-gray-400">الاسم الكامل</label>
+                    <input type="text" id="custName" placeholder="اكتب اسمك هنا..." class="w-full bg-black border border-white/10 p-4 rounded-xl outline-none focus:border-green-500 transition">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold mb-2 text-gray-500 uppercase">نوع الطلب</label>
-                    <select id="orderType" class="checkout-input bg-black">
-                        <option value="شحن مباشر للحساب">شحن مباشر للحساب</option>
-                        <option value="طلب كود تفعيل">طلب كود تفعيل</option>
-                        <option value="استفسار سريع">استفسار سريع</option>
+                    <label class="block text-xs font-bold mb-2 text-gray-400">نوع الطلب</label>
+                    <select id="orderType" class="w-full bg-black border border-white/10 p-4 rounded-xl outline-none focus:border-green-500 transition">
+                        <option>شحن مباشر (ID)</option>
+                        <option>تفعيل داخل الحساب</option>
+                        <option>استفسار سريع</option>
                     </select>
                 </div>
             </div>
 
             <div class="mb-6">
-                <label class="block text-xs font-bold mb-2 text-gray-500 uppercase">طريقة الدفع</label>
-                <select id="paymentMethod" onchange="updateBillText()" class="checkout-input bg-black text-green-500 font-bold">
-                    <option value="زين كاش">Zain Cash - زين كاش</option>
-                    <option value="آسيا سيل">Asiacell - رصيد آسيا</option>
-                    <option value="ماستر كارد">Mastercard - ماستر كارد</option>
-                </select>
+                <label class="block text-xs font-bold mb-2 text-gray-400">طريقة الدفع</label>
+                <select id="payMethod" onchange="refreshInvoice()" class="w-full bg-black border border-white/10 p-4 rounded-xl outline-none focus:border-green-500 transition">
+                    </select>
             </div>
 
-            <button id="quickTransferBtn" onclick="dialTransferCode()" class="hidden w-full bg-orange-600 text-white py-4 rounded-xl font-black mb-4 animate-pulse-orange flex items-center justify-center gap-3">
-                اتصال وتحويل مباشر الآن <i class="fas fa-phone-alt"></i>
-            </button>
+            <a href="tel:07718457710" class="block w-full bg-orange-600 text-center py-4 rounded-xl font-black mb-6 hover:bg-orange-500 transition">
+                <i class="fas fa-phone-alt ml-2"></i> اتصل وتحويل مباشر الآن
+            </a>
 
-            <textarea id="billPreview" readonly class="w-full bg-black p-4 h-44 text-xs font-mono text-green-400 border border-white/5 rounded-2xl mb-6 outline-none resize-none"></textarea>
-            
-            <div class="flex gap-4">
-                <button onclick="processOrder()" class="flex-1 bg-green-500 text-black py-4 rounded-xl font-black">إتمام الطلب عبر واتساب</button>
-                <button onclick="clearCart()" class="px-6 bg-red-600/10 text-red-500 py-4 rounded-xl font-bold italic">حذف</button>
+            <div id="transferCodeArea" class="hidden">
+                <div class="transfer-code-box">
+                    <p class="text-xs text-gray-400 mb-2">كود التحويل التلقائي</p>
+                    <p id="transferCodeText" class="text-xl md:text-2xl font-black text-green-500 tracking-widest"></p>
+                    <button onclick="copyTransferCode()" class="mt-3 text-[10px] bg-green-500/10 text-green-500 px-3 py-1 rounded-lg">نسخ الكود 📋</button>
+                </div>
+            </div>
+
+            <div class="invoice-box" id="invoicePreview">
+                <button class="copy-btn" onclick="copyInvoice()">نسخ الفاتورة 📋</button>
+                <div id="billText"></div>
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 mt-8">
+                <button onclick="processOrder('wa')" class="col-span-3 bg-green-500 text-black py-4 rounded-xl font-black flex items-center justify-center gap-2 hover:bg-green-400 transition">
+                    <i class="fab fa-whatsapp text-xl"></i> إتمام الطلب عبر واتساب
+                </button>
+                <button onclick="clearCart()" class="bg-red-600/10 text-red-500 py-4 rounded-xl font-bold"><i class="fas fa-trash"></i></button>
+            </div>
+
+            <div class="flex justify-center gap-4 mt-6 border-t border-white/5 pt-6">
+                <i onclick="openLink('tg')" class="fab fa-telegram text-2xl text-blue-400 cursor-pointer"></i>
+                <i onclick="openLink('ig')" class="fab fa-instagram text-2xl text-pink-500 cursor-pointer"></i>
+                <i onclick="openLink('tk')" class="fab fa-tiktok text-2xl text-white cursor-pointer"></i>
+                <i onclick="openLink('yt')" class="fab fa-youtube text-2xl text-red-600 cursor-pointer"></i>
             </div>
         </div>
     </div>
 
     <script>
-        const currencyRates = { IQD: 1, USD: 0.00068, KWD: 0.00021, SAR: 0.0025 };
+        const rates = { IQD: 1, USD: 0.00068, SAR: 0.0025, KWD: 0.00021, AED: 0.0025, EUR: 0.00063 };
         let activeCurrency = 'IQD', cart = [], currentFilter = 'ALL';
 
-        const database = [
+        const db = [
+            // الرانكات الجديدة
+            { id: 101, cat: 'RANKS', name: 'رانك باتل ارينا', price: 2000, icon: 'fas fa-medal', color: 'text-yellow-400' },
+            { id: 102, cat: 'RANKS', name: 'رانك سكاي وارز', price: 2000, icon: 'fas fa-cloud', color: 'text-blue-300' },
+            { id: 103, cat: 'RANKS', name: 'رانك سرفايفل قيمز', price: 2000, icon: 'fas fa-khanda', color: 'text-red-500' },
+            { id: 104, cat: 'RANKS', name: 'رانك بلوك وارز', price: 2000, icon: 'fas fa-cubes', color: 'text-purple-500' },
+            { id: 105, cat: 'RANKS', name: 'رانك قولد (جميع الرانكات)', price: 3000, icon: 'fas fa-crown', color: 'text-yellow-500' },
+            
+            // منتجات إكس بوكس
             { id: 1, cat: 'XBOX', name: 'بطاقة إكس بوكس 5$', price: 10000, icon: 'fab fa-xbox', color: 'text-green-500' },
             { id: 2, cat: 'XBOX', name: 'بطاقة إكس بوكس 10$', price: 20000, icon: 'fab fa-xbox', color: 'text-green-500' },
-            { id: 10, cat: 'MC', name: 'ماين كرافت 1720 كوينز', price: 7500, icon: 'fas fa-cubes', color: 'text-yellow-500' },
+            { id: 3, cat: 'XBOX', name: 'Xbox Game Pass Ultimate', price: 15000, icon: 'fas fa-gamepad', color: 'text-green-600' },
+            
+            // ماين كرافت
+            { id: 10, cat: 'MC', name: 'ماين كرافت 1720 كوينز', price: 7500, icon: 'fas fa-coins', color: 'text-yellow-500' },
+            { id: 11, cat: 'MC', name: 'ماين كرافت 3500 كوينز', price: 14000, icon: 'fas fa-coins', color: 'text-yellow-500' },
             { id: 13, cat: 'MC', name: 'Sky Wars Beach Pack', price: 5000, icon: 'fas fa-umbrella-beach', color: 'text-blue-400' },
-            { id: 103, cat: 'MC', name: 'VIP 30 حساب جديد', price: 25000, icon: 'fas fa-crown', color: 'text-yellow-500' },
-            { id: 104, cat: 'MC', name: 'Vip 30 داخل حسابك', price: 35000, icon: 'fas fa-crown', color: 'text-orange-500' },
-            { id: 20, cat: 'SOCIAL', name: 'يوتيوب بريميوم (سنة)', price: 25000, icon: 'fab fa-youtube', color: 'text-red-600' }
+            { id: 14, cat: 'MC', name: 'Minecraft Realms (30 Day)', price: 12000, icon: 'fas fa-server', color: 'text-green-400' },
+            
+            // اشتراكات
+            { id: 20, cat: 'SOCIAL', name: 'يوتيوب بريميوم (سنة)', price: 25000, icon: 'fab fa-youtube', color: 'text-red-600' },
+            { id: 21, cat: 'SOCIAL', name: 'نيترو ديسكورد (شهر)', price: 15000, icon: 'fab fa-discord', color: 'text-indigo-500' },
+            { id: 22, cat: 'SOCIAL', name: 'شاهد VIP (سنة)', price: 45000, icon: 'fas fa-play', color: 'text-purple-500' },
+            
+            // ستيم وألعاب أخرى
+            { id: 40, cat: 'STEAM', name: 'بطاقة ستيم 5$', price: 10000, icon: 'fab fa-steam', color: 'text-blue-400' },
+            { id: 41, cat: 'STEAM', name: 'بطاقة ستيم 10$', price: 20000, icon: 'fab fa-steam', color: 'text-blue-400' },
+            { id: 30, cat: 'SOCIAL', name: 'ببجي 660 شدة (UC)', price: 12500, icon: 'fas fa-parachute-box', color: 'text-orange-500' }
         ];
 
-        const megaDatabase = [...database];
-        for(let i=1; i<=10; i++) {
-            database.forEach(p => megaDatabase.push({...p, id: p.id + (i*5000)}));
-        }
+        // تكرار المنتجات لملء الموقع بشكل احترافي
+        let megaDb = [];
+        for(let i=0; i<4; i++) { db.forEach(p => megaDb.push({...p, id: p.id + (i*5000)})); }
 
         function renderProducts(list = null) {
             const container = document.getElementById('productContainer');
-            const data = list || (currentFilter === 'ALL' ? megaDatabase : megaDatabase.filter(i => i.cat === currentFilter));
+            const data = list || (currentFilter === 'ALL' ? megaDb : megaDb.filter(i => i.cat === currentFilter));
             container.innerHTML = data.map(p => {
-                const convertedPrice = (p.price * currencyRates[activeCurrency]).toLocaleString();
+                const price = Math.ceil(p.price * rates[activeCurrency]).toLocaleString();
                 return `
                 <div class="product-card p-6 animate__animated animate__fadeIn">
                     <div class="text-center">
                         <i class="${p.icon} text-5xl ${p.color} mb-6 block"></i>
-                        <h3 class="font-bold text-sm mb-4">${p.name}</h3>
-                        <p class="text-green-500 font-black text-2xl tracking-tighter">${convertedPrice} ${activeCurrency}</p>
+                        <h3 class="font-bold text-sm mb-4 h-10 overflow-hidden">${p.name}</h3>
+                        <p class="text-green-500 font-black text-2xl">${price} ${activeCurrency}</p>
                     </div>
                     <button onclick="addToCart('${p.name}', ${p.price})" class="mt-6 w-full bg-white/5 py-4 rounded-xl text-[10px] font-black hover:bg-green-500 hover:text-black transition-all">إضافة للسلة +</button>
                 </div>`;
@@ -315,78 +275,113 @@
 
         function updateUI() {
             document.getElementById('cartCount').innerText = cart.length;
-            const total = cart.reduce((s, i) => s + i.price, 0) * currencyRates[activeCurrency];
-            document.getElementById('topTotal').innerText = `${total.toLocaleString()} ${activeCurrency}`;
         }
+
+        function changeCurrency() {
+            activeCurrency = document.getElementById('currencySel').value;
+            renderProducts();
+            updatePaymentMethods();
+        }
+
+        function updatePaymentMethods() {
+            const sel = document.getElementById('payMethod');
+            if(activeCurrency === 'IQD') {
+                sel.innerHTML = `
+                    <option value="اسياسيل">📶 Asiacell - رصيد آسيا</option>
+                    <option value="زين كاش">💸 زين كاش - ZainCash</option>
+                    <option value="زين العراق">🇮🇶 زين العراق - رصيد زين</option>
+                    <option value="ماستر كارد">💳 ماستر كارد - Mastercard</option>
+                `;
+            } else {
+                sel.innerHTML = `
+                    <option value="ماستر كارد دولي">💳 Credit Card / Mastercard</option>
+                    <option value="بايبال">🅿️ PayPal</option>
+                    <option value="تحويل بنكي">🏦 Bank Transfer</option>
+                    <option value="عملات رقمية">🪙 Crypto / USDT</option>
+                `;
+            }
+            refreshInvoice();
+        }
+
+        function refreshInvoice() {
+            const name = document.getElementById('custName').value || "غير معروف";
+            const type = document.getElementById('orderType').value;
+            const method = document.getElementById('payMethod').value;
+            const total = cart.reduce((s, i) => s + i.price, 0);
+            const convertedTotal = Math.ceil(total * rates[activeCurrency]).toLocaleString();
+
+            let bill = `🎫 فاتورة جديدة | SHOP_tA1\n----------------------\n👤 العميل: ${name}\n🛠 النوع: ${type}\n----------------------\n`;
+            cart.forEach((item, index) => { bill += `${index+1}. ${item.name}\n`; });
+            bill += `----------------------\n💰 الإجمالي: ${convertedTotal} ${activeCurrency}\n💳 الدفع: ${method}`;
+
+            const transferArea = document.getElementById('transferCodeArea');
+            if(activeCurrency === 'IQD' && (method === 'اسياسيل' || method === 'زين العراق')) {
+                transferArea.classList.remove('hidden');
+                const code = `*123*${total}*07718457710*1#`;
+                document.getElementById('transferCodeText').innerText = code;
+                bill += `\n🔢 كود التحويل: ${code}`;
+            } else {
+                transferArea.classList.add('hidden');
+            }
+
+            document.getElementById('billText').innerText = bill;
+        }
+
+        document.getElementById('custName').addEventListener('input', refreshInvoice);
+        document.getElementById('orderType').addEventListener('change', refreshInvoice);
 
         function openCheckoutModal() {
             if(cart.length === 0) return alert("السلة فارغة!");
+            updatePaymentMethods();
             document.getElementById('checkoutModal').classList.remove('hidden');
-            updateBillText();
-        }
-
-        function updateBillText() {
-            const items = cart.map((i, idx) => `${idx+1}. ${i.name}`).join('\n');
-            const totalIQD = cart.reduce((s, i) => s + i.price, 0);
-            const displayTotal = (totalIQD * currencyRates[activeCurrency]).toLocaleString();
-            const payMethod = document.getElementById('paymentMethod').value;
-            const transferBtn = document.getElementById('quickTransferBtn');
-            
-            let billMsg = `🛒 طلب جديد من SHOP_tA1\n----------\nالمنتجات:\n${items}\n----------\nالإجمالي: ${displayTotal} ${activeCurrency}\nطريقة الدفع: ${payMethod}`;
-            
-            if(payMethod === "آسيا سيل") {
-                const transferCode = `*123*${totalIQD}*07718457710*1#`;
-                billMsg += `\nكود التحويل: ${transferCode}`;
-                transferBtn.classList.remove('hidden');
-            } else {
-                transferBtn.classList.add('hidden');
-            }
-            
-            document.getElementById('billPreview').value = billMsg;
-        }
-
-        function dialTransferCode() {
-            const totalIQD = cart.reduce((s, i) => s + i.price, 0);
-            const transferCode = `*123*${totalIQD}*07718457710*1#`;
-            // توجيه المتصفح لفتح واجهة الاتصال مباشرة
-            window.location.href = `tel:${encodeURIComponent(transferCode)}`;
-        }
-
-        function processOrder() {
-            const name = document.getElementById('custName').value;
-            const type = document.getElementById('orderType').value;
-            const bill = document.getElementById('billPreview').value;
-            if(!name) return alert("يرجى كتابة اسمك لإتمام الطلب!");
-            const finalMsg = encodeURIComponent(`${bill}\n----------\nالاسم: ${name}\nنوع الطلب: ${type}`);
-            window.open(`https://wa.me/9647718457710?text=${finalMsg}`);
-        }
-
-        function sendSupportMessage() {
-            const name = document.getElementById('userName').value;
-            const msg = document.getElementById('userMsg').value;
-            if(!name || !msg) return alert("يرجى ملء البيانات!");
-            const text = encodeURIComponent(`دعم عملاء SHOP_tA1\nالاسم: ${name}\nالرسالة: ${msg}`);
-            window.open(`https://wa.me/9647718457710?text=${text}`);
         }
 
         function closeCheckoutModal() { document.getElementById('checkoutModal').classList.add('hidden'); }
-        function clearCart() { cart = []; updateUI(); closeCheckoutModal(); }
-        function filterCat(c) { 
-            currentFilter = c; 
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('btn-'+c).classList.add('active');
-            renderProducts(); 
+
+        function copyInvoice() {
+            navigator.clipboard.writeText(document.getElementById('billText').innerText);
+            alert("تم نسخ الفاتورة!");
         }
-        function changeCurrency() { activeCurrency = document.getElementById('currencySel').value; renderProducts(); updateUI(); }
-        function openLink(p) { 
-            const links = { wa: 'https://wa.me/9647718457710', tg: 'https://t.me/Shop_Ta1', yt: 'https://youtube.com/@axuuy', ig: 'https://instagram.com/shop_Ta1' };
-            window.open(links[p]);
+
+        function copyTransferCode() {
+            navigator.clipboard.writeText(document.getElementById('transferCodeText').innerText);
+            alert("تم نسخ كود التحويل!");
         }
+
+        function processOrder(p) {
+            const text = encodeURIComponent(document.getElementById('billText').innerText);
+            window.open(`https://wa.me/9647718457710?text=${text}`);
+        }
+
         function liveSearch() {
             const term = document.getElementById('mainSearch').value.toLowerCase();
-            renderProducts(megaDatabase.filter(p => p.name.toLowerCase().includes(term)));
+            const filtered = megaDb.filter(p => p.name.toLowerCase().includes(term));
+            renderProducts(filtered);
         }
-        window.onload = () => renderProducts();
+
+        function filterCat(c) {
+            currentFilter = c;
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-'+c).classList.add('active');
+            renderProducts();
+        }
+
+        function clearCart() { cart = []; updateUI(); closeCheckoutModal(); }
+        
+        function openLink(p) { 
+            const links = { 
+                tg: 'https://t.me/SHOP_tA1', 
+                ig: 'https://instagram.com/zx6sq', 
+                tk: 'https://tiktok.com/@ZX6SQ', 
+                yt: 'https://youtube.com/@AXUUY' 
+            };
+            window.open(links[p] || '#');
+        }
+
+        window.onload = () => {
+            renderProducts();
+            updatePaymentMethods();
+        };
     </script>
 </body>
 </html>
