@@ -236,52 +236,239 @@
         const rates = { IQD: 1, USD: 0.00068, SAR: 0.0025, AED: 0.0025, KWD: 0.00021, EGP: 0.033 };
         let activeCurrency = 'IQD', cart = [], currentFilter = 'ALL';
 
-        const baseProducts = [
-            { cat: 'RANKS', name: 'رانك باتل ارينا', price: 2000, icon: 'fas fa-medal', color: 'text-yellow-400' },
-            { cat: 'RANKS', name: 'رانك سكاي وارز', price: 2000, icon: 'fas fa-cloud', color: 'text-blue-300' },
-            { cat: 'RANKS', name: 'رانك سرفايفل قيمز', price: 2000, icon: 'fas fa-shield-alt', color: 'text-red-500' },
-            { cat: 'RANKS', name: 'حزمة قفت عادية', price: 1000, icon: 'fas fa-star', color: 'text-purple-400' },
-                   { cat: 'RANKS', name: 'حزمة قفت عادية', price: 1000, icon: 'fas fa-star', color: 'text-purple-400' },
-                   { cat: 'RANKS', name: 'حزمة قفت نادرة', price: 3000, icon: 'fas fa-star', color: 'text-purple-400' },
-            { cat: 'RANKS', name: 'رانك قولد الشامل', price: 3000, icon: 'fas fa-crown', color: 'text-yellow-500' },
-            { cat: 'RANKS', name: 'رانك الأساطير (Legend)', price: 5000, icon: 'fas fa-fire', color: 'text-orange-600' },
-            { cat: 'XBOX', name: 'بطاقة إكس بوكس 5$', price: 10000, icon: 'fab fa-xbox', color: 'text-green-500' },
-            { cat: 'XBOX', name: 'بطاقة إكس بوكس 10$', price: 20000, icon: 'fab fa-xbox', color: 'text-green-500' },
-            { cat: 'XBOX', name: 'بطاقة إكس بوكس 15$', price: 30000, icon: 'fab fa-xbox', color: 'text-green-500' },
-                   { cat: 'XBOX', name: 'بطاقة إكس بوكس 15$', price: 30000, icon: 'fab fa-xbox', color: 'text-green-500' },
-                   { cat: 'XBOX', name: 'بطاقة إكس بوكس 15$', price: 30000, icon: 'fab fa-xbox', color: 'text-green-500' },
+       // --- أضخم قاعدة بيانات لمتجر SHOP_tA1 - إصدار 2026 الترا ---
+// ============================================================
+// 🏆 SHOP_tA1 MEGA DATABASE - ULTIMATE CONSOLIDATED EDITION
+// ============================================================
 
-            { cat: 'XBOX', name: 'Game Pass Ultimate (1 Month)', price: 15000, icon: 'fas fa-gamepad', color: 'text-green-400' },
-            { cat: 'XBOX', name: 'Game Pass (3 Months)', price: 40000, icon: 'fas fa-gamepad', color: 'text-green-300' },
-            { cat: 'MC', name: '1720 كوينز ماين كرافت', price: 7500, icon: 'fas fa-coins', color: 'text-yellow-500' },
-            { cat: 'MC', name: '3500 كوينز ماين كرافت', price: 14000, icon: 'fas fa-coins', color: 'text-yellow-500' },
-            { cat: 'MC', name: '8800 كوينز ماين كرافت', price: 35000, icon: 'fas fa-coins', color: 'text-yellow-600' },
-                   { cat: 'MC', name: '1720 كوينز ماين كرافت', price: 7500, icon: 'fas fa-coins', color: 'text-yellow-500' },
-            { cat: 'MC', name: '3500 كوينز ماين كرافت', price: 14000, icon: 'fas fa-coins', color: 'text-yellow-500' },
-            { cat: 'MC', name: '8800 كوينز ماين كرافت', price: 35000, icon: 'fas fa-coins', color: 'text-yellow-600' },
-                   { cat: 'MC', name: '1720 كوينز ماين كرافت', price: 7500, icon: 'fas fa-coins', color: 'text-yellow-500' },
-            { cat: 'MC', name: '3500 كوينز ماين كرافت', price: 14000, icon: 'fas fa-coins', color: 'text-yellow-500' },
-            { cat: 'MC', name: '8800 كوينز ماين كرافت', price: 35000, icon: 'fas fa-coins', color: 'text-yellow-600' },
-                   { cat: 'MC', name: '1720 كوينز ماين كرافت', price: 7500, icon: 'fas fa-coins', color: 'text-yellow-500' },
-            { cat: 'MC', name: '3500 كوينز ماين كرافت', price: 14000, icon: 'fas fa-coins', color: 'text-yellow-500' },
-            { cat: 'MC', name: '8800 كوينز ماين كرافت', price: 35000, icon: 'fas fa-coins', color: 'text-yellow-600' },
-            { cat: 'MC', name: 'Sky Wars Beach Pack', price: 5000, icon: 'fas fa-umbrella-beach', color: 'text-blue-400' },
-            { cat: 'MC', name: 'Minecraft Realms (30 Day)', price: 12000, icon: 'fas fa-server', color: 'text-green-400' },
-            { cat: 'MC', name: 'Minecraft Realms Plus', price: 18000, icon: 'fas fa-server', color: 'text-green-600' },
-            { cat: 'SOCIAL', name: 'يوتيوب بريميوم (سنة)', price: 25000, icon: 'fab fa-youtube', color: 'text-red-600' },
-            { cat: 'SOCIAL', name: 'يوتيوب بريميوم (6 أشهر)', price: 15000, icon: 'fab fa-youtube', color: 'text-red-500' },
-            { cat: 'SOCIAL', name: 'ببجي 660 شدة (UC)', price: 12500, icon: 'fas fa-parachute-box', color: 'text-orange-500' },
-            { cat: 'SOCIAL', name: 'ببجي 1800 شدة (UC)', price: 35000, icon: 'fas fa-parachute-box', color: 'text-orange-400' },
-            { cat: 'SOCIAL', name: 'نتفلكس (حساب خاص شهر)', price: 10000, icon: 'fas fa-tv', color: 'text-red-700' }
-        ];
+const megaDb = [
+    // --- [1] قسم الرانكات - RANKS (فئات متنوعة) ---
+    { id: 101, cat: 'RANKS', name: 'رانك باتل ارينا (أساسي)', price: 2000, icon: 'fas fa-medal', color: 'text-yellow-400' },
+    { id: 102, cat: 'RANKS', name: 'رانك باتل ارينا (مطور)', price: 5000, icon: 'fas fa-medal', color: 'text-yellow-500' },
+    { id: 103, cat: 'RANKS', name: 'رانك باتل ارينا (ملكي)', price: 10000, icon: 'fas fa-medal', color: 'text-yellow-600' },
+    { id: 104, cat: 'RANKS', name: 'رانك سكاي وارز (برونزي)', price: 2000, icon: 'fas fa-cloud', color: 'text-blue-300' },
+    { id: 105, cat: 'RANKS', name: 'رانك سكاي وارز (فضي)', price: 4500, icon: 'fas fa-cloud', color: 'text-gray-400' },
+    { id: 106, cat: 'RANKS', name: 'رانك سكاي وارز (ذهبي)', price: 8000, icon: 'fas fa-cloud', color: 'text-yellow-500' },
+    { id: 107, cat: 'RANKS', name: 'رانك سكاي وارز (بلاتينيوم)', price: 15000, icon: 'fas fa-cloud', color: 'text-cyan-400' },
+    { id: 108, cat: 'RANKS', name: 'رانك سرفايفل (مبتدئ)', price: 2000, icon: 'fas fa-shield-alt', color: 'text-green-400' },
+    { id: 109, cat: 'RANKS', name: 'رانك سرفايفل (محترف)', price: 6000, icon: 'fas fa-shield-alt', color: 'text-orange-500' },
+    { id: 110, cat: 'RANKS', name: 'رانك سرفايفل (أساطير)', price: 12000, icon: 'fas fa-shield-alt', color: 'text-red-600' },
+    { id: 111, cat: 'RANKS', name: 'حزمة قفت عادية (عشوائي)', price: 1000, icon: 'fas fa-gift', color: 'text-purple-400' },
+    { id: 112, cat: 'RANKS', name: 'حزمة قفت نادرة (VIP)', price: 3500, icon: 'fas fa-gift', color: 'text-purple-600' },
+    { id: 113, cat: 'RANKS', name: 'حزمة قفت الترا (Legendary)', price: 7000, icon: 'fas fa-gift', color: 'text-pink-500' },
+    { id: 114, cat: 'RANKS', name: 'رانك قولد الشامل (شهر)', price: 3000, icon: 'fas fa-crown', color: 'text-yellow-500' },
+    { id: 115, cat: 'RANKS', name: 'رانك قولد الشامل (دائم)', price: 25000, icon: 'fas fa-crown', color: 'text-yellow-600' },
+    { id: 116, cat: 'RANKS', name: 'رانك الأساطير Legend (دائم)', price: 50000, icon: 'fas fa-fire-alt', color: 'text-red-500' },
+    { id: 117, cat: 'RANKS', name: 'رانك الملك Ultimate (كامل)', price: 150000, icon: 'fas fa-gem', color: 'text-blue-500' },
+    { id: 118, cat: 'RANKS', name: 'اشتراك MVP (برونزي)', price: 4000, icon: 'fas fa-user-shield', color: 'text-blue-400' },
+    { id: 119, cat: 'RANKS', name: 'اشتراك MVP (ذهبي)', price: 15000, icon: 'fas fa-user-shield', color: 'text-yellow-500' },
+      { id: 101, cat: 'RANKS', name: 'رانك باتل ارينا (أساسي)', price: 2000, icon: 'fas fa-medal', color: 'text-yellow-400' },
+    { id: 102, cat: 'RANKS', name: 'رانك باتل ارينا (مطور)', price: 5000, icon: 'fas fa-medal', color: 'text-yellow-500' },
+    { id: 103, cat: 'RANKS', name: 'رانك باتل ارينا (ملكي)', price: 10000, icon: 'fas fa-medal', color: 'text-yellow-600' },
+    { id: 104, cat: 'RANKS', name: 'رانك سكاي وارز (برونزي)', price: 2000, icon: 'fas fa-cloud', color: 'text-blue-300' },
+    { id: 105, cat: 'RANKS', name: 'رانك سكاي وارز (فضي)', price: 4500, icon: 'fas fa-cloud', color: 'text-gray-400' },
+    { id: 106, cat: 'RANKS', name: 'رانك سكاي وارز (ذهبي)', price: 8000, icon: 'fas fa-cloud', color: 'text-yellow-500' },
+    { id: 107, cat: 'RANKS', name: 'رانك سكاي وارز (بلاتينيوم)', price: 15000, icon: 'fas fa-cloud', color: 'text-cyan-400' },
+    { id: 108, cat: 'RANKS', name: 'رانك سرفايفل (مبتدئ)', price: 2000, icon: 'fas fa-shield-alt', color: 'text-green-400' },
+    { id: 109, cat: 'RANKS', name: 'رانك سرفايفل (محترف)', price: 6000, icon: 'fas fa-shield-alt', color: 'text-orange-500' },
+    { id: 110, cat: 'RANKS', name: 'رانك سرفايفل (أساطير)', price: 12000, icon: 'fas fa-shield-alt', color: 'text-red-600' },
+    { id: 111, cat: 'RANKS', name: 'حزمة قفت عادية (عشوائي)', price: 1000, icon: 'fas fa-gift', color: 'text-purple-400' },
+    { id: 112, cat: 'RANKS', name: 'حزمة قفت نادرة (VIP)', price: 3500, icon: 'fas fa-gift', color: 'text-purple-600' },
+    { id: 113, cat: 'RANKS', name: 'حزمة قفت الترا (Legendary)', price: 7000, icon: 'fas fa-gift', color: 'text-pink-500' },
+    { id: 114, cat: 'RANKS', name: 'رانك قولد الشامل (شهر)', price: 3000, icon: 'fas fa-crown', color: 'text-yellow-500' },
+    { id: 115, cat: 'RANKS', name: 'رانك قولد الشامل (دائم)', price: 25000, icon: 'fas fa-crown', color: 'text-yellow-600' },
+    { id: 116, cat: 'RANKS', name: 'رانك الأساطير Legend (دائم)', price: 50000, icon: 'fas fa-fire-alt', color: 'text-red-500' },
+    { id: 117, cat: 'RANKS', name: 'رانك الملك Ultimate (كامل)', price: 150000, icon: 'fas fa-gem', color: 'text-blue-500' },
+    { id: 118, cat: 'RANKS', name: 'اشتراك MVP (برونزي)', price: 4000, icon: 'fas fa-user-shield', color: 'text-blue-400' },
+    { id: 119, cat: 'RANKS', name: 'اشتراك MVP (ذهبي)', price: 15000, icon: 'fas fa-user-shield', color: 'text-yellow-500' },
+    { id: 120, cat: 'RANKS', name: 'أولوية دخول السيرفر (Queue Bypass)', price: 5000, icon: 'fas fa-bolt', color: 'text-cyan-300' },
 
-        let megaDb = [];
-        for(let i=0; i<3; i++) { 
-            baseProducts.forEach((p, index) => {
-                megaDb.push({...p, id: index + (i * 100)});
-            });
-        }
+    // --- [2] قسم إكس بوكس - XBOX (جميع المناطق) ---
+    { id: 201, cat: 'XBOX', name: 'إكس بوكس 5$ (أمريكي)', price: 10000, icon: 'fab fa-xbox', color: 'text-green-500' },
+    { id: 202, cat: 'XBOX', name: 'إكس بوكس 10$ (أمريكي)', price: 20000, icon: 'fab fa-xbox', color: 'text-green-500' },
+    { id: 203, cat: 'XBOX', name: 'إكس بوكس 15$ (أمريكي)', price: 29500, icon: 'fab fa-xbox', color: 'text-green-500' },
+    { id: 204, cat: 'XBOX', name: 'إكس بوكس 20$ (أمريكي)', price: 39000, icon: 'fab fa-xbox', color: 'text-green-600' },
+    { id: 205, cat: 'XBOX', name: 'إكس بوكس 25$ (أمريكي)', price: 48000, icon: 'fab fa-xbox', color: 'text-green-600' },
+    { id: 206, cat: 'XBOX', name: 'إكس بوكس 50$ (أمريكي)', price: 95000, icon: 'fab fa-xbox', color: 'text-green-700' },
+    { id: 207, cat: 'XBOX', name: 'إكس بوكس 100$ (أمريكي)', price: 185000, icon: 'fab fa-xbox', color: 'text-green-800' },
+    { id: 208, cat: 'XBOX', name: 'إكس بوكس 20 ريال (سعودي)', price: 9000, icon: 'fab fa-xbox', color: 'text-green-400' },
+    { id: 209, cat: 'XBOX', name: 'إكس بوكس 50 ريال (سعودي)', price: 21000, icon: 'fab fa-xbox', color: 'text-green-500' },
+    { id: 210, cat: 'XBOX', name: 'إكس بوكس 100 ريال (سعودي)', price: 41000, icon: 'fab fa-xbox', color: 'text-green-600' },
+    { id: 211, cat: 'XBOX', name: 'إكس بوكس 5 دينار (كويتي)', price: 25000, icon: 'fab fa-xbox', color: 'text-blue-400' },
+    { id: 212, cat: 'XBOX', name: 'إكس بوكس 10 دينار (كويتي)', price: 49000, icon: 'fab fa-xbox', color: 'text-blue-500' },
+    { id: 213, cat: 'XBOX', name: 'إكس بوكس 50 درهم (إماراتي)', price: 21500, icon: 'fab fa-xbox', color: 'text-red-500' },
+    { id: 214, cat: 'XBOX', name: 'إكس بوكس 100 درهم (إماراتي)', price: 42000, icon: 'fab fa-xbox', color: 'text-red-600' },
+    { id: 215, cat: 'XBOX', name: 'إكس بوكس 50 ريال (قطري)', price: 22000, icon: 'fab fa-xbox', color: 'text-maroon-600' },
+    { id: 216, cat: 'XBOX', name: 'إكس بوكس 100 ريال (قطري)', price: 43000, icon: 'fab fa-xbox', color: 'text-maroon-700' },
+    { id: 217, cat: 'XBOX', name: 'Game Pass Ultimate (شهر)', price: 15000, icon: 'fas fa-gamepad', color: 'text-green-400' },
+    { id: 218, cat: 'XBOX', name: 'Game Pass Ultimate (سنة)', price: 155000, icon: 'fas fa-gamepad', color: 'text-green-600' },
+    { id: 219, cat: 'XBOX', name: 'Xbox Live Gold (سنة)', price: 98000, icon: 'fas fa-bolt', color: 'text-yellow-500' },
+{ id: 201, cat: 'XBOX', name: 'إكس بوكس 5$ (أمريكي)', price: 10000, icon: 'fab fa-xbox', color: 'text-green-500' },
+    { id: 400, cat: 'XBOX', name: 'إكس بوكس 10$ (أمريكي)', price: 20000, icon: 'fab fa-xbox', color: 'text-green-500' },
+    { id: 500, cat: 'XBOX', name: 'إكس بوكس 15$ (أمريكي)', price: 29500, icon: 'fab fa-xbox', color: 'text-green-500' },
+    { id: 600, cat: 'XBOX', name: 'إكس بوكس 20$ (أمريكي)', price: 39000, icon: 'fab fa-xbox', color: 'text-green-600' },
+    { id: 700, cat: 'XBOX', name: 'إكس بوكس 25$ (أمريكي)', price: 48000, icon: 'fab fa-xbox', color: 'text-green-600' },
+    { id: 800, cat: 'XBOX', name: 'إكس بوكس 50$ (أمريكي)', price: 95000, icon: 'fab fa-xbox', color: 'text-green-700' },
+    { id: 900, cat: 'XBOX', name: 'إكس بوكس 100$ (أمريكي)', price: 185000, icon: 'fab fa-xbox', color: 'text-green-800' },
+    { id: 1000, cat: 'XBOX', name: 'إكس بوكس 20 ريال (سعودي)', price: 9000, icon: 'fab fa-xbox', color: 'text-green-400' },
+    { id: 2000, cat: 'XBOX', name: 'إكس بوكس 50 ريال (سعودي)', price: 21000, icon: 'fab fa-xbox', color: 'text-green-500' },
+    { id: 220, cat: 'XBOX', name: 'إكس بوكس 100 ريال (سعودي)', price: 41000, icon: 'fab fa-xbox', color: 'text-green-600' },
+    { id: 221, cat: 'XBOX', name: 'إكس بوكس 5 دينار (كويتي)', price: 25000, icon: 'fab fa-xbox', color: 'text-blue-400' },
+    { id: 222, cat: 'XBOX', name: 'إكس بوكس 10 دينار (كويتي)', price: 49000, icon: 'fab fa-xbox', color: 'text-blue-500' },
+    { id: 224, cat: 'XBOX', name: 'إكس بوكس 50 درهم (إماراتي)', price: 21500, icon: 'fab fa-xbox', color: 'text-red-500' },
+    { id: 225, cat: 'XBOX', name: 'إكس بوكس 100 درهم (إماراتي)', price: 42000, icon: 'fab fa-xbox', color: 'text-red-600' },
+    { id: 226, cat: 'XBOX', name: 'إكس بوكس 50 ريال (قطري)', price: 22000, icon: 'fab fa-xbox', color: 'text-maroon-600' },
+    { id: 227, cat: 'XBOX', name: 'إكس بوكس 100 ريال (قطري)', price: 43000, icon: 'fab fa-xbox', color: 'text-maroon-700' },
+    { id: 228, cat: 'XBOX', name: 'Game Pass Ultimate (شهر)', price: 15000, icon: 'fas fa-gamepad', color: 'text-green-400' },
+    { id: 229, cat: 'XBOX', name: 'Game Pass Ultimate (سنة)', price: 155000, icon: 'fas fa-gamepad', color: 'text-green-600' },
+    { id: 230, cat: 'XBOX', name: 'Xbox Live Gold (سنة)', price: 98000, icon: 'fas fa-bolt', color: 'text-yellow-500' },
 
+{ id: 601, cat: 'CARDS', name: 'بطاقة آيتونز 5$ (أمريكي)', price: 10000, icon: 'fab fa-apple', color: 'text-gray-300' },
+    { id: 602, cat: 'CARDS', name: 'بطاقة آيتونز 10$ (أمريكي)', price: 19500, icon: 'fab fa-apple', color: 'text-gray-200' },
+    { id: 603, cat: 'CARDS', name: 'بطاقة آيتونز 25$ (أمريكي)', price: 48000, icon: 'fab fa-apple', color: 'text-white' },
+    { id: 604, cat: 'CARDS', name: 'بطاقة ستيم 5$ (Global)', price: 9500, icon: 'fab fa-steam', color: 'text-blue-500' },
+    { id: 605, cat: 'CARDS', name: 'بطاقة ستيم 10$ (Global)', price: 18500, icon: 'fab fa-steam', color: 'text-blue-400' },
+    { id: 606, cat: 'CARDS', name: 'بطاقة ستيم 20$ (Global)', price: 36000, icon: 'fab fa-steam', color: 'text-blue-600' },
+    { id: 607, cat: 'CARDS', name: 'بلايستيشن 10$ (أمريكي)', price: 20000, icon: 'fab fa-playstation', color: 'text-blue-700' },
+    { id: 608, cat: 'CARDS', name: 'بلايستيشن 20$ (أمريكي)', price: 39000, icon: 'fab fa-playstation', color: 'text-blue-800' },
+    { id: 609, cat: 'CARDS', name: 'بطاقة أمازون 10$', price: 19000, icon: 'fab fa-amazon', color: 'text-orange-400' },
+    { id: 610, cat: 'CARDS', name: 'بطاقة جوجل بلاي 5$', price: 10000, icon: 'fab fa-google-play', color: 'text-green-400' },
+    { id: 611, cat: 'CARDS', name: 'رايزر جولد 10$ (Razer)', price: 18000, icon: 'fas fa-bolt', color: 'text-green-500' },
+    { id: 612, cat: 'CARDS', name: 'نينتندو eShop 20$', price: 38000, icon: 'fas fa-gamepad', color: 'text-red-500' },
+    { id: 613, cat: 'CARDS', name: 'بطاقة Roblox (800 Robux)', price: 18500, icon: 'fas fa-cube', color: 'text-gray-300' },
+    { id: 614, cat: 'CARDS', name: 'بطاقة Valorant (10$ VP)', price: 19000, icon: 'fas fa-fist-raised', color: 'text-red-600' },
+
+{ id: 401, cat: 'SOCIAL', name: 'يوتيوب بريميوم (شهر)', price: 4000, icon: 'fab fa-youtube', color: 'text-red-400' },
+    { id: 402, cat: 'SOCIAL', name: 'يوتيوب بريميوم (سنة)', price: 32000, icon: 'fab fa-youtube', color: 'text-red-600' },
+    { id: 403, cat: 'SOCIAL', name: 'نتفلكس Premium (شاشة)', price: 3500, icon: 'fas fa-tv', color: 'text-red-600' },
+    { id: 404, cat: 'SOCIAL', name: 'نتفلكس Premium (حساب كامل)', price: 12000, icon: 'fas fa-tv', color: 'text-red-700' },
+    { id: 405, cat: 'SOCIAL', name: 'ببجي 660 شدة', price: 14000, icon: 'fas fa-parachute-box', color: 'text-orange-500' },
+    { id: 406, cat: 'SOCIAL', name: 'ببجي 1800 شدة', price: 38000, icon: 'fas fa-parachute-box', color: 'text-orange-600' },
+    { id: 407, cat: 'SOCIAL', name: 'ديسكورد نايترو قيمنق (شهر)', price: 14000, icon: 'fab fa-discord', color: 'text-indigo-500' },
+    { id: 408, cat: 'SOCIAL', name: 'ديسكورد نايترو كلاسيك', price: 8000, icon: 'fab fa-discord', color: 'text-indigo-300' },
+    { id: 409, cat: 'SOCIAL', name: 'سبوتيفاي بريميوم (سنة)', price: 20000, icon: 'fab fa-spotify', color: 'text-green-500' },
+    { id: 410, cat: 'SOCIAL', name: 'تليجرام بريميوم (3 أشهر)', price: 18000, icon: 'fab fa-telegram', color: 'text-blue-400' },
+    { id: 411, cat: 'SOCIAL', name: 'تيك توك (1000 متابع حقيقي)', price: 5000, icon: 'fab fa-tiktok', color: 'text-white' },
+    { id: 412, cat: 'SOCIAL', name: 'انستقرام (5000 متابع ميكس)', price: 7000, icon: 'fab fa-instagram', color: 'text-pink-500' },
+    { id: 413, cat: 'SOCIAL', name: 'توستر بريميوم Twitch Subs', price: 10000, icon: 'fab fa-twitch', color: 'text-purple-600' },
+
+
+
+    // --- [3] قسم ماين كرافت - MC ---
+    { id: 301, cat: 'MC', name: '310 كوينز ماين كرافت', price: 2500, icon: 'fas fa-coins', color: 'text-yellow-400' },
+    { id: 302, cat: 'MC', name: '700 كوينز ماين كرافت', price: 5000, icon: 'fas fa-coins', color: 'text-yellow-400' },
+    { id: 303, cat: 'MC', name: '1720 كوينز ماين كرافت', price: 12000, icon: 'fas fa-coins', color: 'text-yellow-500' },
+    { id: 304, cat: 'MC', name: '3500 كوينز ماين كرافت', price: 24000, icon: 'fas fa-coins', color: 'text-yellow-500' },
+    { id: 305, cat: 'MC', name: '8800 كوينز ماين كرافت', price: 58000, icon: 'fas fa-coins', color: 'text-yellow-600' },
+    { id: 306, cat: 'MC', name: 'Minecoins (12,500)', price: 85000, icon: 'fas fa-coins', color: 'text-yellow-700' },
+    { id: 307, cat: 'MC', name: 'حزمة Sky Wars Beach', price: 5000, icon: 'fas fa-umbrella-beach', color: 'text-blue-400' },
+    { id: 308, cat: 'MC', name: 'حزمة Sky Wars Winter', price: 5000, icon: 'fas fa-snowflake', color: 'text-blue-200' },
+    { id: 309, cat: 'MC', name: 'Minecraft Realms (30 يوم)', price: 12000, icon: 'fas fa-server', color: 'text-green-400' },
+    { id: 310, cat: 'MC', name: 'تغيير اسم الحساب (فوري)', price: 8000, icon: 'fas fa-id-card', color: 'text-orange-400' },
+    { id: 311, cat: 'MC', name: 'كيب ماين كون 2016', price: 450000, icon: 'fas fa-tshirt', color: 'text-red-600' },
+    { id: 312, cat: 'MC', name: 'حساب ماين كرافت (فول داتا)', price: 45000, icon: 'fas fa-cube', color: 'text-green-500' },
+    { id: 313, cat: 'MC', name: 'إضافة سكن مخصص HD', price: 2000, icon: 'fas fa-paint-brush', color: 'text-pink-400' },
+
+    // --- [4] قسم السوشيال ميديا - SOCIAL ---
+    { id: 401, cat: 'SOCIAL', name: 'يوتيوب بريميوم (شهر)', price: 4000, icon: 'fab fa-youtube', color: 'text-red-400' },
+    { id: 402, cat: 'SOCIAL', name: 'يوتيوب بريميوم (سنة)', price: 32000, icon: 'fab fa-youtube', color: 'text-red-600' },
+    { id: 403, cat: 'SOCIAL', name: 'نتفلكس Premium (شاشة)', price: 3500, icon: 'fas fa-tv', color: 'text-red-600' },
+    { id: 404, cat: 'SOCIAL', name: 'نتفلكس Premium (حساب كامل)', price: 12000, icon: 'fas fa-tv', color: 'text-red-700' },
+    { id: 405, cat: 'SOCIAL', name: 'ببجي 660 شدة', price: 14000, icon: 'fas fa-parachute-box', color: 'text-orange-500' },
+    { id: 406, cat: 'SOCIAL', name: 'ببجي 1800 شدة', price: 38000, icon: 'fas fa-parachute-box', color: 'text-orange-600' },
+    { id: 407, cat: 'SOCIAL', name: 'ديسكورد نايترو قيمنق', price: 14000, icon: 'fab fa-discord', color: 'text-indigo-500' },
+    { id: 408, cat: 'SOCIAL', name: 'ديسكورد نايترو كلاسيك', price: 8000, icon: 'fab fa-discord', color: 'text-indigo-300' },
+    { id: 409, cat: 'SOCIAL', name: 'سبوتيفاي بريميوم (سنة)', price: 20000, icon: 'fab fa-spotify', color: 'text-green-500' },
+    { id: 410, cat: 'SOCIAL', name: 'تليجرام بريميوم (3 أشهر)', price: 18000, icon: 'fab fa-telegram', color: 'text-blue-400' },
+
+    // --- [5] قسم الأدوات والذكاء الاصطناعي - TOOLS ---
+    { id: 501, cat: 'TOOLS', name: 'ChatGPT Plus (شهر)', price: 30000, icon: 'fas fa-robot', color: 'text-teal-500' },
+    { id: 502, cat: 'TOOLS', name: 'Midjourney Pro (شهر)', price: 45000, icon: 'fas fa-paint-brush', color: 'text-indigo-400' },
+    { id: 503, cat: 'TOOLS', name: 'Canva Pro (سنة - خاص)', price: 15000, icon: 'fas fa-palette', color: 'text-purple-500' },
+    { id: 504, cat: 'TOOLS', name: 'CapCut Desktop Pro', price: 12000, icon: 'fas fa-video', color: 'text-white' },
+    { id: 505, cat: 'TOOLS', name: 'Windows 11 Pro Key', price: 10000, icon: 'fab fa-windows', color: 'text-blue-500' },
+    { id: 506, cat: 'TOOLS', name: 'Adobe Creative Cloud', price: 25000, icon: 'fab fa-adobe', color: 'text-red-500' },
+
+    // --- [6] قسم البطاقات العالمية - CARDS ---
+    { id: 601, cat: 'CARDS', name: 'بطاقة آيتونز 5$', price: 10000, icon: 'fab fa-apple', color: 'text-gray-300' },
+    { id: 602, cat: 'CARDS', name: 'بطاقة آيتونز 10$', price: 19500, icon: 'fab fa-apple', color: 'text-gray-200' },
+    { id: 603, cat: 'CARDS', name: 'بطاقة ستيم 5$', price: 9500, icon: 'fab fa-steam', color: 'text-blue-500' },
+    { id: 604, cat: 'CARDS', name: 'بطاقة ستيم 10$', price: 18500, icon: 'fab fa-steam', color: 'text-blue-400' },
+    { id: 605, cat: 'CARDS', name: 'بلايستيشن 10$ (أمريكي)', price: 20000, icon: 'fab fa-playstation', color: 'text-blue-700' },
+    { id: 606, cat: 'CARDS', name: 'جوجل بلاي 5$', price: 10000, icon: 'fab fa-google-play', color: 'text-green-400' },
+    { id: 607, cat: 'CARDS', name: 'بطاقة أمازون 10$', price: 19000, icon: 'fab fa-amazon', color: 'text-orange-400' },
+      { id: 501, cat: 'CARDS', name: 'بطاقة آيتونز 5$', price: 10000, icon: 'fab fa-apple', color: 'text-gray-300' },
+    { id: 502, cat: 'CARDS', name: 'بطاقة آيتونز 10$', price: 19500, icon: 'fab fa-apple', color: 'text-gray-200' },
+    { id: 503, cat: 'CARDS', name: 'بطاقة آيتونز 25$', price: 48000, icon: 'fab fa-apple', color: 'text-white' },
+    { id: 504, cat: 'CARDS', name: 'بطاقة ستيم 5$', price: 9500, icon: 'fab fa-steam', color: 'text-blue-500' },
+    { id: 505, cat: 'CARDS', name: 'بطاقة ستيم 10$', price: 18500, icon: 'fab fa-steam', color: 'text-blue-400' },
+    { id: 506, cat: 'CARDS', name: 'بطاقة ستيم 20$', price: 36000, icon: 'fab fa-steam', color: 'text-blue-600' },
+    { id: 507, cat: 'CARDS', name: 'بطاقة بلايستيشن 10$ أمريكي', price: 20000, icon: 'fab fa-playstation', color: 'text-blue-700' },
+    { id: 508, cat: 'CARDS', name: 'بطاقة بلايستيشن 20$ أمريكي', price: 39000, icon: 'fab fa-playstation', color: 'text-blue-800' },
+    { id: 509, cat: 'CARDS', name: 'بطاقة أمازون 10$', price: 19000, icon: 'fab fa-amazon', color: 'text-orange-400' },
+    { id: 510, cat: 'CARDS', name: 'بطاقة جوجل بلاي 5$', price: 10000, icon: 'fab fa-google-play', color: 'text-green-400' },
+
+// ==========================================
+    // [800] ألعاب الـ PC والمفاتيح - PC GAMES
+    // ==========================================
+    { id: 801, cat: 'PC_GAMES', name: 'Grand Theft Auto V (Epic)', price: 15000, icon: 'fas fa-car', color: 'text-blue-500' },
+    { id: 802, cat: 'PC_GAMES', name: 'Red Dead Redemption 2', price: 25000, icon: 'fas fa-hat-cowboy', color: 'text-red-700' },
+    { id: 803, cat: 'PC_GAMES', name: 'Minecraft Java + Bedrock', price: 35000, icon: 'fas fa-cube', color: 'text-green-600' },
+    { id: 804, cat: 'PC_GAMES', name: 'FIFA 25 (FC 25) Standard', price: 75000, icon: 'fas fa-futbol', color: 'text-blue-400' },
+    { id: 805, cat: 'PC_GAMES', name: 'Cyberpunk 2077 (Steam)', price: 45000, icon: 'fas fa-robot', color: 'text-yellow-400' },
+    { id: 806, cat: 'PC_GAMES', name: 'Call of Duty: Black Ops 6', price: 95000, icon: 'fas fa-skull', color: 'text-orange-600' },
+
+{ id: 501, cat: 'TOOLS', name: 'ChatGPT Plus (شهر)', price: 30000, icon: 'fas fa-robot', color: 'text-teal-500' },
+    { id: 502, cat: 'TOOLS', name: 'Midjourney Pro (شهر)', price: 45000, icon: 'fas fa-paint-brush', color: 'text-indigo-400' },
+    { id: 503, cat: 'TOOLS', name: 'Canva Pro (سنة - خاص)', price: 15000, icon: 'fas fa-palette', color: 'text-purple-500' },
+    { id: 504, cat: 'TOOLS', name: 'CapCut Desktop Pro', price: 12000, icon: 'fas fa-video', color: 'text-white' },
+    { id: 505, cat: 'TOOLS', name: 'Windows 11 Pro Key', price: 10000, icon: 'fab fa-windows', color: 'text-blue-500' },
+    { id: 506, cat: 'TOOLS', name: 'Adobe Creative Cloud', price: 25000, icon: 'fab fa-adobe', color: 'text-red-500' },
+    { id: 507, cat: 'TOOLS', name: 'Office 365 (حساب دائم)', price: 15000, icon: 'fas fa-file-word', color: 'text-blue-600' },
+
+
+    // --- [7] قسم الـ VIP والخدمات - VIP ---
+    { id: 701, cat: 'VIP', name: 'بكج اليوتيوبر المتكامل', price: 150000, icon: 'fas fa-video', color: 'text-red-600' },
+    { id: 702, cat: 'VIP', name: 'برمجة سيرفر ديسكورد كامل', price: 40000, icon: 'fab fa-discord', color: 'text-indigo-600' },
+    { id: 703, cat: 'VIP', name: 'زيادة 10K متابع تيك توك', price: 30000, icon: 'fab fa-tiktok', color: 'text-white' },
+    { id: 704, cat: 'VIP', name: 'تصميم شعار (Logo) احترافي', price: 25000, icon: 'fas fa-paint-brush', color: 'text-yellow-400' },
+    { id: 705, cat: 'VIP', name: 'بكج حماية الحسابات الشامل', price: 25000, icon: 'fas fa-user-lock', color: 'text-blue-400' },
+    { id: 706, cat: 'VIP', name: 'برمجة راوتر ونانو ستيشن', price: 15000, icon: 'fas fa-network-wired', color: 'text-blue-400' },
+    { id: 707, cat: 'VIP', name: 'استشارة تقنية (ساعة)', price: 10000, icon: 'fas fa-headset', color: 'text-green-500' }
+
+
+];// --- مولد تلقائي لإكمال القاعدة وتغطية كافة الاحتمالات (+120 منتج إضافي) ---
+const categories = ['RANKS', 'XBOX', 'MC', 'SOCIAL', 'CARDS'];
+const prices = [1000, 2500, 5000, 7500, 10000, 15000, 20000, 50000];
+
+for (let i = 1; i <= 120; i++) {
+    const randomCat = categories[Math.floor(Math.random() * categories.length)];
+    const randomPrice = prices[Math.floor(Math.random() * prices.length)];
+    
+    megaDb.push({
+        id: 2000 + i,
+        cat: randomCat,
+        name: `منتج إضافي مميز #${i} (${randomCat})`,
+        price: randomPrice,
+        icon: 'fas fa-star',
+        color: 'text-gray-400'
+    });
+}
+// --- مولد تلقائي لإكمال القاعدة حتى 200 منتج (اختياري) ---
+const extraItems = [];
+for (let i = 1; i <= 100; i++) {
+    extraItems.push({
+        id: 1000 + i,
+        cat: 'RANKS',
+        name: `قسيمة خصم إضافية #${i}`,
+        price: 500 * i,
+        icon: 'fas fa-ticket-alt',
+        color: 'text-gray-500'
+    });
+}
+
+// دمج الكل
+const finalDb = [...megaDb, ...extraItems];
         function renderProducts(list = null) {
             const container = document.getElementById('productContainer');
             const data = list || (currentFilter === 'ALL' ? megaDb : megaDb.filter(i => i.cat === currentFilter));
