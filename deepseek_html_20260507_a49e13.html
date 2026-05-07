@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>SHOP_tA1 | المتجر الكامل - قفت & VIP</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: radial-gradient(ellipse at 30% 20%, #0a0a2a, #000000);
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .stars-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 3s infinite ease-in-out; }
+        @keyframes twinkle { 0%,100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+        
+        .nebula { position: fixed; width: 500px; height: 500px; border-radius: 50%; filter: blur(80px); opacity: 0.2; pointer-events: none; z-index: 0; animation: floatNebula 25s infinite; }
+        @keyframes floatNebula { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(80px,40px) scale(1.1); } }
+        
+        .glass-nav, .glass-card, .product-card, .admin-panel {
+            background: rgba(10, 10, 30, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 28px;
+        }
+        .glass-nav { background: rgba(0, 0, 0, 0.7); border-bottom: 1px solid #00ffff; }
+        
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+        }
+        .product-card:hover { transform: translateY(-10px) scale(1.02); border-color: #00ffff; box-shadow: 0 0 30px rgba(0,255,255,0.5); }
+        
+        .btn-primary, .btn-cyan {
+            background: linear-gradient(135deg, #00ffff, #0088ff);
+            color: black;
+            font-weight: bold;
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-primary:hover, .btn-cyan:hover { transform: scale(1.02); box-shadow: 0 0 20px #00ffff; }
+        .btn-danger { background: #ff3366; color: white; }
+        .btn-warning { background: #ffaa00; color: black; }
+        .btn-purple { background: #aa44ff; color: white; }
+        .btn-success { background: #00cc66; color: black; }
+        
+        .cat-chip {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 40px;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cat-chip.active, .cat-chip:hover { background: #00ffff; color: black; box-shadow: 0 0 15px #00ffff; }
+        
+        .input-field {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 12px;
+            color: white;
+            width: 100%;
+        }
+        .input-field:focus { border-color: #00ffff; outline: none; box-shadow: 0 0 10px #00ffff; }
+        
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease-out;
+        }
+        .normal-product-img { width: 100%; height: 130px; object-fit: contain; transition: transform 0.3s; border-radius: 16px; background: rgba(0,0,0,0.3); padding: 8px; }
+        .product-card:hover .normal-product-img { transform: scale(1.05); }
+        
+        .badge-admin { background: #ff3366; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; }
+        .badge-vip { background: linear-gradient(135deg, #ffd700, #ff8c00); color: black; padding: 4px 12px; border-radius: 20px; font-size: 11px; }
+        .badge-premium { background: #aa44ff; color: white; padding: 4px 12px; border-radius: 20px; }
+        .badge-normal { background: #00aaff; color: white; padding: 4px 12px; border-radius: 20px; }
+        
+        @keyframes glowPulse { 0%,100% { text-shadow: 0 0 5px #00ffff; } 50% { text-shadow: 0 0 20px #00ffff; } }
+        .admin-title { animation: glowPulse 2s infinite; }
+        
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-content { background: #0a0a2a; border: 1px solid #00ffff; border-radius: 28px; padding: 24px; max-width: 800px; width: 95%; max-height: 85vh; overflow-y: auto; }
+        
+        @keyframes borderPulse { 0%,100% { border-color: #00ffff; box-shadow: 0 0 10px #00ffff; } 50% { border-color: #ff00ff; box-shadow: 0 0 25px #ff00ff; } }
+        
+        .invoice-preview { background: rgba(0,0,0,0.6); border-radius: 20px; padding: 15px; font-family: monospace; font-size: 12px; border-left: 3px solid #00ffff; max-height: 200px; overflow-y: auto; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a2a; }
+        ::-webkit-scrollbar-thumb { background: #00ffff; border-radius: 20px; }
+        
+        .fab-add-top { position: fixed; bottom: 20px; left: 20px; width: 55px; height: 55px; border-radius: 50%; background: linear-gradient(135deg, #00ffff, #0088ff); color: black; display: flex; align-items: center; justify-content: center; font-size: 25px; cursor: pointer; z-index: 100; box-shadow: 0 0 20px #00ffff; transition: all 0.2s; }
+        .fab-add-top:hover { transform: scale(1.1); }
+        
+        .social-link { transition: all 0.2s; display: inline-block; text-decoration: none; }
+        .social-link:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        
+        .product-img-cart { width: 40px; height: 40px; object-fit: contain; border-radius: 8px; background: rgba(0,0,0,0.3); }
+        
+        .welcome-banner { animation: welcomeGlow 2s infinite; }
+        @keyframes welcomeGlow { 0%,100% { box-shadow: 0 0 10px #00ffff; } 50% { box-shadow: 0 0 30px #00ffff; } }
+        
+        .export-btn { background: linear-gradient(135deg, #8B5CF6, #6366F1); color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; cursor: pointer; border: none; }
+        .export-btn:hover { transform: scale(1.02); box-shadow: 0 0 15px #8B5CF6; }
+        
+        .axuuy-code { background: linear-gradient(135deg, #FFD700, #FFA500); color: black; padding: 2px 8px; border-radius: 15px; font-weight: bold; }
+        
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        button { cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="stars-container" id="starsContainer"></div>
+    <div class="nebula" style="background: #ff00ff; top: -200px; right: -200px; animation-duration: 30s;"></div>
+    <div class="nebula" style="background: #00ffff; bottom: -200px; left: -200px; animation-duration: 25s;"></div>
+    <div class="nebula" style="background: #ffaa00; top: 40%; left: 20%; width: 300px; height: 300px; animation-duration: 35s;"></div>
+    
+    <div class="fab-add-top" onclick="scrollToAddProduct()">
+        <i class="fas fa-plus"></i>
+    </div>
+
+    <nav class="glass-nav sticky top-0 z-50 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg animate-pulse">
+                    <i class="fas fa-crown text-black text-2xl"></i>
+                </div>
+                <span class="text-2xl md:text-3xl font-black text-cyan-400">SHOP_tA1</span>
+                <span class="text-xs bg-cyan-500/20 px-2 py-1 rounded-full">🌌 قفت & VIP</span>
+            </div>
+            <div class="flex items-center gap-3 flex-wrap">
+                <select id="viewModeSelect" onchange="changeViewMode()" class="bg-black/50 border border-cyan-500/40 rounded-xl px-3 py-2 text-sm">
+                    <option value="normal">🖼️ عرض صور</option>
+                    <option value="2d">📦 عرض 2D</option>
+                    <option value="3d">✨ عرض 3D</option>
+                </select>
+                <select id="currencySel" onchange="changeCurrency()" class="bg-black/50 border border-cyan-500/40 rounded-xl px-3 py-2 text-sm">
+                    <option value="IQD">🇮🇶 IQD</option><option value="USD">🇺🇸 USD</option><option value="SAR">🇸🇦 SAR</option>
+                </select>
+                <div id="userSection" class="flex items-center gap-2">
+                    <button onclick="openAuthModal()" id="loginBtn" class="btn-cyan px-4 py-2 rounded-xl text-sm"><i class="fas fa-sign-in-alt"></i> دخول</button>
+                    <button onclick="logout()" id="logoutBtn" class="hidden bg-red-500/80 px-4 py-2 rounded-xl text-sm"><span id="userNameDisplay"></span></button>
+                </div>
+                <button onclick="openCheckoutModal()" class="relative btn-cyan px-4 py-2 rounded-xl font-bold">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount" class="absolute -top-2 -right-2 bg-black text-cyan-400 rounded-full w-5 h-5 text-xs">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 pt-6 pb-20 relative z-10">
+        <div id="welcomeBanner" class="welcome-banner glass-card p-4 mb-6 text-center hidden">
+            <span id="welcomeMessage"></span>
+        </div>
+
+        <div class="text-center mb-10">
+            <h1 class="text-5xl md:text-6xl font-black bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">SHOP_tA1</h1>
+            <p class="text-cyan-300 mt-2">⭐ رانكات: قفت (3k) | VIP (7k) | حزم: قفت (2k) | VIP (5k) ⭐</p>
+        </div>
+
+        <div class="mb-6">
+            <input type="text" id="mainSearch" oninput="liveSearch()" placeholder="🔍 ابحث عن منتج..." class="input-field">
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-2 mb-8">
+            <button onclick="filterCat('ALL')" id="btn-ALL" class="cat-chip active">🔥 الكل</button>
+            <button onclick="filterCat('VIP')" id="btn-VIP" class="cat-chip">👑 VIP</button>
+            <button onclick="filterCat('GIFT')" id="btn-GIFT" class="cat-chip">🎁 قفت</button>
+            <button onclick="filterCat('RANKS')" id="btn-RANKS" class="cat-chip">👑 رانكات</button>
+            <button onclick="filterCat('PACKAGES')" id="btn-PACKAGES" class="cat-chip">📦 حزم</button>
+            <button onclick="filterCat('MC')" id="btn-MC" class="cat-chip">⛏️ ماين كرافت</button>
+            <button onclick="filterCat('GAMES')" id="btn-GAMES" class="cat-chip">🎮 ألعاب</button>
+        </div>
+
+        <div id="productContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"></div>
+
+        <!-- Admin Panel -->
+        <div id="adminPanel" class="hidden mt-12 p-6 admin-panel">
+            <h2 class="text-2xl font-bold text-cyan-400 mb-4 admin-title text-center"><i class="fas fa-crown"></i> 🚀 لوحة تحكم الأدمن - صلاحيات كاملة 🚀</h2>
+            
+            <div class="flex gap-3 mb-6 justify-center flex-wrap">
+                <button onclick="exportProductsJSON()" class="export-btn"><i class="fas fa-download"></i> 📁 تصدير المنتجات JSON</button>
+                <button onclick="exportUsersJSON()" class="export-btn"><i class="fas fa-users"></i> 📁 تصدير الحسابات JSON</button>
+                <button onclick="exportCodesJSON()" class="export-btn"><i class="fas fa-tags"></i> 📁 تصدير كودات الخصم JSON</button>
+                <button onclick="exportAllData()" class="export-btn" style="background: linear-gradient(135deg, #10B981, #059669);"><i class="fas fa-database"></i> 💾 تصدير الكل</button>
+                <button onclick="printProducts()" class="export-btn" style="background: linear-gradient(135deg, #F59E0B, #D97706);"><i class="fas fa-print"></i> 🖨️ طباعة المنتجات</button>
+            </div>
+            
+            <div class="mb-6 p-4 rounded-2xl" style="background: rgba(0,255,255,0.05); border: 1px solid rgba(0,255,255,0.2);">
+                <h3 class="text-lg font-bold text-cyan-400 mb-3"><i class="fas fa-plus-circle"></i> ➕ إضافة منتج</h3>
+                <div class="grid md:grid-cols-5 gap-3">
+                    <input type="text" id="adminProdName" placeholder="اسم المنتج" class="input-field">
+                    <input type="number" id="adminProdPrice" placeholder="السعر" class="input-field">
+                    <select id="adminProdCat" class="input-field">
+                        <option value="VIP">👑 VIP</option><option value="GIFT">🎁 قفت</option>
+                        <option value="RANKS">👑 رانكات</option><option value="PACKAGES">📦 حزم</option>
+                        <option value="MC">⛏️ ماين كرافت</option><option value="GAMES">🎮 ألعاب</option>
+                    </select>
+                    <input type="text" id="adminProdImage" placeholder="رابط الصورة" class="input-field">
+                    <button onclick="adminAddProduct()" class="btn-primary py-2 rounded-xl"><i class="fas fa-save"></i> إضافة</button>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="mb-6 p-4 rounded-2xl" style="background: rgba(255,255,0,0.05); border: 1px solid rgba(255,255,0,0.2);">
+                    <h3 class="text-lg font-bold text-yellow-400 mb-3"><i class="fas fa-edit"></i> ✏️ تعديل منتج</h3>
+                    <div class="grid md:grid-cols-3 gap-3">
+                        <select id="adminProductSelect" class="input-field"></select>
+                        <input type="text" id="adminEditName" placeholder="اسم جديد" class="input-field">
+                        <input type="number" id="adminEditPrice" placeholder="سعر جديد" class="input-field">
+                    </div>
+                    <button onclick="adminUpdateProduct()" class="btn-warning w-full mt-2 py-2 rounded-xl">✏️ تعديل</button>
+                </div>
+                <div class="mb-6 p-4 rounded-2xl" style="background: rgba(255,0,0,0.05); border: 1px solid rgba(255,0,0,0.2);">
+                    <h3 class="text-lg font-bold text-red-400 mb-3"><i class="fas fa-trash"></i> 🗑️ حذف منتج</h3>
+                    <select id="adminDeleteSelect" class="input-field"></select>
+                    <button onclick="adminDeleteProduct()" class="btn-danger w-full mt-2 py-2 rounded-xl">🗑️ حذف</button>
+                </div>
+            </div>
+            
+            <div class="mb-6 p-4 rounded-2xl" style="background: rgba(0,255,0,0.05); border: 1px solid rgba(0,255,0,0.2);">
+                <h3 class="text-lg font-bold text-green-400 mb-3"><i class="fas fa-tag"></i> 🏷️ إدارة كودات الخصم</h3>
+                <div class="grid md:grid-cols-4 gap-3">
+                    <input type="text" id="discountCodeInputAdmin" placeholder="كود جديد" class="input-field">
+                    <input type="number" id="discountPercentAdmin" placeholder="نسبة الخصم (5-50)" class="input-field">
+                    <select id="discountTargetAdmin" class="input-field">
+                        <option value="all">للجميع</option><option value="vip">VIP فقط</option>
+                        <option value="new">جدد فقط</option>
+                    </select>
+                    <button onclick="adminAddDiscountCode()" class="btn-purple py-2 rounded-xl"><i class="fas fa-plus"></i> إضافة كود</button>
+                </div>
+                <div class="mt-3 flex flex-wrap gap-2" id="activeCodesList"></div>
+            </div>
+            
+            <div class="p-4 rounded-2xl" style="background: rgba(255,0,255,0.05); border: 1px solid rgba(255,0,255,0.2);">
+                <h3 class="text-lg font-bold text-purple-400 mb-3"><i class="fas fa-user-plus"></i> 👤 إضافة حساب عميل</h3>
+                <div class="grid md:grid-cols-4 gap-3">
+                    <input type="text" id="newUsername" placeholder="اسم المستخدم" class="input-field">
+                    <input type="password" id="newPassword" placeholder="كلمة المرور" class="input-field">
+                    <input type="number" id="newDiscount" placeholder="الخصم % (5-50)" class="input-field">
+                    <button onclick="adminAddUser()" class="btn-primary py-2 rounded-xl"><i class="fas fa-save"></i> إضافة حساب</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="mt-16 p-6 rounded-3xl" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); border: 1px solid rgba(0,255,255,0.3);">
+            <h2 class="text-2xl font-bold text-cyan-400 text-center mb-6"><i class="fas fa-globe"></i> 📱 تواصل معنا</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <a href="https://wa.me/9647718457710" target="_blank" class="social-link bg-green-600 text-white p-3 rounded-xl text-center"><i class="fab fa-whatsapp"></i> واتساب</a>
+                <a href="https://t.me/shop_Ta1" target="_blank" class="social-link bg-blue-500 text-white p-3 rounded-xl text-center"><i class="fab fa-telegram"></i> تيلجرام Shop</a>
+                <a href="https://t.me/ZX6SQ" target="_blank" class="social-link bg-blue-400 text-white p-3 rounded-xl text-center"><i class="fab fa-telegram"></i> تيلجرام ZX6SQ</a>
+                <a href="https://discord.gg/ZTkuEPEQAU" target="_blank" class="social-link bg-indigo-600 text-white p-3 rounded-xl text-center"><i class="fab fa-discord"></i> ديسكورد</a>
+                <a href="https://www.facebook.com/61574327138771/" target="_blank" class="social-link bg-blue-700 text-white p-3 rounded-xl text-center"><i class="fab fa-facebook"></i> فيسبوك</a>
+                <a href="https://instagram.com/shop_Ta1" target="_blank" class="social-link bg-gradient-to-r from-purple-500 to-pink-500 text-white p-3 rounded-xl text-center"><i class="fab fa-instagram"></i> انستغرام</a>
+                <a href="https://www.tiktok.com/@zx6sq" target="_blank" class="social-link bg-black text-white p-3 rounded-xl text-center border border-cyan-400"><i class="fab fa-tiktok"></i> تيك توك</a>
+                <a href="https://x.com/shop_Ta1" target="_blank" class="social-link bg-gray-800 text-white p-3 rounded-xl text-center"><i class="fab fa-twitter"></i> X</a>
+                <a href="https://www.youtube.com/@AXUUY" target="_blank" class="social-link bg-red-600 text-white p-3 rounded-xl text-center"><i class="fab fa-youtube"></i> يوتيوب</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content" style="border: 2px solid; animation: borderPulse 3s infinite;">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent"><i class="fas fa-shopping-cart"></i> 🚀 إتمام الطلب 🚀</h3>
+                <button onclick="closeCheckoutModal()" class="text-cyan-400 text-2xl hover:text-purple-400">✕</button>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-5">
+                <div>
+                    <div class="text-cyan-400 mb-2"><i class="fas fa-box"></i> المنتجات</div>
+                    <div id="cartItemsList" class="max-h-64 overflow-y-auto bg-black/40 rounded-2xl p-3 space-y-2" style="border: 1px solid rgba(0,255,255,0.2);"></div>
+                    <div class="mt-3 flex gap-2">
+                        <input type="text" id="discountCodeInput" placeholder="🏷️ كود الخصم" class="input-field flex-1 text-sm">
+                        <button onclick="applyDiscountCode()" class="btn-purple px-4 rounded-xl text-sm"><i class="fas fa-tag"></i> تطبيق</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="text-cyan-400 mb-2"><i class="fas fa-user-astronaut"></i> معلومات العميل</div>
+                    <div class="space-y-3">
+                        <div><input type="text" id="custFullName" placeholder="🌟 الاسم الكامل *" class="input-field text-sm" oninput="generateSummary()"></div>
+                        <div><input type="text" id="gameId" placeholder="🎮 ID اللعبة" class="input-field text-sm" oninput="generateSummary()"></div>
+                        <div><input type="text" id="userContact" placeholder="📱 يوزر التواصل / رقم الهاتف *" class="input-field text-sm" oninput="generateSummary()"></div>
+                        <div><select id="orderTypeSelect" class="input-field text-sm" onchange="toggleOrderTypeInput(); generateSummary()">
+                            <option value="VIP">👑 VIP</option>
+                            <option value="هدية/قفت">🎁 هدية / قفت</option>
+                            <option value="شحن حساب">💰 شحن حساب</option>
+                            <option value="اشتراك">💎 اشتراك</option>
+                            <option value="اخرى">✏️ أخرى (اكتب يدوياً)</option>
+                        </select></div>
+                        <div><input type="text" id="customOrderType" placeholder="✏️ اكتب نوع الطلب يدوياً" class="input-field text-sm hidden" oninput="generateSummary()"></div>
+                        <div><input type="email" id="custEmail" placeholder="📧 البريد الإلكتروني" class="input-field text-sm" oninput="generateSummary()"></div>
+                        <div><input type="text" id="custPassword" placeholder="🔑 كلمة المرور (لشحن الحساب)" class="input-field text-sm" oninput="generateSummary()"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 bg-gradient-to-br from-cyan-950/50 to-purple-950/50 p-4 rounded-2xl">
+                <div class="flex justify-between mb-2"><span>المجموع:</span><span id="cartSubtotal" class="text-cyan-300">0 IQD</span></div>
+                <div class="flex justify-between mb-2"><span>الخصم:</span><span id="cartDiscountAmount" class="text-green-400">0 IQD</span></div>
+                <div class="flex justify-between text-xl font-bold border-t pt-2"><span>الإجمالي:</span><span id="cartTotal" class="text-cyan-400">0 IQD</span></div>
+            </div>
+            
+            <div class="mt-4 invoice-preview">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-cyan-400 text-xs"><i class="fas fa-file-invoice"></i> معاينة الفاتورة</span>
+                    <button onclick="copyFullInvoice()" class="text-purple-400 text-xs hover:text-cyan-400"><i class="fas fa-copy"></i> 📋 نسخ الفاتورة يدوياً</button>
+                </div>
+                <pre id="fullOrderSummary" class="text-green-300 text-xs whitespace-pre-wrap font-mono" style="max-height: 200px; overflow-y: auto;"></pre>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 justify-center mt-5">
+                <button onclick="sendToWhatsApp()" class="btn-primary px-3 py-2 rounded-xl text-sm"><i class="fab fa-whatsapp"></i> واتساب</button>
+                <button onclick="sendToTelegram()" class="bg-blue-500 px-3 py-2 rounded-xl text-sm"><i class="fab fa-telegram"></i> تيلجرام</button>
+                <button onclick="sendToDiscord()" class="bg-indigo-600 px-3 py-2 rounded-xl text-sm"><i class="fab fa-discord"></i> ديسكورد</button>
+                <button onclick="sendToFacebook()" class="bg-blue-700 px-3 py-2 rounded-xl text-sm"><i class="fab fa-facebook"></i> فيسبوك</button>
+                <button onclick="sendToInstagram()" class="bg-gradient-to-r from-purple-500 to-pink-500 px-3 py-2 rounded-xl text-sm"><i class="fab fa-instagram"></i> انستغرام</button>
+                <button onclick="sendToTikTok()" class="bg-black border border-cyan-400 px-3 py-2 rounded-xl text-sm"><i class="fab fa-tiktok"></i> تيك توك</button>
+            </div>
+            <div class="flex gap-3 justify-center mt-3">
+                <button onclick="clearCart()" class="bg-red-600/50 flex-1 py-2 rounded-xl"><i class="fas fa-trash"></i> تفريغ السلة</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="authModal" class="modal"><div class="modal-content"><button onclick="closeAuthModal()" class="float-left text-cyan-400">✕</button><div class="flex gap-4 mb-4"><button onclick="switchAuthTab('login')" class="flex-1 py-2 font-bold text-cyan-400 border-b-2 border-cyan-400">دخول</button><button onclick="switchAuthTab('signup')" class="flex-1 py-2 font-bold">تسجيل</button></div><div id="loginForm"><input type="text" id="loginUsername" placeholder="اسم المستخدم" class="input-field mb-3"><input type="password" id="loginPassword" placeholder="كلمة المرور" class="input-field mb-4"><button onclick="doLogin()" class="btn-primary w-full py-2 rounded-xl">دخول</button></div><div id="signupForm" class="hidden"><input type="text" id="signupFull" placeholder="الاسم الكامل" class="input-field mb-3"><input type="text" id="signupUser" placeholder="اسم المستخدم" class="input-field mb-3"><input type="email" id="signupEmail" placeholder="البريد" class="input-field mb-3"><input type="password" id="signupPass" placeholder="كلمة المرور" class="input-field mb-4"><button onclick="doSignup()" class="btn-primary w-full py-2 rounded-xl">إنشاء حساب</button></div></div></div>
+
+    <script>
+        // ========== الأسعار الجديدة ==========
+        let fullProducts = [];
+        let productId = 1;
+        
+        // Default image fallback
+        const DEFAULT_IMG = "https://img.icons8.com/fluency/96/shop.png";
+        
+        // ========== الحزم والإكسسوارات ==========
+        const packageImages = [
+            "https://i.imgur.com/CIFGqO5.png", "https://i.imgur.com/cnKJOSm.png", "https://i.imgur.com/VcttGKi.png",
+            "https://i.imgur.com/ec1juSG.png", "https://i.imgur.com/yR7hQmJ.png", "https://i.imgur.com/aKaFOUh.png",
+            "https://i.imgur.com/O7jaMHi.png", "https://i.imgur.com/0sWhyl3.png", "https://i.imgur.com/1UFboGg.png",
+            "https://i.imgur.com/ioKqKJq.png", "https://i.imgur.com/nkz3axB.png", "https://i.imgur.com/7ZxHvl3.png",
+            "https://i.imgur.com/1M8fRCY.png", "https://i.imgur.com/caVCeMk.png", "https://i.imgur.com/ulpF6H1.png",
+            "https://i.imgur.com/YshNYok.png", "https://i.imgur.com/zidOncI.png", "https://i.imgur.com/UjsYjbD.png",
+            "https://i.imgur.com/6cId4bN.png", "https://i.imgur.com/BJYnEba.png", "https://i.imgur.com/o4o0hxh.png",
+            "https://i.imgur.com/GPjBVIq.png", "https://i.imgur.com/NMBIE7L.png", "https://i.imgur.com/xMcOWMU.png",
+            "https://i.imgur.com/KIpaDL2.png", "https://i.imgur.com/Stj3TlY.png", "https://i.imgur.com/GD4Ks8a.png",
+            "https://i.imgur.com/u541Gl8.png", "https://i.imgur.com/ddkRe8q.png", "https://i.imgur.com/nCU94en.png",
+            "https://i.imgur.com/cL64Zn6.png", "https://i.imgur.com/mgfL3ff.png", "https://i.imgur.com/QfvmyYO.png",
+            "https://i.imgur.com/zxW1ZFS.png", "https://i.imgur.com/2dLWHR8.png", "https://i.imgur.com/ZqQI81k.png",
+            "https://i.imgur.com/BRjniSg.png"
+        ];
+        
+        packageImages.forEach((img, index) => {
+            fullProducts.push({ id: productId++, cat: "GIFT", name: `🎁 حزمة ${index + 1} - قفت`, price: 2000, image: img });
+            fullProducts.push({ id: productId++, cat: "VIP", name: `👑 حزمة ${index + 1} - VIP`, price: 5000, image: img });
+        });
+        
+        // ========== الرانكات ==========
+        const rankData = [
+            { name: "رانك قولد 90 يوم", img: "https://i.imgur.com/Nwm77Rh.png", giftPrice: 3000, vipPrice: 7000 },
+            { name: "رانك بلوك وارز 90 يوم", img: "https://i.imgur.com/Nwm77Rh.png", giftPrice: 3000, vipPrice: 7000 },
+            { name: "رانك قولد 30 يوم", img: "https://i.imgur.com/KlcMtUP.png", giftPrice: 3000, vipPrice: 7000 },
+            { name: "رانك لايكي بلوك 90 يوم", img: "https://i.imgur.com/ZsN2Vgz.png", giftPrice: 3000, vipPrice: 7000 },
+            { name: "رانك سكاي وارز 90 يوم", img: "https://i.imgur.com/KdSuIh0.png", giftPrice: 3000, vipPrice: 7000 },
+            { name: "رانك سرفايفل قيمز 90 يوم", img: "https://i.imgur.com/sChYv9H.png", giftPrice: 3000, vipPrice: 7000 },
+            { name: "رانك ايق وارز 90 يوم", img: "https://i.imgur.com/sZSRPuk.png", giftPrice: 3000, vipPrice: 7000 },
+            { name: "رانك سكاي بلوك 90 يوم", img: "https://i.imgur.com/uf1BSlP.png", giftPrice: 3000, vipPrice: 7000 },
+            { name: "رانك باتل ارينا 90 يوم", img: "https://i.imgur.com/keOBWx8.png", giftPrice: 3000, vipPrice: 7000 },
+            { name: "رانك باركور 90 يوم", img: "https://i.imgur.com/uSeFjge.png", giftPrice: 3000, vipPrice: 7000 },
+            { name: "رانك ماينر وير 90 يوم", img: "https://i.imgur.com/3vnAARL.png", giftPrice: 3000, vipPrice: 7000 },
+            { name: "رانك بيد وارز 90 يوم", img: "https://i.imgur.com/ZOPJiYd.png", giftPrice: 3000, vipPrice: 7000 }
+        ];
+        
+        rankData.forEach(rank => {
+            fullProducts.push({ id: productId++, cat: "GIFT", name: `🎁 ${rank.name} - قفت`, price: rank.giftPrice, image: rank.img });
+            fullProducts.push({ id: productId++, cat: "VIP", name: `👑 ${rank.name} - VIP`, price: rank.vipPrice, image: rank.img });
+        });
+        
+        // ========== منتجات VIP فقط ==========
+        const vipImages = [
+            "https://i.imgur.com/WYDcyDI.png", "https://i.imgur.com/bARonSt.png", "https://i.imgur.com/24fLhTN.png",
+            "https://i.imgur.com/DrLcZeZ.png", "https://i.imgur.com/ogI7TBL.png", "https://i.imgur.com/o7DyR9A.png",
+            "https://i.imgur.com/yDzUiHL.png", "https://i.imgur.com/W8Fb3z8.png", "https://i.imgur.com/UN9lPAt.png"
+        ];
+        vipImages.forEach((img, index) => {
+            fullProducts.push({ id: productId++, cat: "VIP", name: `👑 منتج VIP ${index + 1}`, price: 5000, image: img });
+        });
+        
+        // ========== ماين كرافت ومنتجات إضافية ==========
+        fullProducts.push({ id: productId++, cat: "MC", name: `⛏️ ماين كوينز - 620 كوينز`, price: 3000, image: "https://img.icons8.com/fluency/96/minecraft-logo.png" });
+        fullProducts.push({ id: productId++, cat: "MC", name: `⛏️ ماين كوينز - 1240 كوينز`, price: 5000, image: "https://img.icons8.com/fluency/96/minecraft-logo.png" });
+        fullProducts.push({ id: productId++, cat: "MC", name: `⛏️ ماين كوينز - 1860 كوينز`, price: 7000, image: "https://img.icons8.com/fluency/96/minecraft-logo.png" });
+        fullProducts.push({ id: productId++, cat: "MC", name: `⛏️ ماين كوينز - 3410 كوينز`, price: 10000, image: "https://img.icons8.com/fluency/96/minecraft-logo.png" });
+        fullProducts.push({ id: productId++, cat: "MC", name: `⛏️ ماين كوينز - 8060 كوينز`, price: 25000, image: "https://img.icons8.com/fluency/96/minecraft-logo.png" });
+        fullProducts.push({ id: productId++, cat: "MC", name: `⛏️ ماين كرافت (جافا + بيدروك) - كود رقمي`, price: 30000, image: "https://img.icons8.com/fluency/96/minecraft-logo.png" });
+        fullProducts.push({ id: productId++, cat: "GAMES", name: `🎮 GTA V - كود رقمي`, price: 25000, image: "https://img.icons8.com/fluency/96/game-controller.png" });
+        
+        // ========== الحسابات ==========
+        let shopUsers = [];
+        const namesList = ['Ahmed','Mohammed','Ali','Hassan','Hussein','Zahra','Fatima','Noor','Omar','Khalid','Youssef','Ibrahim','Mahmoud','Tariq','Saif','Malek','Rami','Sami','Hadi','Rana','Lina','Sara','Mona','Dina','Huda','Amira','Layla','Nadia','Ruba','Aya','Leen','Tala','Jana','Sama','Rimas','Kinda','Mira','Naya','Lya','Zain'];
+        const families = ['العمري','العبيدي','التميمي','الخفاجي','الجبوري','البدري','السعدي','الناصري','الراوي','الحياني','القيسي','العباسي','الهاشمي','القريشي','التميمي'];
+        
+        shopUsers.push({ id: 1, username: "ADMIN_TA1", password: "Xy9#Km2@Qw8!", fullname: "مدير المتجر", tier: "admin", discount: 0, email: "admin@shopta1.com" });
+        
+        for(let i = 1; i <= 100; i++) {
+            let discount = 5 + Math.floor(Math.random() * 46);
+            let tier = discount >= 35 ? 'vip' : (discount >= 20 ? 'premium' : 'normal');
+            shopUsers.push({ id: 100+i, username: `user_${i}_${Math.random().toString(36).substring(2,6)}`, password: `pass${i}${Math.random().toString(36).substring(2,5)}`, fullname: `${namesList[i%namesList.length]} ${families[i%families.length]}`, tier, discount: discount, email: `user${i}@shop.com` });
+        }
+        
+        // ========== كودات خصم ==========
+        let discountCodes = [
+            { code: "WELCOME50", percent: 50, target: "new" },
+            { code: "SAVE20", percent: 20, target: "all" },
+            { code: "VIP60", percent: 60, target: "vip" },
+            { code: "FLASH30", percent: 30, target: "all" },
+            { code: "SUMMER50", percent: 50, target: "all" },
+            { code: "NEON25", percent: 25, target: "all" },
+            { code: "SPACE40", percent: 40, target: "all" },
+            { code: "GALAXY35", percent: 35, target: "all" },
+            { code: "STAR15", percent: 15, target: "all" },
+            { code: "AXUUY", percent: 50, target: "all" }
+        ];
+        
+        for(let i = 0; i < 15; i++) {
+            let percent = 5 + Math.floor(Math.random() * 46);
+            discountCodes.push({ code: `CODE${100+i}_${Math.random().toString(36).substring(2,5).toUpperCase()}`, percent: percent, target: "all" });
+        }
+        
+        // ========== Variables ==========
+        let cart = [], activeCurrency = 'IQD', currentFilter = 'ALL', currentView = 'normal';
+        let loggedInUser = null, userDiscount = 0, userTier = 'normal', appliedDiscount = null;
+        const rates = { IQD:1, USD:0.00068, SAR:0.0025 };
+        
+        // ========== Helper Functions ==========
+        function handleImageError(img) { img.src = DEFAULT_IMG; }
+        
+        function downloadFile(content, filename, type) {
+            const blob = new Blob([content], { type: type });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // ========== Export Functions ==========
+        function exportProductsJSON() {
+            const data = JSON.stringify(fullProducts, null, 2);
+            downloadFile(data, 'shop_products.json', 'application/json');
+            alert('✅ تم تصدير المنتجات بنجاح');
+        }
+        
+        function exportUsersJSON() {
+            const usersToExport = shopUsers.map(u => ({ username: u.username, password: u.password, fullname: u.fullname, discount: u.discount, tier: u.tier }));
+            const data = JSON.stringify(usersToExport, null, 2);
+            downloadFile(data, 'shop_users.json', 'application/json');
+            alert('✅ تم تصدير الحسابات بنجاح');
+        }
+        
+        function exportCodesJSON() {
+            const data = JSON.stringify(discountCodes, null, 2);
+            downloadFile(data, 'shop_codes.json', 'application/json');
+            alert('✅ تم تصدير كودات الخصم بنجاح');
+        }
+        
+        function exportAllData() {
+            const allData = { products: fullProducts, users: shopUsers.map(u => ({ username: u.username, password: u.password, fullname: u.fullname, discount: u.discount, tier: u.tier })), codes: discountCodes, exportDate: new Date().toISOString() };
+            const data = JSON.stringify(allData, null, 2);
+            downloadFile(data, `shop_all_data_${new Date().toISOString().slice(0,19)}.json`, 'application/json');
+            alert('✅ تم تصدير جميع البيانات بنجاح');
+        }
+        
+        function printProducts() {
+            let printContent = '<html dir="rtl"><head><title>منتجات SHOP_tA1</title><style>body{font-family:Arial;padding:20px;}table{border-collapse:collapse;width:100%;}th,td{border:1px solid #ddd;padding:8px;text-align:right;}th{background:#00ffff;color:black;}</style></head><body>';
+            printContent += '<h1 style="text-align:center">📋 قائمة المنتجات - SHOP_tA1</h1>';
+            printContent += '<table><tr><th>ID</th><th>الاسم</th><th>السعر (IQD)</th><th>القسم</th></tr>';
+            fullProducts.forEach(p => { printContent += `<tr><td>${p.id}</td><td>${p.name}</td><td>${p.price.toLocaleString()}</td><td>${p.cat}</td></tr>`; });
+            printContent += '</table><p style="margin-top:20px">📅 تاريخ الطباعة: ' + new Date().toLocaleString('ar-IQ') + '</p></body></html>';
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            printWindow.print();
+        }
+        
+        // ========== Storage Functions ==========
+        function saveUsers() { localStorage.setItem('shop_users_final_v6', JSON.stringify(shopUsers)); }
+        function saveCodes() { localStorage.setItem('shop_codes_final_v6', JSON.stringify(discountCodes)); }
+        function saveCurrentUser(u) { localStorage.setItem('current_user_final_v6', JSON.stringify(u)); }
+        
+        function loadShopData() {
+            const savedUsers = localStorage.getItem('shop_users_final_v6');
+            if(savedUsers) { try { shopUsers = JSON.parse(savedUsers); } catch(e) {} }
+            const savedCodes = localStorage.getItem('shop_codes_final_v6');
+            if(savedCodes) { try { discountCodes = JSON.parse(savedCodes); } catch(e) {} }
+            const savedUser = localStorage.getItem('current_user_final_v6');
+            if(savedUser) {
+                let u = JSON.parse(savedUser);
+                loggedInUser = u.username;
+                userDiscount = u.discount;
+                userTier = u.tier;
+                document.getElementById('loginBtn').classList.add('hidden');
+                document.getElementById('logoutBtn').classList.remove('hidden');
+                let badge = u.tier === 'admin' ? '<span class="badge-admin">⚡ أدمن</span>' : (u.tier === 'vip' ? '<span class="badge-vip">👑 VIP</span>' : (u.tier === 'premium' ? '<span class="badge-premium">💎 مميز</span>' : '<span class="badge-normal">🌟 عادي</span>'));
+                document.getElementById('userNameDisplay').innerHTML = `${badge} ${u.username} ${u.discount>0 ? `- خصم ${u.discount}%` : ''}`;
+                if(u.tier === 'admin') document.getElementById('adminPanel').classList.remove('hidden');
+                document.getElementById('welcomeBanner').classList.remove('hidden');
+                document.getElementById('welcomeMessage').innerHTML = `🌌 مرحباً ${u.fullname}! خصمك ${u.discount}% مفعل تلقائياً 🌌`;
+            }
+            updateAdminSelect();
+            updateActiveCodes();
+        }
+        
+        function updateAdminSelect() { 
+            let s = document.getElementById('adminProductSelect'); 
+            if(s) s.innerHTML = '<option value="">-- اختر منتج --</option>' + fullProducts.slice(0,400).map(p=>`<option value="${p.id}">${p.name.substring(0,35)}</option>`).join(''); 
+            let d = document.getElementById('adminDeleteSelect'); 
+            if(d) d.innerHTML = '<option value="">-- اختر منتج للحذف --</option>' + fullProducts.slice(0,400).map(p=>`<option value="${p.id}">${p.name.substring(0,35)}</option>`).join(''); 
+        }
+        
+        function updateActiveCodes() { 
+            let container = document.getElementById('activeCodesList');
+            if(container) container.innerHTML = discountCodes.map(c=>`<span class="axuuy-code ${c.code === 'AXUUY' ? 'border-2 border-yellow-400' : ''}">${c.code}(${c.percent}%)</span>`).join(' - '); 
+        }
+        
+        // ========== Render Products ==========
+        function renderProducts() {
+            let filtered = fullProducts.filter(p => currentFilter === 'ALL' ? true : p.cat === currentFilter);
+            let search = document.getElementById('mainSearch')?.value.toLowerCase() || '';
+            if(search) filtered = filtered.filter(p => p.name.toLowerCase().includes(search));
+            let container = document.getElementById('productContainer');
+            if(!container) return;
+            
+            if(currentView === 'normal') {
+                container.innerHTML = filtered.slice(0, 200).map(p => `<div class="product-card p-3 text-center"><img src="${p.image}" class="normal-product-img h-28 object-contain" onerror="this.src='${DEFAULT_IMG}'"><h3 class="font-bold text-xs mt-2 line-clamp-2">${p.name}</h3><div class="mt-2 bg-cyan-500/20 px-2 py-1 rounded-full"><span class="text-cyan-400 text-sm">${Math.ceil(p.price*rates[activeCurrency]).toLocaleString()} ${activeCurrency}</span></div><button onclick="addToCart(${p.id}, '${p.name.replace(/'/g,"\\'")}', ${p.price}, '${p.image.replace(/'/g,"\\'")}')" class="mt-2 w-full bg-cyan-600/30 hover:bg-cyan-500 py-1 rounded-xl text-xs">➕ إضافة</button></div>`).join('');
+            } else if(currentView === '2d') {
+                container.innerHTML = filtered.slice(0, 200).map(p => `<div class="product-card p-3 text-center bg-gradient-to-br from-gray-900 to-black"><div class="w-14 h-14 rounded-full bg-cyan-500/20 flex items-center justify-center mx-auto"><i class="fas fa-box text-2xl text-cyan-400"></i></div><h3 class="font-bold text-xs mt-2">${p.name}</h3><div class="mt-1 text-cyan-400 font-bold text-sm">${Math.ceil(p.price*rates[activeCurrency]).toLocaleString()} ${activeCurrency}</div><button onclick="addToCart(${p.id}, '${p.name.replace(/'/g,"\\'")}', ${p.price}, '${p.image.replace(/'/g,"\\'")}')" class="mt-2 w-full bg-cyan-600/30 hover:bg-cyan-500 py-1 rounded-xl text-xs">➕ شراء</button></div>`).join('');
+            } else {
+                container.innerHTML = filtered.slice(0, 200).map(p => `<div class="card-3d product-card p-3 text-center bg-gradient-to-br from-gray-900 to-black border border-purple-500/30"><div class="w-14 h-14 rounded-full bg-purple-500/20 flex items-center justify-center mx-auto"><i class="fas fa-cube text-2xl text-purple-400"></i></div><h3 class="font-bold text-xs mt-2">${p.name}</h3><div class="mt-1 text-cyan-400 font-bold text-sm">${Math.ceil(p.price*rates[activeCurrency]).toLocaleString()} ${activeCurrency}</div><button onclick="addToCart(${p.id}, '${p.name.replace(/'/g,"\\'")}', ${p.price}, '${p.image.replace(/'/g,"\\'")}')" class="mt-2 w-full bg-purple-600/30 hover:bg-purple-500 py-1 rounded-xl text-xs">✨ شراء</button></div>`).join('');
+                setTimeout(() => {
+                    document.querySelectorAll('.card-3d').forEach(c => {
+                        c.addEventListener('mousemove', (e) => {
+                            let r = c.getBoundingClientRect();
+                            let x = (e.clientX - r.left) / r.width - 0.5;
+                            let y = (e.clientY - r.top) / r.height - 0.5;
+                            c.style.transform = `perspective(500px) rotateX(${y*5}deg) rotateY(${x*5}deg) translateY(-3px)`;
+                        });
+                        c.addEventListener('mouseleave', () => c.style.transform = '');
+                    });
+                }, 50);
+            }
+        }
+        
+        // ========== Cart Functions ==========
+        function addToCart(id, name, price, image, eventObj) {
+            let existing = cart.find(i => i.id === id);
+            if(existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ id, name, price, quantity: 1, image });
+            }
+            updateCartUI();
+            renderCartItems();
+            // Visual feedback
+            if(eventObj && eventObj.target) {
+                let btn = eventObj.target;
+                btn.innerText = "✓ تم";
+                setTimeout(() => { if(btn) btn.innerText = "➕ إضافة"; }, 800);
+            }
+        }
+        
+        function updateCartUI() { 
+            let cartCountElem = document.getElementById('cartCount');
+            if(cartCountElem) cartCountElem.innerText = cart.reduce((s,i)=>s+i.quantity,0);
+        }
+        
+        function renderCartItems() { 
+            let c = document.getElementById('cartItemsList'); 
+            if(!c) return; 
+            if(cart.length === 0) { 
+                c.innerHTML = '<div class="text-center text-gray-400">السلة فارغة</div>'; 
+                updateTotals(); 
+                return; 
+            } 
+            c.innerHTML = cart.map(i => `<div class="flex justify-between items-center bg-black/40 p-2 rounded-xl"><div class="flex items-center gap-2"><img src="${i.image}" class="product-img-cart" onerror="this.src='${DEFAULT_IMG}'"><div class="text-sm">${i.name}<div class="text-xs text-gray-400">${Math.ceil(i.price*rates[activeCurrency])} × ${i.quantity}</div></div></div><div class="flex gap-2"><button onclick="changeQty(${i.id},-1)" class="w-7 h-7 bg-cyan-500/20 rounded-lg">-</button><span class="w-6 text-center">${i.quantity}</span><button onclick="changeQty(${i.id},1)" class="w-7 h-7 bg-cyan-500/20 rounded-lg">+</button><button onclick="removeItem(${i.id})" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join(''); 
+            updateTotals(); 
+        }
+        
+        function changeQty(id, d) {
+            let i = cart.find(item => item.id === id);
+            if(i) {
+                i.quantity += d;
+                if(i.quantity <= 0) cart = cart.filter(x => x.id !== id);
+                renderCartItems();
+                updateCartUI();
+            }
+        }
+        
+        function removeItem(id) {
+            cart = cart.filter(i => i.id !== id);
+            renderCartItems();
+            updateCartUI();
+        }
+        
+        function updateTotals() {
+            let sub = cart.reduce((s,i)=>s+(i.price*i.quantity),0);
+            let disc = appliedDiscount ? appliedDiscount.percent : (userDiscount||0);
+            let amt = (sub*disc)/100;
+            let total = sub - amt;
+            let subEl = document.getElementById('cartSubtotal');
+            let discEl = document.getElementById('cartDiscountAmount');
+            let totalEl = document.getElementById('cartTotal');
+            if(subEl) subEl.innerHTML = `${Math.ceil(sub*rates[activeCurrency]).toLocaleString()} ${activeCurrency}`;
+            if(discEl) discEl.innerHTML = `${Math.ceil(amt*rates[activeCurrency]).toLocaleString()} ${activeCurrency}`;
+            if(totalEl) totalEl.innerHTML = `${Math.ceil(total*rates[activeCurrency]).toLocaleString()} ${activeCurrency}`;
+            generateSummary();
+        }
+        
+        function toggleOrderTypeInput() { 
+            let select = document.getElementById('orderTypeSelect'); 
+            let customInput = document.getElementById('customOrderType'); 
+            if(select && customInput) {
+                if(select.value === 'اخرى') customInput.classList.remove('hidden'); 
+                else customInput.classList.add('hidden');
+            }
+            generateSummary(); 
+        }
+        
+        function getOrderType() { 
+            let select = document.getElementById('orderTypeSelect'); 
+            if(select && select.value === 'اخرى') { 
+                let custom = document.getElementById('customOrderType'); 
+                return (custom && custom.value) || 'طلب مخصص'; 
+            } 
+            return select ? select.value : 'VIP';
+        }
+        
+        function generateSummary() {
+            let sub = cart.reduce((s,i)=>s+(i.price*i.quantity),0);
+            let disc = appliedDiscount ? appliedDiscount.percent : (userDiscount||0);
+            let amt = (sub*disc)/100;
+            let total = sub - amt;
+            let name = document.getElementById('custFullName')?.value || 'لم يكتب';
+            let gameId = document.getElementById('gameId')?.value || 'لم يكتب';
+            let userContact = document.getElementById('userContact')?.value || 'لم يكتب';
+            let orderType = getOrderType();
+            let email = document.getElementById('custEmail')?.value || 'لم يكتب';
+            let password = document.getElementById('custPassword')?.value || 'غير مطلوب';
+            let productsText = cart.map(i => `📦 ${i.name} ×${i.quantity} = ${Math.ceil(i.price*i.quantity*rates[activeCurrency])} ${activeCurrency}`).join('\n');
+            if(productsText === '') productsText = '❌ لا توجد منتجات';
+            let summary = `╔══════════════════════════════════════════════════════════════╗
+║                 🚀 SHOP_tA1 - طلب جديد 🚀                    ║
+╠══════════════════════════════════════════════════════════════╣
+📋 معلومات العميل:
+   👤 الاسم: ${name}
+   🎮 ID اللعبة: ${gameId}
+   📱 يوزر التواصل: ${userContact}
+   🎁 نوع الطلب: ${orderType}
+   📧 البريد الإلكتروني: ${email}
+   🔑 كلمة المرور: ${password}
+
+🛒 المنتجات المطلوبة:
+${productsText}
+
+💰 المجموع: ${Math.ceil(sub*rates[activeCurrency])} ${activeCurrency}
+🎁 الخصم: ${disc}% (-${Math.ceil(amt*rates[activeCurrency])} ${activeCurrency})
+💵 الإجمالي النهائي: ${Math.ceil(total*rates[activeCurrency])} ${activeCurrency}
+🔑 كود الخصم المستخدم: ${appliedDiscount?.code||'لا يوجد'}
+
+📅 تاريخ الطلب: ${new Date().toLocaleString('ar-IQ')}
+╚══════════════════════════════════════════════════════════════╝`;
+            let summaryElem = document.getElementById('fullOrderSummary');
+            if(summaryElem) summaryElem.innerText = summary;
+        }
+        
+        function applyDiscountCode() { 
+            let code = document.getElementById('discountCodeInput')?.value.toUpperCase(); 
+            if(!code) { alert('الرجاء إدخال كود الخصم'); return; }
+            let found = discountCodes.find(d=>d.code===code); 
+            if(found) { 
+                if(found.target === 'vip' && userTier !== 'vip') { 
+                    alert('هذا الكود مخصص لحسابات VIP فقط'); 
+                    return; 
+                } 
+                appliedDiscount = found; 
+                alert(`✅ تم تطبيق خصم ${found.percent}%`); 
+                updateTotals(); 
+            } else alert('❌ كود خصم غير صالح'); 
+        }
+        
+        function copyFullInvoice() { 
+            let text = document.getElementById('fullOrderSummary')?.innerText; 
+            if(text) {
+                navigator.clipboard.writeText(text); 
+                alert('✅ تم نسخ الفاتورة بنجاح!');
+            }
+        }
+        
+        // ========== Social Share Functions ==========
+        function sendToWhatsApp() { 
+            let msg = document.getElementById('fullOrderSummary')?.innerText; 
+            if(msg) window.open(`https://wa.me/9647718457710?text=${encodeURIComponent(msg)}`); 
+        }
+        function sendToTelegram() { 
+            let msg = document.getElementById('fullOrderSummary')?.innerText; 
+            if(msg) window.open(`https://t.me/share/url?url=&text=${encodeURIComponent(msg)}`); 
+        }
+        function sendToDiscord() { alert('📋 انسخ الفاتورة يدوياً من الأعلى ثم الصقها في ديسكورد'); }
+        function sendToFacebook() { 
+            let msg = document.getElementById('fullOrderSummary')?.innerText; 
+            if(msg) window.open(`https://www.facebook.com/sharer/sharer.php?quote=${encodeURIComponent(msg)}`); 
+        }
+        function sendToInstagram() { alert('📋 انسخ الفاتورة يدوياً من الأعلى ثم الصقها في انستغرام'); }
+        function sendToTikTok() { alert('📋 انسخ الفاتورة يدوياً من الأعلى ثم الصقها في تيك توك'); }
+        
+        // ========== Admin Functions ==========
+        function adminAddProduct() { 
+            if(loggedInUser !== 'ADMIN_TA1') { alert('فقط الأدمن'); return; } 
+            let n = document.getElementById('adminProdName')?.value; 
+            let p = parseInt(document.getElementById('adminProdPrice')?.value); 
+            let cat = document.getElementById('adminProdCat')?.value; 
+            let img = document.getElementById('adminProdImage')?.value; 
+            if(!n || !p) { alert('املأ البيانات'); return; } 
+            fullProducts.unshift({ id: Date.now(), cat, name: n, price: p, image: img || DEFAULT_IMG }); 
+            renderProducts(); 
+            updateAdminSelect(); 
+            alert('✅ تم إضافة المنتج'); 
+            if(document.getElementById('adminProdName')) document.getElementById('adminProdName').value = ''; 
+            if(document.getElementById('adminProdPrice')) document.getElementById('adminProdPrice').value = ''; 
+            if(document.getElementById('adminProdImage')) document.getElementById('adminProdImage').value = ''; 
+        }
+        
+        function adminUpdateProduct() { 
+            if(loggedInUser !== 'ADMIN_TA1') { alert('فقط الأدمن'); return; } 
+            let id = parseInt(document.getElementById('adminProductSelect')?.value); 
+            let p = fullProducts.find(p=>p.id===id); 
+            if(!p) { alert('اختر منتجاً'); return; } 
+            let nn = document.getElementById('adminEditName')?.value; 
+            let np = parseInt(document.getElementById('adminEditPrice')?.value); 
+            if(nn) p.name = nn; 
+            if(np) p.price = np; 
+            renderProducts(); 
+            alert('✅ تم تحديث المنتج'); 
+            if(document.getElementById('adminEditName')) document.getElementById('adminEditName').value = ''; 
+            if(document.getElementById('adminEditPrice')) document.getElementById('adminEditPrice').value = ''; 
+        }
+        
+        function adminDeleteProduct() { 
+            if(loggedInUser !== 'ADMIN_TA1') { alert('فقط الأدمن'); return; } 
+            let id = parseInt(document.getElementById('adminDeleteSelect')?.value); 
+            if(!id) { alert('اختر منتجاً للحذف'); return; } 
+            if(confirm('حذف المنتج نهائياً؟')) { 
+                let idx = fullProducts.findIndex(p=>p.id===id); 
+                if(idx !== -1) fullProducts.splice(idx,1); 
+                renderProducts(); 
+                updateAdminSelect(); 
+                alert('✅ تم حذف المنتج'); 
+            } 
+        }
+        
+        function adminAddDiscountCode() { 
+            if(loggedInUser !== 'ADMIN_TA1') return; 
+            let c = document.getElementById('discountCodeInputAdmin')?.value.toUpperCase(); 
+            let p = parseInt(document.getElementById('discountPercentAdmin')?.value); 
+            let t = document.getElementById('discountTargetAdmin')?.value; 
+            if(c && p>=5 && p<=50) { 
+                discountCodes.push({ code: c, percent: p, target: t }); 
+                saveCodes(); 
+                alert(`✅ تم إضافة كود ${c} بنسبة ${p}%`); 
+                if(document.getElementById('discountCodeInputAdmin')) document.getElementById('discountCodeInputAdmin').value = ''; 
+                if(document.getElementById('discountPercentAdmin')) document.getElementById('discountPercentAdmin').value = ''; 
+                updateActiveCodes(); 
+            } else alert('نسبة الخصم من 5 إلى 50'); 
+        }
+        
+        function adminAddUser() { 
+            if(loggedInUser !== 'ADMIN_TA1') { alert('فقط الأدمن'); return; } 
+            let u = document.getElementById('newUsername')?.value; 
+            let pw = document.getElementById('newPassword')?.value; 
+            let d = parseInt(document.getElementById('newDiscount')?.value); 
+            if(!u || !pw) { alert('املأ البيانات'); return; } 
+            if(shopUsers.find(s=>s.username===u)) { alert('الاسم موجود'); return; } 
+            let tier = d>=35 ? 'vip' : (d>=20 ? 'premium' : 'normal'); 
+            shopUsers.push({ id: Date.now(), username: u, password: pw, fullname: u, tier, discount: d, email: `${u}@shop.com` }); 
+            saveUsers(); 
+            alert(`✅ تم إضافة حساب ${u} بخصم ${d}%`); 
+            if(document.getElementById('newUsername')) document.getElementById('newUsername').value = ''; 
+            if(document.getElementById('newPassword')) document.getElementById('newPassword').value = ''; 
+            if(document.getElementById('newDiscount')) document.getElementById('newDiscount').value = ''; 
+        }
+        
+        // ========== Auth Functions ==========
+        function openAuthModal() { 
+            let modal = document.getElementById('authModal');
+            if(modal) modal.style.display = 'flex';
+        }
+        function closeAuthModal() { 
+            let modal = document.getElementById('authModal');
+            if(modal) modal.style.display = 'none';
+        }
+        function switchAuthTab(t) { 
+            let loginForm = document.getElementById('loginForm');
+            let signupForm = document.getElementById('signupForm');
+            if(loginForm) loginForm.classList.toggle('hidden', t !== 'login');
+            if(signupForm) signupForm.classList.toggle('hidden', t !== 'signup');
+        }
+        
+        function doLogin() { 
+            let u = document.getElementById('loginUsername')?.value; 
+            let p = document.getElementById('loginPassword')?.value; 
+            let found = shopUsers.find(s=>s.username===u && s.password===p); 
+            if(found) { 
+                loggedInUser = found.username; 
+                userDiscount = found.discount; 
+                userTier = found.tier; 
+                saveCurrentUser({ username: found.username, discount: found.discount, tier: found.tier, fullname: found.fullname }); 
+                let loginBtn = document.getElementById('loginBtn');
+                let logoutBtn = document.getElementById('logoutBtn');
+                if(loginBtn) loginBtn.classList.add('hidden');
+                if(logoutBtn) logoutBtn.classList.remove('hidden');
+                let badge = found.tier === 'admin' ? '<span class="badge-admin">⚡ أدمن</span>' : (found.tier === 'vip' ? '<span class="badge-vip">👑 VIP</span>' : (found.tier === 'premium' ? '<span class="badge-premium">💎 مميز</span>' : '<span class="badge-normal">🌟 عادي</span>'));
+                let userNameDisplay = document.getElementById('userNameDisplay');
+                if(userNameDisplay) userNameDisplay.innerHTML = `${badge} ${found.username} ${found.discount>0 ? `- خصم ${found.discount}%` : ''}`;
+                let adminPanel = document.getElementById('adminPanel');
+                if(adminPanel && found.tier === 'admin') adminPanel.classList.remove('hidden');
+                let welcomeBanner = document.getElementById('welcomeBanner');
+                let welcomeMessage = document.getElementById('welcomeMessage');
+                if(welcomeBanner) welcomeBanner.classList.remove('hidden');
+                if(welcomeMessage) welcomeMessage.innerHTML = `🌌 مرحباً ${found.fullname}! خصمك ${found.discount}% مفعل تلقائياً 🌌`;
+                closeAuthModal(); 
+                renderProducts(); 
+                alert(`مرحباً ${found.fullname}! لديك خصم ${found.discount}%`); 
+            } else alert('بيانات دخول غير صحيحة'); 
+        }
+        
+        function doSignup() { 
+            let f = document.getElementById('signupFull')?.value; 
+            let u = document.getElementById('signupUser')?.value; 
+            let e = document.getElementById('signupEmail')?.value; 
+            let p = document.getElementById('signupPass')?.value; 
+            if(!u || !p || !f) { alert('املأ جميع الحقول'); return; } 
+            if(shopUsers.find(s=>s.username===u)) { alert('اسم المستخدم موجود'); return; } 
+            let newUser = { id: Date.now(), username: u, password: p, fullname: f, email: e, tier: 'normal', discount: 5 }; 
+            shopUsers.push(newUser); 
+            saveUsers(); 
+            alert('✅ تم إنشاء حساب بنجاح! خصم ترحيبي 5%'); 
+            switchAuthTab('login'); 
+        }
+        
+        function logout() { 
+            loggedInUser = null; 
+            userDiscount = 0; 
+            userTier = 'normal'; 
+            appliedDiscount = null; 
+            localStorage.removeItem('current_user_final_v6'); 
+            let loginBtn = document.getElementById('loginBtn');
+            let logoutBtn = document.getElementById('logoutBtn');
+            if(loginBtn) loginBtn.classList.remove('hidden');
+            if(logoutBtn) logoutBtn.classList.add('hidden');
+            let adminPanel = document.getElementById('adminPanel');
+            if(adminPanel) adminPanel.classList.add('hidden');
+            let welcomeBanner = document.getElementById('welcomeBanner');
+            if(welcomeBanner) welcomeBanner.classList.add('hidden');
+            renderProducts(); 
+            alert('تم تسجيل الخروج'); 
+        }
+        
+        // ========== UI Functions ==========
+        function scrollToAddProduct() { 
+            document.getElementById('adminPanel')?.scrollIntoView({ behavior: 'smooth' }); 
+        }
+        function changeViewMode() { 
+            currentView = document.getElementById('viewModeSelect')?.value || 'normal'; 
+            renderProducts(); 
+        }
+        function changeCurrency() { 
+            activeCurrency = document.getElementById('currencySel')?.value || 'IQD'; 
+            renderProducts(); 
+            renderCartItems();
+        }
+        function filterCat(cat) { 
+            currentFilter = cat; 
+            document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('active')); 
+            let activeBtn = document.getElementById(`btn-${cat}`);
+            if(activeBtn) activeBtn.classList.add('active');
+            renderProducts(); 
+        }
+        function liveSearch() { renderProducts(); }
+        function openCheckoutModal() { 
+            if(cart.length===0) { alert('السلة فارغة'); return; } 
+            renderCartItems(); 
+            generateSummary(); 
+            let modal = document.getElementById('checkoutModal');
+            if(modal) modal.style.display = 'flex';
+        }
+        function closeCheckoutModal() { 
+            let modal = document.getElementById('checkoutModal');
+            if(modal) modal.style.display = 'none';
+        }
+        function clearCart() { 
+            cart = []; 
+            renderCartItems(); 
+            updateCartUI(); 
+            closeCheckoutModal(); 
+        }
+        
+        // ========== Stars Animation ==========
+        for(let i=0; i<400; i++) { 
+            let s = document.createElement('div'); 
+            s.className = 'star'; 
+            s.style.width = Math.random()*3+1 + 'px'; 
+            s.style.height = s.style.width; 
+            s.style.left = Math.random()*100 + '%'; 
+            s.style.top = Math.random()*100 + '%'; 
+            s.style.animationDelay = Math.random()*5 + 's'; 
+            s.style.animationDuration = 2+Math.random()*3 + 's'; 
+            document.getElementById('starsContainer')?.appendChild(s); 
+        }
+        
+        // ========== Initialize ==========
+        window.onload = () => { 
+            loadShopData(); 
+            renderProducts(); 
+        };
+        
+        // Make functions global
+        window.exportProductsJSON = exportProductsJSON;
+        window.exportUsersJSON = exportUsersJSON;
+        window.exportCodesJSON = exportCodesJSON;
+        window.exportAllData = exportAllData;
+        window.printProducts = printProducts;
+        window.addToCart = addToCart;
+        window.changeQty = changeQty;
+        window.removeItem = removeItem;
+        window.applyDiscountCode = applyDiscountCode;
+        window.copyFullInvoice = copyFullInvoice;
+        window.sendToWhatsApp = sendToWhatsApp;
+        window.sendToTelegram = sendToTelegram;
+        window.sendToDiscord = sendToDiscord;
+        window.sendToFacebook = sendToFacebook;
+        window.sendToInstagram = sendToInstagram;
+        window.sendToTikTok = sendToTikTok;
+        window.adminAddProduct = adminAddProduct;
+        window.adminUpdateProduct = adminUpdateProduct;
+        window.adminDeleteProduct = adminDeleteProduct;
+        window.adminAddDiscountCode = adminAddDiscountCode;
+        window.adminAddUser = adminAddUser;
+        window.openAuthModal = openAuthModal;
+        window.closeAuthModal = closeAuthModal;
+        window.switchAuthTab = switchAuthTab;
+        window.doLogin = doLogin;
+        window.doSignup = doSignup;
+        window.logout = logout;
+        window.scrollToAddProduct = scrollToAddProduct;
+        window.changeViewMode = changeViewMode;
+        window.changeCurrency = changeCurrency;
+        window.filterCat = filterCat;
+        window.liveSearch = liveSearch;
+        window.openCheckoutModal = openCheckoutModal;
+        window.closeCheckoutModal = closeCheckoutModal;
+        window.clearCart = clearCart;
+        window.toggleOrderTypeInput = toggleOrderTypeInput;
+        window.generateSummary = generateSummary;
+    </script>
+</body>
+</html>
