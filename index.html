@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>SHOP_tA1 | المتجر الرسمي - رانكات وقفت وماين كرافت</title>
-    
+    <title>SHOP_tA1 | المتجر الرسمي - قفت و VIP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -19,92 +17,43 @@
             position: relative;
             overflow-x: hidden;
         }
-        
         .stars-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
         .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 3s infinite ease-in-out; }
         @keyframes twinkle { 0%,100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
-        
         .nebula { position: fixed; width: 500px; height: 500px; border-radius: 50%; filter: blur(80px); opacity: 0.15; pointer-events: none; z-index: 0; animation: floatNebula 25s infinite; }
         @keyframes floatNebula { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(80px,40px) scale(1.1); } }
-        
-        .glass-nav, .glass-card, .product-card, .admin-panel {
-            background: rgba(10, 10, 30, 0.5);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 28px;
-        }
+        .glass-nav, .glass-card, .product-card, .admin-panel { background: rgba(10, 10, 30, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 28px; }
         .glass-nav { background: rgba(0, 0, 0, 0.7); border-bottom: 1px solid #00ffff; }
-        
-        .product-card {
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            cursor: pointer;
-        }
+        .product-card { transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); cursor: pointer; }
         .product-card:hover { transform: translateY(-8px) scale(1.02); border-color: #00ffff; box-shadow: 0 0 30px rgba(0,255,255,0.5); }
-        
-        .btn-primary, .btn-cyan {
-            background: linear-gradient(135deg, #00ffff, #0088ff);
-            color: black;
-            font-weight: bold;
-            transition: all 0.2s;
-            border: none;
-        }
+        .btn-primary, .btn-cyan { background: linear-gradient(135deg, #00ffff, #0088ff); color: black; font-weight: bold; transition: all 0.2s; border: none; }
         .btn-primary:hover, .btn-cyan:hover { transform: scale(1.02); box-shadow: 0 0 20px #00ffff; }
         .btn-danger { background: #ff3366; color: white; }
         .btn-warning { background: #ffaa00; color: black; }
         .btn-purple { background: #aa44ff; color: white; }
-        
-        .cat-chip {
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 40px;
-            padding: 8px 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+        .cat-chip { background: rgba(0, 255, 255, 0.1); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 40px; padding: 8px 20px; cursor: pointer; transition: all 0.2s; }
         .cat-chip.active, .cat-chip:hover { background: #00ffff; color: black; box-shadow: 0 0 15px #00ffff; }
-        
-        .input-field {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 20px;
-            padding: 12px;
-            color: white;
-            width: 100%;
-        }
+        .input-field { background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 20px; padding: 12px; color: white; width: 100%; }
         .input-field:focus { border-color: #00ffff; outline: none; box-shadow: 0 0 10px #00ffff; }
-        
-        .card-3d {
-            transform-style: preserve-3d;
-            transition: transform 0.2s ease-out;
-        }
+        .card-3d { transform-style: preserve-3d; transition: transform 0.2s ease-out; }
         .normal-product-img { width: 100%; height: 130px; object-fit: contain; transition: transform 0.3s; border-radius: 16px; background: rgba(0,0,0,0.3); padding: 8px; }
-        .product-card:hover .normal-product-img { transform: scale(1.05); }
-        
         .badge-admin { background: #ff3366; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; }
         .badge-vip { background: linear-gradient(135deg, #ffd700, #ff8c00); color: black; padding: 4px 12px; border-radius: 20px; font-size: 11px; }
         .badge-premium { background: #aa44ff; color: white; padding: 4px 12px; border-radius: 20px; }
         .badge-normal { background: #00aaff; color: white; padding: 4px 12px; border-radius: 20px; }
-        
         @keyframes glowPulse { 0%,100% { text-shadow: 0 0 5px #00ffff; } 50% { text-shadow: 0 0 20px #00ffff; } }
         .admin-title { animation: glowPulse 2s infinite; }
-        
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); display: none; align-items: center; justify-content: center; z-index: 1000; }
         .modal-content { background: #0a0a2a; border: 1px solid #00ffff; border-radius: 28px; padding: 24px; max-width: 800px; width: 95%; max-height: 85vh; overflow-y: auto; }
-        
         .invoice-preview { background: rgba(0,0,0,0.6); border-radius: 20px; padding: 15px; font-family: monospace; font-size: 12px; border-left: 3px solid #00ffff; max-height: 200px; overflow-y: auto; }
-        
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0a0a2a; }
         ::-webkit-scrollbar-thumb { background: #00ffff; border-radius: 20px; }
-        
         .fab-add-top { position: fixed; bottom: 20px; left: 20px; width: 55px; height: 55px; border-radius: 50%; background: linear-gradient(135deg, #00ffff, #0088ff); color: black; display: flex; align-items: center; justify-content: center; font-size: 25px; cursor: pointer; z-index: 100; box-shadow: 0 0 20px #00ffff; transition: all 0.2s; }
         .fab-add-top:hover { transform: scale(1.1); }
-        
         .social-link { transition: all 0.2s; display: inline-block; text-decoration: none; }
         .social-link:hover { transform: translateY(-3px); filter: brightness(1.1); }
-        
         .product-img-cart { width: 40px; height: 40px; object-fit: contain; border-radius: 8px; background: rgba(0,0,0,0.3); }
-        
         .welcome-banner { animation: welcomeGlow 2s infinite; background: rgba(0,255,255,0.1); border-radius: 20px; padding: 15px; text-align: center; }
         @keyframes welcomeGlow { 0%,100% { box-shadow: 0 0 10px #00ffff; } 50% { box-shadow: 0 0 30px #00ffff; } }
     </style>
@@ -126,7 +75,7 @@
                     <i class="fas fa-crown text-black text-2xl"></i>
                 </div>
                 <span class="text-2xl md:text-3xl font-black text-cyan-400">SHOP_tA1</span>
-                <span class="text-xs bg-cyan-500/20 px-2 py-1 rounded-full">🌌 رانكات - قفت - VIP</span>
+                <span class="text-xs bg-cyan-500/20 px-2 py-1 rounded-full">🌌 قفت و VIP</span>
             </div>
             <div class="flex items-center gap-3 flex-wrap">
                 <select id="viewModeSelect" onchange="changeViewMode()" class="bg-black/50 border border-cyan-500/40 rounded-xl px-3 py-2 text-sm">
@@ -156,7 +105,7 @@
 
         <div class="text-center mb-10">
             <h1 class="text-5xl md:text-6xl font-black bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">SHOP_tA1</h1>
-            <p class="text-cyan-300 mt-2">⭐ رانكات VIP (7000) | رانكات قفت (4000) | حزم VIP (5000) | حزم قفت (3000) ⭐</p>
+            <p class="text-cyan-300 mt-2">⭐ قفت (3000-4000) | VIP (5000-7000) | ريسورس باكات ⭐</p>
         </div>
 
         <div class="mb-6">
@@ -165,12 +114,13 @@
 
         <div class="flex flex-wrap justify-center gap-2 mb-8">
             <button onclick="filterCat('ALL')" id="btn-ALL" class="cat-chip active">🔥 الكل</button>
-            <button onclick="filterCat('VIP')" id="btn-VIP" class="cat-chip">👑 VIP</button>
             <button onclick="filterCat('GIFT')" id="btn-GIFT" class="cat-chip">🎁 قفت</button>
-            <button onclick="filterCat('RANKS')" id="btn-RANKS" class="cat-chip">👑 رانكات 90 يوم</button>
+            <button onclick="filterCat('VIP')" id="btn-VIP" class="cat-chip">👑 VIP</button>
             <button onclick="filterCat('MC')" id="btn-MC" class="cat-chip">⛏️ ماين كرافت</button>
+            <button onclick="filterCat('RESOURCE')" id="btn-RESOURCE" class="cat-chip">🖌️ ريسورس باكات</button>
             <button onclick="filterCat('GAMES')" id="btn-GAMES" class="cat-chip">🎮 ألعاب</button>
-            <button onclick="filterCat('REALMS')" id="btn-REALMS" class="cat-chip">👑 ريلـم</button>
+            <button onclick="filterCat('XBOX')" id="btn-XBOX" class="cat-chip">🎮 Xbox</button>
+            <button onclick="filterCat('CARDS')" id="btn-CARDS" class="cat-chip">💳 بطاقات</button>
         </div>
 
         <div id="productContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"></div>
@@ -181,14 +131,14 @@
             
             <div class="mb-6 p-4 rounded-2xl" style="background: rgba(0,255,255,0.05); border: 1px solid rgba(0,255,255,0.2);">
                 <h3 class="text-lg font-bold text-cyan-400 mb-3"><i class="fas fa-plus-circle"></i> ➕ إضافة منتج جديد</h3>
-                <div class="grid md:grid-cols-5 gap-3">
+                <div class="grid md:grid-cols-6 gap-3">
                     <input type="text" id="adminProdName" placeholder="اسم المنتج" class="input-field">
-                    <input type="number" id="adminProdPrice" placeholder="السعر" class="input-field">
+                    <input type="number" id="adminProdPrice" placeholder="السعر (IQD)" class="input-field">
+                    <input type="number" id="adminProdPriceUSD" placeholder="السعر (USD)" class="input-field">
                     <select id="adminProdCat" class="input-field">
-                        <option value="VIP">👑 VIP</option><option value="GIFT">🎁 قفت</option>
-                        <option value="RANKS">👑 رانكات</option>
-                        <option value="MC">⛏️ ماين كرافت</option>
-                        <option value="GAMES">🎮 ألعاب</option><option value="REALMS">👑 ريلـم</option>
+                        <option value="GIFT">🎁 قفت</option><option value="VIP">👑 VIP</option>
+                        <option value="MC">⛏️ ماين كرافت</option><option value="RESOURCE">🖌️ ريسورس باكات</option>
+                        <option value="GAMES">🎮 ألعاب</option><option value="XBOX">🎮 Xbox</option><option value="CARDS">💳 بطاقات</option>
                     </select>
                     <input type="text" id="adminProdImage" placeholder="رابط الصورة" class="input-field">
                     <button onclick="adminAddProduct()" class="btn-primary py-2 rounded-xl"><i class="fas fa-save"></i> إضافة</button>
@@ -197,10 +147,11 @@
             
             <div class="mb-6 p-4 rounded-2xl" style="background: rgba(255,255,0,0.05); border: 1px solid rgba(255,255,0,0.2);">
                 <h3 class="text-lg font-bold text-yellow-400 mb-3"><i class="fas fa-edit"></i> ✏️ تعديل أو حذف منتج</h3>
-                <div class="grid md:grid-cols-3 gap-3">
+                <div class="grid md:grid-cols-4 gap-3">
                     <select id="adminProductSelect" class="input-field"></select>
                     <input type="text" id="adminEditName" placeholder="اسم جديد" class="input-field">
-                    <input type="number" id="adminEditPrice" placeholder="سعر جديد" class="input-field">
+                    <input type="number" id="adminEditPrice" placeholder="سعر جديد (IQD)" class="input-field">
+                    <input type="number" id="adminEditPriceUSD" placeholder="سعر جديد (USD)" class="input-field">
                 </div>
                 <div class="flex gap-3 mt-3"><button onclick="adminUpdateProduct()" class="btn-warning flex-1 py-2 rounded-xl">✏️ تعديل</button><button onclick="adminDeleteProduct()" class="btn-danger flex-1 py-2 rounded-xl">🗑️ حذف</button></div>
             </div>
@@ -269,7 +220,6 @@
                         <div><select id="orderTypeSelect" class="input-field text-sm" onchange="toggleOrderTypeInput(); generateSummary()">
                             <option value="VIP">👑 VIP</option>
                             <option value="هدية/قفت">🎁 هدية / قفت</option>
-                            <option value="رانك 90 يوم">👑 رانك 90 يوم</option>
                             <option value="شحن حساب">💰 شحن حساب</option>
                             <option value="اشتراك">💎 اشتراك</option>
                             <option value="اخرى">✏️ أخرى (اكتب يدوياً)</option>
@@ -316,7 +266,7 @@
         let fullProducts = [];
         let productId = 1;
         
-        // قائمة الروابط الجديدة للحزم (VIP و GIFT)
+        // قائمة الروابط من imagur.org للحزم
         const newPackageImages = [
             "https://imagur.org/i/vNw08UXj", "https://imagur.org/i/tzgulroC", "https://imagur.org/i/KaR8Vw6Y",
             "https://imagur.org/i/0ar1cwnI", "https://imagur.org/i/Ire5Mwc4", "https://imagur.org/i/7LXeO9pR",
@@ -343,10 +293,13 @@
             "https://imagur.org/i/bknNhBR7", "https://imagur.org/i/vH23TEA7", "https://imagur.org/i/Yog1adHR",
             "https://imagur.org/i/d8kwEAgF", "https://imagur.org/i/4eTZm0Yv", "https://imagur.org/i/iQgpN5om",
             "https://imagur.org/i/uNELSBoV", "https://imagur.org/i/jk3yUgKs", "https://imagur.org/i/9LcI0bJy",
-            "https://imagur.org/i/uQ58zp91"
+            "https://imagur.org/i/uQ58zp91", "https://imagur.org/i/dqJU9zgZ", "https://imagur.org/i/3Bjk2PKo",
+            "https://imagur.org/i/lUjwfxpX", "https://imagur.org/i/rd6SKPUu", "https://imagur.org/i/6e1BrQsf",
+            "https://imagur.org/i/9Ei76yvU", "https://imagur.org/i/0xu2oB16", "https://imagur.org/i/PSL9rvxd",
+            "https://imagur.org/i/WJtgXhAB", "https://imagur.org/i/U2BkYKPv", "https://imagur.org/i/TUZ9QOxM",
+            "https://imagur.org/i/3PdNTybe"
         ];
         
-        // أسماء الحزم (عشوائية - يمكن تعديلها من لوحة التحكم)
         const packageNames = [
             "حزمة كيوب", "حزمة نيون", "حزمة سبيس", "حزمة دراغون", "حزمة فانتوم",
             "حزمة فايكنق", "حزمة ساموراي", "حزمة نينجا", "حزمة روبوت", "حزمة سايبر",
@@ -354,15 +307,15 @@
             "حزمة فينيكس", "حزمة وولف", "حزمة تايجر", "حزمة إيغل", "حزمة شيرو"
         ];
         
-        // إضافة الحزم الجديدة (VIP و GIFT)
+        // إضافة الحزم (قفت و VIP)
         for(let i = 0; i < newPackageImages.length; i++) {
             let nameIndex = i % packageNames.length;
             let name = packageNames[nameIndex] + (Math.floor(i / packageNames.length) + 1);
-            fullProducts.push({ id: productId++, cat: "VIP", name: `👑 ${name} - VIP`, price: 5000, image: newPackageImages[i] });
-            fullProducts.push({ id: productId++, cat: "GIFT", name: `🎁 ${name} - قفت`, price: 3000, image: newPackageImages[i] });
+            fullProducts.push({ id: productId++, cat: "VIP", name: `👑 ${name} - VIP`, price: 5000, priceUSD: 4.6, image: newPackageImages[i] });
+            fullProducts.push({ id: productId++, cat: "GIFT", name: `🎁 ${name} - قفت`, price: 3000, priceUSD: 2.7, image: newPackageImages[i] });
         }
         
-        // ========== الرانكات الجديدة (90 يوم) - VIP 7000 / قفت 4000 ==========
+        // الرانكات (VIP و قفت)
         const rankProducts = [
             { name: "رانك كيوب قولد 90 يوم", priceVIP: 7000, priceGIFT: 4000, img: "https://i.imgur.com/9Y3gnzD.png" },
             { name: "رانك بلوك وارز 90 يوم", priceVIP: 7000, priceGIFT: 4000, img: "https://i.imgur.com/Nwm77Rh.png" },
@@ -379,52 +332,92 @@
         ];
         
         rankProducts.forEach(p => {
-            fullProducts.push({ id: productId++, cat: "VIP", name: `👑 ${p.name} - VIP`, price: p.priceVIP, image: p.img });
-            fullProducts.push({ id: productId++, cat: "GIFT", name: `🎁 ${p.name} - قفت`, price: p.priceGIFT, image: p.img });
-            fullProducts.push({ id: productId++, cat: "RANKS", name: `${p.name}`, price: p.priceGIFT, image: p.img });
+            fullProducts.push({ id: productId++, cat: "VIP", name: `👑 ${p.name} - VIP`, price: p.priceVIP, priceUSD: Math.round(p.priceVIP * 0.00092), image: p.img });
+            fullProducts.push({ id: productId++, cat: "GIFT", name: `🎁 ${p.name} - قفت`, price: p.priceGIFT, priceUSD: Math.round(p.priceGIFT * 0.00092), image: p.img });
         });
         
-        // ========== منتجات إضافية ==========
+        // إضافة ريسورس باكات PVP الجديدة
+        const resourcePacks = [
+            { name: "ريسورس باك PRO PVP كيوب", img: "https://imagur.org/i/aTU6lWhx", price: 5000, priceUSD: 4 },
+            { name: "ريسورس باك NOGHE كيوب", img: "https://imagur.org/i/AmN82jQl", price: 5000, priceUSD: 4 },
+            { name: "ريسورس باك ULTMITE PVP", img: "https://imagur.org/i/jogPWGiV", price: 5000, priceUSD: 4 },
+            { name: "ريسورس باك EMRIC PVP", img: "https://imagur.org/i/S5Uilv93", price: 5000, priceUSD: 4 },
+            { name: "ريسورس باك VIOLOACE", img: "https://imagur.org/i/DgkTShUc", price: 5000, priceUSD: 4 },
+            { name: "ريسورس باك VANILA", img: "https://imagur.org/i/FdwtPMSx", price: 5000, priceUSD: 4 },
+            { name: "ريسورس باك SOLR PVP", img: "https://imagur.org/i/PA3EeZI7", price: 5000, priceUSD: 4 },
+            { name: "ريسورس باك NOBLE PVP", img: "https://imagur.org/i/1rxO8XEw", price: 5000, priceUSD: 4 },
+            { name: "ريسورس باك ASTIRAL", img: "https://imagur.org/i/TrmoEDVZ", price: 5000, priceUSD: 4 },
+            { name: "ريسورس باك ROSE PVP", img: "https://imagur.org/i/D4ikonzE", price: 5000, priceUSD: 4 }
+        ];
+        
+        resourcePacks.forEach(p => {
+            fullProducts.push({ id: productId++, cat: "RESOURCE", name: `🖌️ ${p.name}`, price: p.price, priceUSD: p.priceUSD, image: p.img });
+        });
+        
+        // منتجات إضافية (ماين كرافت، ألعاب، Xbox، بطاقات)
         const extraProducts = [
-            { name: "ريلم 10 اشخاص", price: 5000, img: "https://developer.microsoft.com/content/dam/microsoftgamedev/blogs/images/legacy/RealmsPlus19.jpg", cat: "REALMS" },
-            { name: "ريلم 3 اشخاص", price: 4000, img: "https://developer.microsoft.com/content/dam/microsoftgamedev/blogs/images/legacy/RealmsPlus19.jpg", cat: "REALMS" },
-            { name: "GTA V - كود رقمي", price: 25000, img: "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=400&h=400&fit=crop", cat: "GAMES" },
-            { name: "ماين كرافت (جافا + بيدروك) - كود رقمي", price: 30000, img: "https://img.icons8.com/fluency/96/minecraft-logo.png", cat: "MC" },
-            { name: "ماين كوينز - 3410 كوينز", price: 10000, img: "https://img.icons8.com/fluency/96/minecraft-logo.png", cat: "MC" },
-            { name: "ماين كوين즈 - 1240 كوينز", price: 5000, img: "https://img.icons8.com/fluency/96/minecraft-logo.png", cat: "MC" },
-            { name: "ماين كوينز - 8060 كوينز", price: 25000, img: "https://img.icons8.com/fluency/96/minecraft-logo.png", cat: "MC" },
-            { name: "ماين كوينز - 1860 كوينز", price: 7000, img: "https://img.icons8.com/fluency/96/minecraft-logo.png", cat: "MC" },
-            { name: "ماين كوينز - 620 كوينز", price: 3000, img: "https://img.icons8.com/fluency/96/minecraft-logo.png", cat: "MC" }
+            // ماين كرافت
+            { name: "ماين كرافت جافا + بيدروك - كود رقمي (تفعيل داخل حسابك)", price: 30000, priceUSD: 27, img: "https://imagur.org/i/BqeLIHvm", cat: "MC" },
+            { name: "ماين كرافت جافا + بيدروك - حساب جديد", price: 30000, priceUSD: 27, img: "https://imagur.org/i/BqeLIHvm", cat: "MC" },
+            { name: "ريلم 10 اشخاص", price: 5000, priceUSD: 4.5, img: "https://developer.microsoft.com/content/dam/microsoftgamedev/blogs/images/legacy/RealmsPlus19.jpg", cat: "MC" },
+            { name: "ريلم 3 اشخاص", price: 4000, priceUSD: 3.6, img: "https://developer.microsoft.com/content/dam/microsoftgamedev/blogs/images/legacy/RealmsPlus19.jpg", cat: "MC" },
+            // ماين كوينز
+            { name: "ماين كوينز - 620 كوينز", price: 3000, priceUSD: 3, img: "https://imagur.org/i/Lejnd17b", cat: "MC" },
+            { name: "ماين كوينز - 1240 كوينز", price: 5000, priceUSD: 5, img: "https://imagur.org/i/Lejnd17b", cat: "MC" },
+            { name: "ماين كوينز - 1860 كوينز", price: 7000, priceUSD: 8, img: "https://imagur.org/i/Lejnd17b", cat: "MC" },
+            { name: "ماين كوينز - 3410 كوينز", price: 10000, priceUSD: 11.55, img: "https://imagur.org/i/Lejnd17b", cat: "MC" },
+            { name: "ماين كوينز - 3500 كوينز (كود رقمي Global)", price: 12000, priceUSD: 11, img: "https://imagur.org/i/Lejnd17b", cat: "MC" },
+            { name: "ماين كوينز - 8060 كوينز", price: 25000, priceUSD: 25, img: "https://imagur.org/i/Lejnd17b", cat: "MC" },
+            // GTA V
+            { name: "GTA V - كود رقمي (عالمي)", price: 25000, priceUSD: 23, img: "https://imagur.org/i/z2Hph6Q5", cat: "GAMES" },
+            // Xbox
+            { name: "تغيير اسم Xbox (Gamertag)", price: 5000, priceUSD: 4, img: "https://imagur.org/i/Lpkb7CEO", cat: "XBOX" },
+            { name: "قيم باس بريميوم - حساب جديد او تفعيل بحسابك", price: 5000, priceUSD: 4.6, img: "https://imagur.org/i/Ym6rdI7A", cat: "XBOX" },
+            // VIP كيوب
+            { name: "VIP 30 كيوب - حساب جديد فارغ", price: 20000, priceUSD: 19, img: "https://imagur.org/i/wm4NyQsI", cat: "VIP" },
+            { name: "VIP 30 كيوب - حساب مع رانك و 3 حزم هدية", price: 25000, priceUSD: 24, img: "https://imagur.org/i/wm4NyQsI", cat: "VIP" },
+            { name: "VIP 30 كيوب - تصعيد", price: 40000, priceUSD: 38, img: "https://imagur.org/i/wm4NyQsI", cat: "VIP" }
         ];
         
         extraProducts.forEach(p => {
-            fullProducts.push({ id: productId++, cat: p.cat, name: p.name, price: p.price, image: p.img });
+            fullProducts.push({ id: productId++, cat: p.cat, name: p.name, price: p.price, priceUSD: p.priceUSD, image: p.img });
         });
 
-        // ========== 400 حساب ==========
+        // ========== حسابات بأسماء عراقية (50 حساباً) ==========
         let shopUsers = [];
-        const namesList = ['Ahmed','Mohammed','Ali','Hassan','Hussein','Zahra','Fatima','Noor','Omar','Khalid','Youssef','Ibrahim','Mahmoud','Tariq','Saif','Malek','Rami','Sami','Hadi','Rana','Lina','Sara','Mona','Dina','Huda','Amira','Layla','Nadia','Ruba','Aya'];
-        const families = ['العمري','العبيدي','التميمي','الخفاجي','الجبوري','البدري','السعدي','الناصري','الراوي','الحياني'];
+        const iraqiNames = ['احمد', 'فاطمة', 'بنين', 'كاظم', 'ملاك', 'زينب', 'حسين', 'علي', 'نور', 'سجاد', 'رضا', 'زهراء', 'محمد', 'جواد', 'حسن', 'صفاء', 'نرجس', 'الاء', 'بتول', 'تقوى', 'حوراء', 'دنيا', 'رقية', 'سكينة', 'عبير', 'غدير', 'فريال', 'لمى', 'منال', 'نوال', 'عباس', 'حيدر', 'رغد', 'سجى', 'وئام', 'ياسمين', 'بلقيس', 'جمانة', 'خلود', 'داليا', 'ريهام', 'زينة', 'سمر', 'شذى', 'عهود', 'غزل', 'فدوى', 'قمر', 'لجين', 'ميساء'];
+        const families = ['العمري', 'العبيدي', 'التميمي', 'الخفاجي', 'الجبوري', 'البدري', 'السعدي', 'الناصري', 'الراوي', 'الحياني'];
         
         shopUsers.push({ id: 1, username: "ADMIN_TA1", password: "Xy9#Km2@Qw8!", fullname: "مدير المتجر", tier: "admin", discount: 0, email: "admin@shopta1.com" });
-        for(let i = 1; i <= 399; i++) {
-            let discount = 5 + Math.floor(Math.random() * 46);
+        
+        for(let i = 0; i < iraqiNames.length; i++) {
+            let discount = 5 + Math.floor(Math.random() * 48);
             let tier = discount >= 40 ? 'vip' : (discount >= 25 ? 'premium' : 'normal');
-            shopUsers.push({ id: 100+i, username: `user_${i}`, password: `pass${i}123`, fullname: `${namesList[i%namesList.length]} ${families[i%families.length]}`, tier, discount, email: `user${i}@shop.com` });
+            shopUsers.push({ id: 1000 + i, username: iraqiNames[i], password: `${iraqiNames[i]}123`, fullname: `${iraqiNames[i]} ${families[i % families.length]}`, tier, discount, email: `${iraqiNames[i]}@shop.com` });
+        }
+        
+        for(let i = 1; i <= 50; i++) {
+            let discount = 5 + Math.floor(Math.random() * 48);
+            let tier = discount >= 40 ? 'vip' : (discount >= 25 ? 'premium' : 'normal');
+            shopUsers.push({ id: 2000 + i, username: `user_${i}`, password: `pass${i}123`, fullname: `زبون ${i}`, tier, discount, email: `user${i}@shop.com` });
         }
 
         // ========== كودات الخصم ==========
         let discountCodes = [
-            { code: "AXUUY", percent: 50 }, { code: "WELCOME50", percent: 50 }, { code: "SAVE20", percent: 20 }, 
-            { code: "VIP60", percent: 60 }, { code: "FLASH50", percent: 50 }, { code: "SUMMER50", percent: 50 }, 
-            { code: "NEON25", percent: 25 }, { code: "SPACE40", percent: 40 }, { code: "GALAXY35", percent: 35 }, 
-            { code: "STAR15", percent: 15 }
+            { code: "AXUUY", percent: 50 },
+            { code: "WELCOME50", percent: 50 }, { code: "SAVE20", percent: 20 }, { code: "VIP60", percent: 60 },
+            { code: "FLASH50", percent: 50 }, { code: "SUMMER50", percent: 50 }, { code: "NEON25", percent: 25 },
+            { code: "IRAQI5", percent: 5 }, { code: "BAGHDAD10", percent: 10 }, { code: "BASRA15", percent: 15 },
+            { code: "MOSUL25", percent: 25 }, { code: "KARBALA30", percent: 30 }, { code: "NAJAF8", percent: 8 },
+            { code: "ERBIL12", percent: 12 }, { code: "KIRKUK18", percent: 18 }, { code: "DIYALA22", percent: 22 },
+            { code: "ANBAR28", percent: 28 }, { code: "HILLA7", percent: 7 }, { code: "SAMARRA14", percent: 14 },
+            { code: "FALLUJAH20", percent: 20 }, { code: "RAMADI26", percent: 26 }, { code: "TIKRIT9", percent: 9 },
+            { code: "SPACE40", percent: 40 }, { code: "GALAXY35", percent: 35 }, { code: "STAR15", percent: 15 }
         ];
-        for(let i = 0; i < 15; i++) { let percent = 5 + Math.floor(Math.random() * 46); discountCodes.push({ code: `CODE${100+i}`, percent: percent }); }
 
         let cart = [], activeCurrency = 'IQD', currentFilter = 'ALL', currentView = 'normal';
         let loggedInUser = null, userDiscount = 0, userTier = 'normal', appliedDiscount = null;
-        const rates = { IQD:1, USD:0.00068, SAR:0.0025 };
+        const rates = { IQD:1, USD:0.00092, SAR:0.00345 };
 
         function loadShopData() {
             const saved = localStorage.getItem('shop_final_data');
@@ -452,6 +445,11 @@
         function updateAdminSelect() { let s = document.getElementById('adminProductSelect'); if(s) s.innerHTML = '<option value="">-- اختر منتج --</option>' + fullProducts.slice(0,500).map(p => `<option value="${p.id}">${p.name.substring(0,40)}</option>`).join(''); }
         function updateActiveCodes() { document.getElementById('activeCodesList').innerHTML = discountCodes.slice(0,15).map(c => `${c.code}(${c.percent}%)`).join(' - '); }
 
+        function getProductPrice(p) {
+            if(activeCurrency === 'USD' && p.priceUSD) return p.priceUSD;
+            return p.price;
+        }
+
         function renderProducts() {
             let filtered = fullProducts.filter(p => currentFilter === 'ALL' ? true : p.cat === currentFilter);
             let search = document.getElementById('mainSearch')?.value.toLowerCase() || '';
@@ -459,11 +457,11 @@
             let container = document.getElementById('productContainer');
             
             if(currentView === 'normal') {
-                container.innerHTML = filtered.slice(0, 200).map(p => `<div class="product-card p-3 text-center"><img src="${p.image}" class="normal-product-img h-28 object-contain" onerror="this.src='https://img.icons8.com/fluency/96/shop.png'"><h3 class="font-bold text-xs mt-2 line-clamp-2">${p.name}</h3><div class="mt-2 bg-cyan-500/20 px-2 py-1 rounded-full"><span class="text-cyan-400 text-sm">${Math.ceil(p.price*rates[activeCurrency]).toLocaleString()} ${activeCurrency}</span></div><button onclick="addToCart(${p.id},'${p.name.replace(/'/g,"\\'")}',${p.price},'${p.image}')" class="mt-2 w-full bg-cyan-600/30 hover:bg-cyan-500 py-1 rounded-xl text-xs">➕ إضافة</button></div>`).join('');
+                container.innerHTML = filtered.slice(0, 200).map(p => `<div class="product-card p-3 text-center"><img src="${p.image}" class="normal-product-img h-28 object-contain" onerror="this.src='https://img.icons8.com/fluency/96/shop.png'"><h3 class="font-bold text-xs mt-2 line-clamp-2">${p.name}</h3><div class="mt-2 bg-cyan-500/20 px-2 py-1 rounded-full"><span class="text-cyan-400 text-sm">${typeof getProductPrice(p) === 'number' ? getProductPrice(p).toLocaleString() : getProductPrice(p)} ${activeCurrency}</span></div><button onclick="addToCart(${p.id},'${p.name.replace(/'/g,"\\'")}',${p.price},'${p.image}')" class="mt-2 w-full bg-cyan-600/30 hover:bg-cyan-500 py-1 rounded-xl text-xs">➕ إضافة</button></div>`).join('');
             } else if(currentView === '2d') {
-                container.innerHTML = filtered.slice(0, 200).map(p => `<div class="product-card p-3 text-center bg-gradient-to-br from-gray-900 to-black"><div class="w-14 h-14 rounded-full bg-cyan-500/20 flex items-center justify-center mx-auto"><i class="fas fa-box text-2xl text-cyan-400"></i></div><h3 class="font-bold text-xs mt-2">${p.name}</h3><div class="mt-1 text-cyan-400 font-bold text-sm">${Math.ceil(p.price*rates[activeCurrency]).toLocaleString()} ${activeCurrency}</div><button onclick="addToCart(${p.id},'${p.name.replace(/'/g,"\\'")}',${p.price},'${p.image}')" class="mt-2 w-full bg-cyan-600/30 hover:bg-cyan-500 py-1 rounded-xl text-xs">➕ شراء</button></div>`).join('');
+                container.innerHTML = filtered.slice(0, 200).map(p => `<div class="product-card p-3 text-center bg-gradient-to-br from-gray-900 to-black"><div class="w-14 h-14 rounded-full bg-cyan-500/20 flex items-center justify-center mx-auto"><i class="fas fa-box text-2xl text-cyan-400"></i></div><h3 class="font-bold text-xs mt-2">${p.name}</h3><div class="mt-1 text-cyan-400 font-bold text-sm">${typeof getProductPrice(p) === 'number' ? getProductPrice(p).toLocaleString() : getProductPrice(p)} ${activeCurrency}</div><button onclick="addToCart(${p.id},'${p.name.replace(/'/g,"\\'")}',${p.price},'${p.image}')" class="mt-2 w-full bg-cyan-600/30 hover:bg-cyan-500 py-1 rounded-xl text-xs">➕ شراء</button></div>`).join('');
             } else {
-                container.innerHTML = filtered.slice(0, 200).map(p => `<div class="card-3d product-card p-3 text-center bg-gradient-to-br from-gray-900 to-black border border-purple-500/30"><div class="w-14 h-14 rounded-full bg-purple-500/20 flex items-center justify-center mx-auto"><i class="fas fa-cube text-2xl text-purple-400"></i></div><h3 class="font-bold text-xs mt-2">${p.name}</h3><div class="mt-1 text-cyan-400 font-bold text-sm">${Math.ceil(p.price*rates[activeCurrency]).toLocaleString()} ${activeCurrency}</div><button onclick="addToCart(${p.id},'${p.name.replace(/'/g,"\\'")}',${p.price},'${p.image}')" class="mt-2 w-full bg-purple-600/30 hover:bg-purple-500 py-1 rounded-xl text-xs">✨ شراء</button></div>`).join('');
+                container.innerHTML = filtered.slice(0, 200).map(p => `<div class="card-3d product-card p-3 text-center bg-gradient-to-br from-gray-900 to-black border border-purple-500/30"><div class="w-14 h-14 rounded-full bg-purple-500/20 flex items-center justify-center mx-auto"><i class="fas fa-cube text-2xl text-purple-400"></i></div><h3 class="font-bold text-xs mt-2">${p.name}</h3><div class="mt-1 text-cyan-400 font-bold text-sm">${typeof getProductPrice(p) === 'number' ? getProductPrice(p).toLocaleString() : getProductPrice(p)} ${activeCurrency}</div><button onclick="addToCart(${p.id},'${p.name.replace(/'/g,"\\'")}',${p.price},'${p.image}')" class="mt-2 w-full bg-purple-600/30 hover:bg-purple-500 py-1 rounded-xl text-xs">✨ شراء</button></div>`).join('');
                 setTimeout(() => {
                     document.querySelectorAll('.card-3d').forEach(c => {
                         c.addEventListener('mousemove', (e) => {
@@ -481,7 +479,10 @@
         function addToCart(id, name, price, image) {
             let existing = cart.find(i => i.id === id);
             if(existing) existing.quantity++;
-            else cart.push({ id, name, price, quantity: 1, image });
+            else {
+                let product = fullProducts.find(p => p.id === id);
+                cart.push({ id, name, price: price, quantity: 1, image, priceUSD: product?.priceUSD });
+            }
             updateCartUI();
             renderCartItems();
             event.target.innerText = "✓ تم";
@@ -494,7 +495,7 @@
             let c = document.getElementById('cartItemsList');
             if(!c) return;
             if(cart.length === 0) { c.innerHTML = '<div class="text-center text-gray-400">السلة فارغة</div>'; updateTotals(); return; }
-            c.innerHTML = cart.map(i => `<div class="flex justify-between items-center bg-black/40 p-2 rounded-xl"><div class="flex items-center gap-2"><img src="${i.image}" class="product-img-cart"><div class="text-sm">${i.name}<div class="text-xs text-gray-400">${Math.ceil(i.price*rates[activeCurrency])} × ${i.quantity}</div></div></div><div class="flex gap-2"><button onclick="changeQty(${i.id},-1)" class="w-7 h-7 bg-cyan-500/20 rounded-lg">-</button><span class="w-6 text-center">${i.quantity}</span><button onclick="changeQty(${i.id},1)" class="w-7 h-7 bg-cyan-500/20 rounded-lg">+</button><button onclick="removeItem(${i.id})" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
+            c.innerHTML = cart.map(i => `<div class="flex justify-between items-center bg-black/40 p-2 rounded-xl"><div class="flex items-center gap-2"><img src="${i.image}" class="product-img-cart"><div class="text-sm">${i.name}<div class="text-xs text-gray-400">${typeof (activeCurrency === 'USD' ? (i.priceUSD || i.price) : i.price) === 'number' ? (activeCurrency === 'USD' ? (i.priceUSD || i.price).toFixed(2) : Math.ceil((activeCurrency === 'USD' ? (i.priceUSD || i.price) : i.price))).toLocaleString() : (activeCurrency === 'USD' ? (i.priceUSD || i.price) : i.price)} × ${i.quantity}</div></div></div><div class="flex gap-2"><button onclick="changeQty(${i.id},-1)" class="w-7 h-7 bg-cyan-500/20 rounded-lg">-</button><span class="w-6 text-center">${i.quantity}</span><button onclick="changeQty(${i.id},1)" class="w-7 h-7 bg-cyan-500/20 rounded-lg">+</button><button onclick="removeItem(${i.id})" class="text-red-500"><i class="fas fa-trash"></i></button></div></div>`).join('');
             updateTotals();
         }
         
@@ -520,9 +521,13 @@
             let disc = appliedDiscount ? appliedDiscount.percent : (userDiscount || 0);
             let amt = (sub * disc) / 100;
             let total = sub - amt;
-            document.getElementById('cartSubtotal').innerHTML = `${Math.ceil(sub * rates[activeCurrency]).toLocaleString()} ${activeCurrency}`;
-            document.getElementById('cartDiscountAmount').innerHTML = `${Math.ceil(amt * rates[activeCurrency]).toLocaleString()} ${activeCurrency}`;
-            document.getElementById('cartTotal').innerHTML = `${Math.ceil(total * rates[activeCurrency]).toLocaleString()} ${activeCurrency}`;
+            let currency = activeCurrency;
+            let displaySub = activeCurrency === 'USD' ? (sub * rates[currency]).toFixed(2) : Math.ceil(sub * rates[currency]);
+            let displayAmt = activeCurrency === 'USD' ? (amt * rates[currency]).toFixed(2) : Math.ceil(amt * rates[currency]);
+            let displayTotal = activeCurrency === 'USD' ? (total * rates[currency]).toFixed(2) : Math.ceil(total * rates[currency]);
+            document.getElementById('cartSubtotal').innerHTML = `${displaySub} ${currency}`;
+            document.getElementById('cartDiscountAmount').innerHTML = `${displayAmt} ${currency}`;
+            document.getElementById('cartTotal').innerHTML = `${displayTotal} ${currency}`;
             generateSummary();
         }
         
@@ -531,6 +536,10 @@
             let disc = appliedDiscount ? appliedDiscount.percent : (userDiscount || 0);
             let amt = (sub * disc) / 100;
             let total = sub - amt;
+            let currency = activeCurrency;
+            let displaySub = activeCurrency === 'USD' ? (sub * rates[currency]).toFixed(2) : Math.ceil(sub * rates[currency]);
+            let displayAmt = activeCurrency === 'USD' ? (amt * rates[currency]).toFixed(2) : Math.ceil(amt * rates[currency]);
+            let displayTotal = activeCurrency === 'USD' ? (total * rates[currency]).toFixed(2) : Math.ceil(total * rates[currency]);
             let name = document.getElementById('custFullName')?.value || 'لم يكتب';
             let gameId = document.getElementById('gameId')?.value || 'لم يكتب';
             let userContact = document.getElementById('userContact')?.value || 'لم يكتب';
@@ -538,7 +547,7 @@
             let email = document.getElementById('custEmail')?.value || 'لم يكتب';
             let password = document.getElementById('custPassword')?.value || 'غير مطلوب';
             
-            let productsText = cart.map(i => `📦 ${i.name} ×${i.quantity} = ${Math.ceil(i.price * i.quantity * rates[activeCurrency])} ${activeCurrency}`).join('\n');
+            let productsText = cart.map(i => `📦 ${i.name} ×${i.quantity} = ${activeCurrency === 'USD' ? (i.priceUSD || i.price) : i.price} ${activeCurrency}`).join('\n');
             if(productsText === '') productsText = '❌ لا توجد منتجات';
             
             let summary = `╔══════════════════════════════════════════════════════════════╗
@@ -555,9 +564,9 @@
 🛒 المنتجات المطلوبة:
 ${productsText}
 
-💰 المجموع: ${Math.ceil(sub * rates[activeCurrency])} ${activeCurrency}
-🎁 الخصم: ${disc}% (-${Math.ceil(amt * rates[activeCurrency])} ${activeCurrency})
-💵 الإجمالي النهائي: ${Math.ceil(total * rates[activeCurrency])} ${activeCurrency}
+💰 المجموع: ${displaySub} ${currency}
+🎁 الخصم: ${disc}% (-${displayAmt} ${currency})
+💵 الإجمالي النهائي: ${displayTotal} ${currency}
 🔑 كود الخصم المستخدم: ${appliedDiscount?.code || 'لا يوجد'}
 
 📅 تاريخ الطلب: ${new Date().toLocaleString('ar-IQ')}
@@ -590,12 +599,13 @@ ${productsText}
             if(loggedInUser !== 'ADMIN_TA1') { alert('فقط الأدمن'); return; }
             let n = document.getElementById('adminProdName').value;
             let p = parseInt(document.getElementById('adminProdPrice').value);
+            let pUSD = parseFloat(document.getElementById('adminProdPriceUSD').value);
             let cat = document.getElementById('adminProdCat').value;
             let img = document.getElementById('adminProdImage').value;
             if(!n || !p) { alert('املأ البيانات'); return; }
-            fullProducts.unshift({ id: Date.now(), cat, name: n, price: p, image: img || 'https://img.icons8.com/fluency/96/shop.png' });
+            fullProducts.unshift({ id: Date.now(), cat: cat, name: n, price: p, priceUSD: pUSD || Math.round(p * 0.00092), image: img || 'https://img.icons8.com/fluency/96/shop.png' });
             renderProducts(); updateAdminSelect(); alert('✅ تم إضافة المنتج');
-            document.getElementById('adminProdName').value = ''; document.getElementById('adminProdPrice').value = ''; document.getElementById('adminProdImage').value = '';
+            document.getElementById('adminProdName').value = ''; document.getElementById('adminProdPrice').value = ''; document.getElementById('adminProdPriceUSD').value = ''; document.getElementById('adminProdImage').value = '';
         }
         
         function adminUpdateProduct() {
@@ -603,11 +613,12 @@ ${productsText}
             let id = parseInt(document.getElementById('adminProductSelect').value);
             let p = fullProducts.find(p => p.id === id);
             if(!p) { alert('اختر منتجاً'); return; }
-            let nn = document.getElementById('adminEditName').value, np = parseInt(document.getElementById('adminEditPrice').value);
+            let nn = document.getElementById('adminEditName').value, np = parseInt(document.getElementById('adminEditPrice').value), npUSD = parseFloat(document.getElementById('adminEditPriceUSD').value);
             if(nn) p.name = nn;
             if(np) p.price = np;
+            if(npUSD) p.priceUSD = npUSD;
             renderProducts(); alert('✅ تم تحديث المنتج');
-            document.getElementById('adminEditName').value = ''; document.getElementById('adminEditPrice').value = '';
+            document.getElementById('adminEditName').value = ''; document.getElementById('adminEditPrice').value = ''; document.getElementById('adminEditPriceUSD').value = '';
         }
         
         function adminDeleteProduct() {
@@ -717,7 +728,7 @@ ${productsText}
         
         function scrollToAddProduct() { document.getElementById('adminPanel').scrollIntoView({ behavior: 'smooth' }); }
         function changeViewMode() { currentView = document.getElementById('viewModeSelect').value; renderProducts(); }
-        function changeCurrency() { activeCurrency = document.getElementById('currencySel').value; renderProducts(); }
+        function changeCurrency() { activeCurrency = document.getElementById('currencySel').value; renderProducts(); if(document.getElementById('checkoutModal').style.display === 'flex') renderCartItems(); }
         function filterCat(cat) { currentFilter = cat; document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active')); document.getElementById(`btn-${cat}`).classList.add('active'); renderProducts(); }
         function liveSearch() { renderProducts(); }
         function openCheckoutModal() { if(cart.length === 0) { alert('السلة فارغة'); return; } renderCartItems(); generateSummary(); document.getElementById('checkoutModal').style.display = 'flex'; }
